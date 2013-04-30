@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="de.dhbw.tinf11b2.ofk.pojo">
+		<class name="TransactionDAO" table="Transaction">
+		<id name="tId" column="Transaction_Id"> <generator class="native"/></id>
+		<property name="message" column="Transaction_Message"/>	
+		<property name="tDate" type="timestamp" column="Transaction_Date"/>
+		<many-to-one name="accountId" column="Account_Id" class="de.dhbw.tinf11b2.ofk.pojo.AccountDAO" cascade="save-update"/>	
+	</class>
+</hibernate-mapping>
