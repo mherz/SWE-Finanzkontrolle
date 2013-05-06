@@ -4,10 +4,10 @@
         "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping package="de.dhbw.tinf11b2.ofk.pojo">
-	<class name="CategoryDAO" table="Category">
+	<class name="Category" table="Category">
 		<id name="catId" column="Category_Id"> <generator class="native"/></id>
 		<property name="name" column="Category_Name"/>	
-		<many-to-one name="accountId" column="Account_Id" class="de.dhbw.tinf11b2.ofk.pojo.AccountDAO" cascade="save-update"/>	
+		<many-to-one name="accountId" column="Account_Id" class="de.dhbw.tinf11b2.ofk.pojo.Account" cascade="save-update"/>	
 	</class>
 	
 	

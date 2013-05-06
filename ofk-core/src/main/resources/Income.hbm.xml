@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping package="de.dhbw.tinf11b2.ofk.pojo">
+	<class name="Income" table="Income">
+		<id name="incomeId" column="Income_Id"> <generator class="native"/></id>
+		<property name="value" column="Income_Value"/>
+		<property name="description" column="Income_Description"/>
+		<property name="timestamp" type="timestamp" column="Income_Timestamp"/>	
+		<many-to-one name="accountId" column="Account_Id" class="de.dhbw.tinf11b2.ofk.pojo.Account" cascade="save-update"/>	
+	</class>
+	
+	
+</hibernate-mapping>

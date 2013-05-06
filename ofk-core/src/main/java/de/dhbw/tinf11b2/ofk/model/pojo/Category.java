@@ -1,12 +1,13 @@
 package de.dhbw.tinf11b2.ofk.model.pojo;
 
-public class CategoryDAO {
+import java.io.Serializable;
 
-	public CategoryDAO(){
+public class Category implements Serializable{
+	public Category(){
 		
 	}
 	
-	public CategoryDAO(String name, int accountId){
+	public Category(String name, int accountId){
 		this.name = name;
 		this.accountId = accountId;
 	}

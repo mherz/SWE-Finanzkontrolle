@@ -1,12 +1,14 @@
 package de.dhbw.tinf11b2.ofk.model.pojo;
 
-public class UserDAO {
+import java.io.Serializable;
 
-	public UserDAO(){
+public class User implements Serializable{
+
+	public User(){
 		
 	}
 	
-	public UserDAO(String name, String email, String password)
+	public User(String name, String email, String password)
 	{
 		this.name = name;
 		this.email = email;

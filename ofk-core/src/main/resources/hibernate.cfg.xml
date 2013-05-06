@@ -21,6 +21,11 @@
  <!-- Enable Hibernate's automatic session context management -->
  <property name="current_session_context_class">thread</property>
 <!-- Mapping resource configuration files -->
- <mapping resource="src/main/resources/ofk.hbm.xml"/>
+ <mapping resource="src/main/resources/AccountDAO.hbm.xml"/>
+ <mapping resource="src/main/resources/CategoryDAO.hbm.xml"/>
+ <mapping resource="src/main/resources/CostsDAO.hbm.xml"/>
+ <mapping resource="src/main/resources/IncomeDAO.hbm.xml"/>
+ <mapping resource="src/main/resources/UserDAO.hbm.xml"/>
+ 
  </session-factory>
  </hibernate-configuration>

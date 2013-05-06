@@ -1,12 +1,14 @@
 package de.dhbw.tinf11b2.ofk.model.pojo;
 
-public class AccountDAO {
+import java.io.Serializable;
 
-	public AccountDAO(){
+public class Account implements Serializable{
+
+	public Account(){
 		
 	}
 	
-	public AccountDAO(String name, int userId){
+	public Account(String name, int userId){
 		this.name = name;
 		this.userId = userId;
 	}
