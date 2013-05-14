@@ -8,6 +8,8 @@ public class UserDAO extends AbstractHibernateDAO {
 		super(User.class);
 	}
 
-
+	public void auth(){
+		
+	}
 	
 }

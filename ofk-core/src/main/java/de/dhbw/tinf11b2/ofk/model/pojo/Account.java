@@ -15,6 +15,7 @@ public class Account implements Serializable{
 	
 	private int accountId;
 	private String name;
+	private double value;
 	private int userId;
 	
 	public int getAccountId() {
@@ -29,6 +30,15 @@ public class Account implements Serializable{
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public double getValue() {
+		return value;
+	}
+
+	public void setValue(double value) {
+		this.value = value;
+	}
+
 	public int getUserId() {
 		return userId;
 	}

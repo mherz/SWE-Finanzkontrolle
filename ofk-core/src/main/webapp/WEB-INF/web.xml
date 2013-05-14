@@ -9,28 +9,27 @@
 		<param-name>productionMode</param-name>
 		<param-value>false</param-value>
 	</context-param>
-<!--<context-param>
+	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
-	</context-param>-->
+	</context-param>
 	<servlet>
 		<servlet-name>Vaadin Application Servlet</servlet-name>
 		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
 		<init-param>
 			<description>Vaadin UI class to use</description>
 			<param-name>UI</param-name>
-			<param-value>de.dhbw.tinf11b2.ofk.view.FinanzkontrolleUI</param-value>
+			<param-value>de.dhbw.tinf11b2.ofk.presenter.UIPresenter</param-value>
 		</init-param>
-<!-- 	<init-param>
+		<init-param>
 			<param-name>UIProvider</param-name>
 			<param-value>com.vaadin.server.DefaultUIProvider</param-value>
-		</init-param> -->
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Vaadin Application Servlet</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-	<!-- <listener>
-		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-	</listener> -->
+	<listener> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
+		</listener>
 </web-app>

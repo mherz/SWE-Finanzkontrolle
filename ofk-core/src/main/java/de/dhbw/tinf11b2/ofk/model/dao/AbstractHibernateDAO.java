@@ -25,6 +25,11 @@ public abstract class AbstractHibernateDAO< T extends Serializable> {
         Preconditions.checkArgument(id != null);
         return (T) this.getCurrentSession().get(this.entity, id);
     }
+    
+    public T getByName(final String name) {
+    	Preconditions.checkArgument(name != null);
+    	return (T) this.getCurrentSession().get(this.entity, name);
+    }
  
     public List< T> getAll() {
         return this.getCurrentSession().createQuery("from " + this.entity.getName()).list();
