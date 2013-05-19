@@ -4,6 +4,14 @@
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
 	id="WebApp_ID" version="2.5">
 	<display-name>Online Finanzkontrolle</display-name>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+
+	</listener>
+	<listener>
+		<listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+	</listener>
+
 	<context-param>
 		<description>Vaadin production mode</description>
 		<param-name>productionMode</param-name>
@@ -13,23 +21,18 @@
 		<param-name>contextConfigLocation</param-name>
 		<param-value>classpath*:applicationContext.xml</param-value>
 	</context-param>
+
 	<servlet>
-		<servlet-name>Vaadin Application Servlet</servlet-name>
-		<servlet-class>com.vaadin.server.VaadinServlet</servlet-class>
+		<servlet-name>Online Finanzkontrolle</servlet-name>
+		<servlet-class>ru.xpoft.vaadin.SpringVaadinServlet</servlet-class>
 		<init-param>
-			<description>Vaadin UI class to use</description>
-			<param-name>UI</param-name>
-			<param-value>de.dhbw.tinf11b2.ofk.presenter.UIPresenter</param-value>
-		</init-param>
-		<init-param>
-			<param-name>UIProvider</param-name>
-			<param-value>com.vaadin.server.DefaultUIProvider</param-value>
+			<param-name>beanName</param-name>
+			<param-value>UIPresenter</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Vaadin Application Servlet</servlet-name>
+		<servlet-name>Online Finanzkontrolle</servlet-name>
 		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
-	<listener> <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class> 
-		</listener>
+
 </web-app>

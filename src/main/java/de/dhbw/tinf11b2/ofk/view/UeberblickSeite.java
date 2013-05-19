@@ -5,6 +5,7 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Alignment;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
@@ -15,7 +16,7 @@ import de.dhbw.tinf11b2.ofk.presenter.UIPresenter;
 import de.dhbw.tinf11b2.ofk.presenter.OFKViewListener;
 
 
-public class UeberblickSeite extends CustomComponent implements OFKView {
+public class UeberblickSeite extends CustomComponent implements OFKView, ClickListener {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 
@@ -80,31 +81,14 @@ public class UeberblickSeite extends CustomComponent implements OFKView {
 		uebersichtLabel.setImmediate(false);
 		uebersichtLabel.setWidth("-1px");
 		uebersichtLabel.setHeight("-1px");
-		uebersichtLabel.setValue("�bersicht");
+		uebersichtLabel.setValue("Übersicht");
 		mainLayout.addComponent(uebersichtLabel, "top:0.0px;left:120.0px;");
 		
 		// zurueckButton
-		zurueckButton = new Button();
-		zurueckButton.setCaption("Zur�ck");
-		zurueckButton.setImmediate(true);
+		zurueckButton = new Button("Zurück",this);
+		zurueckButton.setImmediate(false);
 		zurueckButton.setWidth("-1px");
 		zurueckButton.setHeight("-1px");
-		zurueckButton.addClickListener(new Button.ClickListener() {		
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public void buttonClick(ClickEvent event) {
-				
-				instanz.pageChangeback();
-//				zurueckButton.setCaption("Clicked");
-				
-			}
-		});
-		
-		
 		mainLayout.addComponent(zurueckButton, "top:92.0%;left:90.0%;");
 		
 		// ubersichtSheet
@@ -220,6 +204,14 @@ public class UeberblickSeite extends CustomComponent implements OFKView {
 	@Override
 	public void addListener(OFKViewListener listener) {
 		listeners.add(listener);
+		
+	}
+
+	@Override
+	public void buttonClick(ClickEvent event) {
+		 for (OFKViewListener listener: listeners)
+	            listener.buttonClick(event.getButton()
+	                                 .getCaption());
 		
 	}
 

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+">
+<context:annotation-config/>
+<aop:config proxy-target-class="true"/>
+
+ 	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		autowire="autodetect">
+		<property name="dataSource" ref="dataSource" />
+		<property name="configLocation">
+			<value>classpath:hibernate.cfg.xml</value>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hbm2ddl.auto">validate</prop>
+				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/ofk" />
+		<property name="username" value="root" />
+		<property name="password" value="Nuniru41" />
+	</bean>
+
+
+	<bean id="txManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<tx:annotation-driven transaction-manager="txManager" />
+
+
+	<bean id="UIPresenter" class="de.dhbw.tinf11b2.ofk.presenter.UIPresenter" scope="session">
+		<aop:scoped-proxy/>
+		<property name="view" ref="login"></property>
+	</bean>
+
+	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">
+		<property name="userDAO" ref="userDAO"></property>
+		<property name="accountDAO" ref="accountDAO"></property>
+	</bean>
+	<bean id="login" class="de.dhbw.tinf11b2.ofk.view.LoginSeite" scope="session"/>
+	
+
+	<!-- Note the usage of abstract="true" and parent="AbstractHibernateDAO" 
+		in the implementations -->
+	<bean id="abstractHibernateDAO" abstract="true"
+		class="de.dhbw.tinf11b2.ofk.model.dao.AbstractHibernateDAO">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<bean id="accountDAO" parent="abstractHibernateDAO"
+		class="de.dhbw.tinf11b2.ofk.model.dao.AccountDAO" />
+	<bean id="categoryDAO" parent="abstractHibernateDAO"
+		class="de.dhbw.tinf11b2.ofk.model.dao.CategoryDAO" />
+	<bean id="costsDAO" parent="abstractHibernateDAO"
+		class="de.dhbw.tinf11b2.ofk.model.dao.CostsDAO" />
+	<bean id="incomeDAO" parent="abstractHibernateDAO"
+		class="de.dhbw.tinf11b2.ofk.model.dao.IncomeDAO" />
+	<bean id="userDAO" parent="abstractHibernateDAO" class="de.dhbw.tinf11b2.ofk.model.dao.UserDAO" />
+</beans>

@@ -1,6 +1,7 @@
 package de.dhbw.tinf11b2.ofk.model.pojo;
 
 import java.io.Serializable;
+import java.util.Set;
 
 public class User implements Serializable{
 
@@ -19,6 +20,7 @@ public class User implements Serializable{
 	private String name;
 	private String email;
 	private String password;
+	private Set<Account> accounts;
 	
 	
 	public int getUserId() {
@@ -44,6 +46,14 @@ public class User implements Serializable{
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public Set<Account> getAccounts() {
+		return accounts;
+	}
+
+	public void setAccounts(Set<Account> accounts) {
+		this.accounts = accounts;
 	}
 	
 	

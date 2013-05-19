@@ -5,6 +5,7 @@ import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.CustomComponent;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.LoginForm;
 import com.vaadin.ui.Button.ClickListener;
 import com.vaadin.ui.PasswordField;
@@ -29,6 +30,7 @@ public class LoginSeite extends CustomComponent implements OFKView, ClickListene
 	private VerticalLayout verticalLayout;
 	private TextField username;
 	private PasswordField password;
+	private Label label;
 	/**
 	 * The constructor should first build the main layout, set the
 	 * composition root and then do any custom initialization.
@@ -60,12 +62,14 @@ public class LoginSeite extends CustomComponent implements OFKView, ClickListene
 		username = new TextField("Username");
 		password = new PasswordField("Password");
 		loginButton = new Button("Login",this);
+		label = new Label("Willkommen bei OFK");
 		loginButton.setImmediate(false);
 		loginButton.setWidth("-1px");
 		loginButton.setHeight("-1px");
 		verticalLayout.addComponent(username);
 		verticalLayout.addComponent(password);
 		verticalLayout.addComponent(loginButton);
+		verticalLayout.addComponent(label);
 		mainLayout.addComponent(verticalLayout, "top:30.0%;left:40.0%;");
 		
 		
@@ -93,6 +97,9 @@ public class LoginSeite extends CustomComponent implements OFKView, ClickListene
 	}
 	public String getPassword(){
 		return password.getValue();
+	}
+	public void setLabelText(String text){
+		label.setCaption(text);
 	}
 	
 	@Override

@@ -105,8 +105,8 @@ public class Ausgabenseite extends CustomComponent implements OFKView, ClickList
 		mainLayout.addComponent(ausgabeLayout, "top:10.0%;left:0.0px;");
 		
 		// zurueckButton
-		zurueckButton = new Button("Zurück");
-		zurueckButton.setImmediate(true);
+		zurueckButton = new Button("Zurück",this);
+		zurueckButton.setImmediate(false);
 		zurueckButton.setWidth("-1px");
 		zurueckButton.setHeight("-1px");
 		mainLayout.addComponent(zurueckButton, "top:92.0%;left:90.0%;");
