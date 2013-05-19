@@ -46,6 +46,7 @@
 	<bean id="UIPresenter" class="de.dhbw.tinf11b2.ofk.presenter.UIPresenter" scope="session">
 		<aop:scoped-proxy/>
 		<property name="view" ref="login"></property>
+		<property name="model" ref="model"></property>
 	</bean>
 
 	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">

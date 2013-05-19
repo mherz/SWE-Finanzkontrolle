@@ -26,14 +26,11 @@ import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 /**
  * Main UI class
  */
-@Scope("request")
 @SuppressWarnings("serial")
 public class UIPresenter extends UI implements OFKViewListener  {
 	
 	User currentUser;
-	@Autowired
 	private OFKView view;
-	@Autowired
 	private OFKModel model;
 	
 	
@@ -52,6 +49,7 @@ public class UIPresenter extends UI implements OFKViewListener  {
 		view = new Startseite();
 		view.addListener(this);
 		setContent(view);
+		System.out.println(view);
 	}
 
 	@Override
@@ -97,6 +95,7 @@ public class UIPresenter extends UI implements OFKViewListener  {
 			if(returnValue==1){
 				view = new Startseite();
 				setContent(view);
+				System.out.println(view);
 			} else {
 				if(returnValue==0){
 					((LoginSeite) view).setLabelText("Bitte geben Sie ihr Passwort erneut ein");
