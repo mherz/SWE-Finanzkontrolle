@@ -195,8 +195,6 @@
 					</filesets>
 				</configuration>
 			</plugin>
-			    <plugins>
-      ...
       <!-- Compiles your custom GWT components with the GWT compiler -->
         <plugin>
             <groupId>org.codehaus.mojo</groupId>
@@ -289,6 +287,25 @@
 											<goal>resources</goal>
 											<goal>update-widgetset</goal>
 											<goal>compile</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.codehaus.mojo
+										</groupId>
+										<artifactId>
+											gwt-maven-plugin
+										</artifactId>
+										<versionRange>
+											[2.1.0-1,)
+										</versionRange>
+										<goals>
+											<goal>resources</goal>
 										</goals>
 									</pluginExecutionFilter>
 									<action>
