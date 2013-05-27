@@ -26,23 +26,26 @@ public class OFKModel {
 
 	public int authenticate(String username, String password) {
 		user = (User) userDAO.getUserByName(username);
-		if (user != null )
-			if(user.getPassword().equals(password))
+		if (user != null)
+			if (user.getPassword().equals(password))
 				return 1;
 			else
 				return 0;
 		else
 			return -1;
 	}
-	public List<Account> getAccounts(){
+
+	public List<Account> getAccounts() {
 		return accountDAO.getAccounts();
 	}
-//	public List<Category> getCategories(){
-//		System.out.println(categoryDAO);
-//		return categoryDAO.getAll();
-//	}
-	public void addIncome(Double value, String description){
+
+	public List<Category> getCategories() {
+		return categoryDAO.getAll();
+	}
+
+	public void addIncome(Double value, String description) {
 		Income inc = new Income();
+		inc.setAccountId(account);
 		inc.setValue(value);
 		inc.setDescription(description);
 		inc.setTimestamp(new Date());
@@ -72,9 +75,11 @@ public class OFKModel {
 	public void setAccountDAO(AccountDAO accountDAO) {
 		this.accountDAO = accountDAO;
 	}
+
 	public Account getAccount() {
 		return account;
 	}
+
 	public void setAccount(Account account) {
 		this.account = account;
 	}

@@ -14,7 +14,6 @@ public class UserDAO extends AbstractHibernateDAO implements Serializable {
 	}
 	public User getUserByName(String username){
 		List<User> result = this.sessionFactory.getCurrentSession().createQuery("from User where name = :username").setParameter("username",username).list();
-		
 		return !result.isEmpty() ? result.get(0) : null;
 	}
 	
