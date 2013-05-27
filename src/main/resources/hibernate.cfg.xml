@@ -5,12 +5,11 @@
 
 <hibernate-configuration>
 	<session-factory>
-		<!-- Mapping resource configuration files -->
-		<mapping resource="Account.hbm.xml" />		
-		<mapping resource="Category.hbm.xml" />
-		<mapping resource="Costs.hbm.xml" />
-		<mapping resource="Income.hbm.xml" />
-		<mapping resource="User.hbm.xml" />
+		<mapping class="de.dhbw.tinf11b2.ofk.model.pojo.User"/>
+		<mapping class="de.dhbw.tinf11b2.ofk.model.pojo.Account"/>
+		<mapping class="de.dhbw.tinf11b2.ofk.model.pojo.Income"/>
+		<mapping class="de.dhbw.tinf11b2.ofk.model.pojo.Costs"/>
+		<mapping class="de.dhbw.tinf11b2.ofk.model.pojo.Category"/>
 
 
 	</session-factory>

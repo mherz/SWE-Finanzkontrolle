@@ -3,26 +3,37 @@ package de.dhbw.tinf11b2.ofk.model.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;;
+
 public class Income implements Serializable{
 	
 	public Income(){
 		
 	}
 	
-	public Income(double value, String description, Date timestamp,int accountId){
+	public Income(double value, String description, Date timestamp,Account account){
 		
 		this.value = value;
 		this.description = description;
 		this.timestamp = timestamp;
-		this.accountId = accountId;
+		this.account = account;
 		
 	}
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="Income_Id", unique = true, nullable = false)
 	private int incomeId;
+	@Column(name="Income_Value", nullable = false)
 	private double value;
+	@Column(name="Income_Description")
 	private String description;
+	@Column(name="Income_Timestamp", nullable = false)
 	private Date timestamp;
-	private int accountId;
+	
+	private Account account;
 	
 	public int getIncomeId() {
 		return incomeId;
@@ -49,12 +60,12 @@ public class Income implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public int getAccountId() {
-		return accountId;
+	public Account getAccount() {
+		return account;
 	}
 
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setAccountId(Account account) {
+		this.account = account;
 	}
 	
 	

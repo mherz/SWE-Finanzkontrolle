@@ -3,13 +3,35 @@ package de.dhbw.tinf11b2.ofk.model.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
+
+@Entity
+@Table(name = "Costs", uniqueConstraints = {
+		@UniqueConstraint(columnNames = "Costs_Id")})
 public class Costs implements Serializable{
 
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name="Costs_Id",unique = true, nullable = false)
 	private int costsId;
+	@Column(name="Costs_Value",nullable = false)
 	private double value;
+	@Column(name="Costs_Description")
 	private String description;
+	@Column(name="Costs_Timestamp",nullable = false)
 	private Date timestamp;
-	private int accountId;
+	@ManyToOne
+	@JoinColumn(name="Account_Id")
+	private Account account;
 	
 	public int getCostsId() {
 		return costsId;
@@ -29,11 +51,11 @@ public class Costs implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public int getAccountId() {
-		return accountId;
+	public Account getAccount() {
+		return account;
 	}
-	public void setAccountId(int accountId) {
-		this.accountId = accountId;
+	public void setAccount(Account account) {
+		this.account = account;
 	}
 	public Date getTimestamp() {
 		return timestamp;
