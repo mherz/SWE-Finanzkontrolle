@@ -195,6 +195,35 @@
 					</filesets>
 				</configuration>
 			</plugin>
+			    <plugins>
+      ...
+      <!-- Compiles your custom GWT components with the GWT compiler -->
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>gwt-maven-plugin</artifactId>
+            <version>2.1.0-1</version>
+            <configuration>
+                <!-- if you don't specify any modules, the plugin will find them -->
+                <!--modules>
+                    ..
+                </modules-->
+                <webappDirectory>${project.build.directory}/${project.build.finalName}/VAADIN/widgetsets</webappDirectory>
+                <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
+                <runTarget>clean</runTarget>
+                <hostedWebapp>${project.build.directory}/${project.build.finalName}</hostedWebapp>
+                <noServer>true</noServer>
+                <port>8080</port>
+                <soyc>false</soyc>
+            </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>resources</goal>
+                        <goal>compile</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
 			<plugin>
 				<groupId>com.vaadin</groupId>
 				<artifactId>vaadin-maven-plugin</artifactId>

@@ -29,6 +29,10 @@
 			<param-name>beanName</param-name>
 			<param-value>OFKUI</param-value>
 		</init-param>
+		<init-param>
+			<param-name>widgetset</param-name>
+			<param-value>de.dhbw.tinf11b2.ofk.view.CustomWidgetset</param-value>
+		</init-param>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Online Finanzkontrolle</servlet-name>
