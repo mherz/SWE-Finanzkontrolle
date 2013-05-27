@@ -8,10 +8,10 @@
           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
           http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 ">
-<context:annotation-config/>
-<aop:config proxy-target-class="true"/>
+	<context:annotation-config />
+	<aop:config proxy-target-class="true" />
 
- 	<bean id="sessionFactory"
+	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
 		autowire="autodetect">
 		<property name="dataSource" ref="dataSource" />
@@ -43,18 +43,23 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 
 
-	<bean id="UIPresenter" class="de.dhbw.tinf11b2.ofk.presenter.UIPresenter" scope="session">
-		<aop:scoped-proxy/>
-		<property name="view" ref="login"></property>
+	<bean id="OFKUI" class="de.dhbw.tinf11b2.ofk.presenter.OFKUI"
+		scope="session">
+		<aop:scoped-proxy />
+		<property name="presenter" ref="presenter"></property>
+	</bean>
+	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter"
+		scope="session">
 		<property name="model" ref="model"></property>
 	</bean>
 
+
 	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">
+		<aop:scoped-proxy />
 		<property name="userDAO" ref="userDAO"></property>
 		<property name="accountDAO" ref="accountDAO"></property>
 	</bean>
-	<bean id="login" class="de.dhbw.tinf11b2.ofk.view.LoginSeite" scope="session"/>
-	
+
 
 	<!-- Note the usage of abstract="true" and parent="AbstractHibernateDAO" 
 		in the implementations -->

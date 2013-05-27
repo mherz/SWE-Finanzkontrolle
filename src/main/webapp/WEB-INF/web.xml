@@ -27,7 +27,7 @@
 		<servlet-class>ru.xpoft.vaadin.SpringVaadinServlet</servlet-class>
 		<init-param>
 			<param-name>beanName</param-name>
-			<param-value>UIPresenter</param-value>
+			<param-value>OFKUI</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>

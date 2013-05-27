@@ -19,13 +19,9 @@ public class OFKModel {
 	private User user;
 	private Account account;
 
-	@Autowired
 	private UserDAO userDAO;
-	@Autowired
 	private AccountDAO accountDAO;
-	@Autowired
 	private CategoryDAO categoryDAO;
-	@Autowired
 	private IncomeDAO incomeDAO;
 
 	public int authenticate(String username, String password) {
