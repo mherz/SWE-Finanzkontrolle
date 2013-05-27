@@ -110,12 +110,12 @@ public class Startseite extends CustomComponent implements OFKView, ClickListene
 		gridLayout_1.setRows(3);
 
 		// uebersichtSeite
-//		uebersichtSeite = new Button("Übersicht",this);
-//		uebersichtSeite.setImmediate(true);
-//		uebersichtSeite.setWidth("-1px");
-//		uebersichtSeite.setHeight("-1px");
-//		gridLayout_1.addComponent(uebersichtSeite, 1, 0);
-//		gridLayout_1.setComponentAlignment(uebersichtSeite, new Alignment(48));
+		uebersichtSeite = new Button("Übersicht",this);
+		uebersichtSeite.setImmediate(true);
+		uebersichtSeite.setWidth("-1px");
+		uebersichtSeite.setHeight("-1px");
+		gridLayout_1.addComponent(uebersichtSeite, 1, 0);
+		gridLayout_1.setComponentAlignment(uebersichtSeite, new Alignment(48));
 
 		// einnahmenSeite
 		einnahmenSeite = new Button("Einnahmen",this);

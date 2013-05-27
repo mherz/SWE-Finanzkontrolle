@@ -21,7 +21,6 @@ import de.dhbw.tinf11b2.ofk.view.Einnahmenseite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
 import de.dhbw.tinf11b2.ofk.view.Startseite;
-import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
 /**
  * Main UI class
