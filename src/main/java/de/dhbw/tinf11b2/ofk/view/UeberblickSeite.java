@@ -149,7 +149,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		chartSelect.setHeight("-1px");
 		fillSelect();
 		einnahmenLayout.addComponent(chartSelect, "top:5.0%;left:0.0%;");
-		einnahmenLayout.addComponent(wechselButton, "top:92.0%;left:90.0%;");
+		einnahmenLayout.addComponent(new Button("Wechsel",this), "top:92.0%;left:90.0%;");
 		return einnahmenLayout;
 	}
 
@@ -169,7 +169,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		chartSelect.setHeight("-1px");
 		fillSelect();
 		gesamtLayout.addComponent(chartSelect, "top:5.0%;left:0.0%;");
-		gesamtLayout.addComponent(wechselButton, "top:92.0%;left:90.0%;");
+		gesamtLayout.addComponent(new Button("Wechsel",this), "top:92.0%;left:90.0%;");
 
 		return gesamtLayout;
 	}
@@ -203,7 +203,6 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		System.out.println(event.getButton().getCaption());
 		for (OFKViewListener listener : listeners)
 			listener.buttonClick(event.getButton().getCaption());
 
@@ -218,7 +217,9 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	public void wechselDich() {
 
 		Chart chart;
-
+		System.out.println(ubersichtSheet.getSelectedTab());
+		System.out.println(gesamtLayout);
+		System.out.println(ubersichtSheet.getSelectedTab() == gesamtLayout);
 		if (ubersichtSheet.getSelectedTab() == ausgabenLayout) {
 			chart = setChart(kategorieSelect, chartSelect,ausgabenLayout);
 			ausgabenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
@@ -230,8 +231,8 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 				kategorieSelect.setWidth("250px");
 				kategorieSelect.setHeight("-1px");
 				ausgabenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
+			}
 		}
-
 		else if (ubersichtSheet.getSelectedTab() == einnahmenLayout) {
 			chart = setChart(kategorieSelect, chartSelect, einnahmenLayout);
 			einnahmenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
@@ -259,7 +260,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 			}
 		}}
 
-	}
+
 
 	private Chart setChart(NativeSelect kategorie, NativeSelect chartArt, AbsoluteLayout gesamtLayout2) {
 		Chart chart = new Chart(ChartType.BAR);
