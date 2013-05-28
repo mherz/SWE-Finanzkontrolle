@@ -78,6 +78,7 @@ public class OFKPresenter implements OFKViewListener {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Zurück")) {
+			System.out.println(this);
 			this.pageChangeback();
 		}
 
@@ -87,6 +88,9 @@ public class OFKPresenter implements OFKViewListener {
 			view = new Einnahmenseite();
 			view.addListener(this);
 			ui.setContent(view);
+		}
+		if (operation.contentEquals("Wechsel")) {
+			((UeberblickSeite)view).wechselDich();
 		}
 
 	}
