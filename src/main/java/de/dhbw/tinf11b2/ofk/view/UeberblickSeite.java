@@ -218,35 +218,37 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	public void wechselDich() {
 
 		Chart chart;
-
+		kategorieSelect.setVisible(false);
 		if (ubersichtSheet.getSelectedTab() == ausgabenLayout) {
-			chart = setChart(kategorieSelect, chartSelect,ausgabenLayout);
+			chart = setChartBar(kategorieSelect, chartSelect,ausgabenLayout);
 			ausgabenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
 			// Chart
-			if (chartSelect.isSelected("GesamtÜberblick")) {
+			if (chartSelect.isSelected("ZeitÜberblick")) {
 				kategorieSelect = new NativeSelect();
 				kategorieSelect.setCaption("Kategorie");
 				kategorieSelect.setImmediate(false);
 				kategorieSelect.setWidth("250px");
 				kategorieSelect.setHeight("-1px");
+				kategorieSelect.setVisible(true);
 				ausgabenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
 		}
 
 		else if (ubersichtSheet.getSelectedTab() == einnahmenLayout) {
-			chart = setChart(kategorieSelect, chartSelect, einnahmenLayout);
+			chart = setChartBar(kategorieSelect, chartSelect, einnahmenLayout);
 			einnahmenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
 			// Chart
-			if (chartSelect.isSelected("GesamtÜberblick")) {
+			if (chartSelect.isSelected("ZeitÜberblick")) {
 				kategorieSelect = new NativeSelect();
 				kategorieSelect.setCaption("Kategorie");
 				kategorieSelect.setImmediate(false);
 				kategorieSelect.setWidth("250px");
 				kategorieSelect.setHeight("-1px");
-				ausgabenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
+				kategorieSelect.setVisible(true);
+				einnahmenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
 			}
 
 		} else if (ubersichtSheet.getSelectedTab() == gesamtLayout) {
-			chart = setChart(kategorieSelect, chartSelect,gesamtLayout);
+			chart = setChartBar(kategorieSelect, chartSelect,gesamtLayout);
 			gesamtLayout.addComponent(chart, "top:10.0%;left:0.0%;");
 			// Chart
 			if (chartSelect.isSelected("ZeitÜberblick")) {
@@ -255,35 +257,36 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 				kategorieSelect.setImmediate(false);
 				kategorieSelect.setWidth("250px");
 				kategorieSelect.setHeight("-1px");
-				ausgabenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
+				kategorieSelect.setVisible(true);
+				gesamtLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
 			}
 		}}
 
 	}
 
-	private Chart setChart(NativeSelect kategorie, NativeSelect chartArt, AbsoluteLayout gesamtLayout2) {
+	private Chart setChartBar(NativeSelect kategorie, NativeSelect chartArt, AbsoluteLayout gesamtLayout2) {
 		Chart chart = new Chart(ChartType.BAR);
 		chart.setWidth("400px");
 		chart.setHeight("300px");
 		// Modify the default configuration a bit
 		Configuration conf = chart.getConfiguration();
-		conf.setTitle("Planets");
-		conf.setSubTitle("The bigger they are the harder they pull");
+		conf.setTitle(gesamtLayout.toString());
+		conf.setSubTitle("In dieser Kategorie bist du");
 		conf.getLegend().setEnabled(false); // Disable legend
 		// The data
 
 		ListSeries series = new ListSeries("Diameter");
-		series.setData(4900, 12100, 12800, 6800, 143000, 125000, 51100, 49500);
+		series.setData(4900, 12100, 12800, 6800, 143000, 125000, 51100, 49500); // als Int Array
 		conf.addSeries(series);
 		// Set the category labels on the axis correspondingly
 		XAxis xaxis = new XAxis();
 		xaxis.setCategories("Mercury", "Venus", "Earth", "Mars", "Jupiter",
-				"Saturn", "Uranus", "Neptune");
-		xaxis.setTitle("Planet");
+				"Saturn", "Uranus", "Neptune"); // als String Array
+		xaxis.setTitle("Kategorien");
 		conf.addxAxis(xaxis);
 		// Set the Y axis title
 		YAxis yaxis = new YAxis();
-		yaxis.setTitle("Diameter");
+		yaxis.setTitle("Euro");
 		yaxis.getLabels().setFormatter(
 				"function() {return Math.floor(this.value/1000) + \'Mm\';}");
 		yaxis.getLabels().setStep(2);
