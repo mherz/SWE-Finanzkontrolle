@@ -57,6 +57,8 @@
 		<aop:scoped-proxy />
 		<property name="userDAO" ref="userDAO"></property>
 		<property name="accountDAO" ref="accountDAO"></property>
+		<property name="categoryDAO" ref="categoryDAO"></property>
+		<property name="incomeDAO" ref="incomeDAO"></property>
 	</bean>
 
 

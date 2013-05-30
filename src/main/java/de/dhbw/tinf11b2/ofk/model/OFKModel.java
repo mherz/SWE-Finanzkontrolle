@@ -56,7 +56,8 @@ public class OFKModel {
 
 		return null;
 	}
-	public List<Category> getCategoriesByAccount(){
+	public List<Category> getCategoriesByAccount(Account account){
+		System.out.println(categoryDAO);
 		return categoryDAO.getAccCategories(account);
 	}
 
@@ -66,7 +67,7 @@ public class OFKModel {
 		return list;
 	}
 
-	public List<Income> getIncomeByAccount(){
+	public List<Income> getIncomeByAccount(Account account){
 		return incomeDAO.getIncomeByAccount(account);
 	}
 	
@@ -121,8 +122,8 @@ public class OFKModel {
 
 	public void setAccount(Account account) {
 		this.account = account;
-		categories = getCategoriesByAccount();
-		income = getIncomeByAccount();
+		categories = getCategoriesByAccount(account);
+		income = getIncomeByAccount(account);
 	}
 
 	public List<Category> getCategories() {
