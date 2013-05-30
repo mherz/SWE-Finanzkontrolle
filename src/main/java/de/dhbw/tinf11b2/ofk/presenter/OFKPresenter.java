@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
+import de.dhbw.tinf11b2.ofk.model.pojo.Category;
 import de.dhbw.tinf11b2.ofk.view.Ausgabenseite;
 import de.dhbw.tinf11b2.ofk.view.Einnahmenseite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
@@ -62,13 +63,9 @@ public class OFKPresenter implements OFKViewListener {
 			view = new Einnahmenseite();
 			view.addListener(this);
 			List<Account> accList = model.getAccounts();
-			// List<Category> catList = model.getCategories();
 			for (Account acc : accList) {
 				((Einnahmenseite) view).addToKontoBox(acc.getName());
 			}
-			// for(Category cat : catList){
-			// ((Einnahmenseite)view).addToKategorieBox(cat.getName());
-			// }
 			((Einnahmenseite) view).addToKategorieBox("default");
 			ui.setContent(view);
 		}
@@ -83,14 +80,17 @@ public class OFKPresenter implements OFKViewListener {
 		}
 
 		if (operation.contentEquals("Werte Speichern")) {
-			model.addIncome(Double.parseDouble(((Einnahmenseite) view)
-					.getGeldFieldValue()), "default");
+			model.addIncome(model.getCategoryByName(((Einnahmenseite) view).getCategoryFieldValue())
+					,Double.parseDouble(((Einnahmenseite) view).getGeldFieldValue())
+					, "default");
 			view = new Einnahmenseite();
 			view.addListener(this);
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Wechsel")) {
-			((UeberblickSeite)view).wechselDich();
+			if (((UeberblickSeite)view).getCurrentTab() == 1)
+					((UeberblickSeite)view).wechselDich(model.getCategoryNames(),model.getIncomeValues());
+				
 		}
 
 	}

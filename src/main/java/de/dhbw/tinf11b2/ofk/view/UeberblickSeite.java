@@ -19,6 +19,8 @@ import com.vaadin.ui.Label;
 import com.vaadin.ui.NativeSelect;
 import com.vaadin.ui.TabSheet;
 
+import de.dhbw.tinf11b2.ofk.model.pojo.Category;
+import de.dhbw.tinf11b2.ofk.model.pojo.Income;
 import de.dhbw.tinf11b2.ofk.presenter.OFKViewListener;
 
 public class UeberblickSeite extends CustomComponent implements OFKView,
@@ -209,12 +211,12 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	}
 
 	private void fillSelect() {
-		// TODO Auto-generated method stub
+
 		chartSelect.addItem("GesamtÜberblick");
 		chartSelect.addItem("ZeitÜberblick");
 	}
 
-	public void wechselDich() {
+	public void wechselDich(String[] kategorien, double[] werte) {
 
 		Chart chart;
 		
@@ -292,6 +294,15 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		yaxis.getLabels().setStep(2);
 		conf.addyAxis(yaxis);
 		return chart;
+	}
+	public int getCurrentTab(){
+		if (ubersichtSheet.getSelectedTab() == einnahmenLayout)
+			return 1;
+		else if (ubersichtSheet.getSelectedTab() == gesamtLayout)
+			return 2;
+		else if (ubersichtSheet.getSelectedTab() == ausgabenLayout)
+			return 3;
+		else return 0;
 	}
 
 }

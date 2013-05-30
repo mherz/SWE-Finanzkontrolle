@@ -300,5 +300,9 @@ public class Einnahmenseite extends CustomComponent implements OFKView,ClickList
 	public String getGeldFieldValue(){
 		return geldFeld_1.getValue();
 	}
+	public String getCategoryFieldValue(){
+		
+		return (String) kategorieBox_1.getValue();
+	}
 
 }

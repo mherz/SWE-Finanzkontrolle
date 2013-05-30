@@ -6,7 +6,9 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-import javax.persistence.Id;;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 public class Income implements Serializable{
 	
@@ -14,12 +16,12 @@ public class Income implements Serializable{
 		
 	}
 	
-	public Income(double value, String description, Date timestamp,Account account){
+	public Income(double value, String description, Date timestamp,Category category){
 		
 		this.value = value;
 		this.description = description;
 		this.timestamp = timestamp;
-		this.account = account;
+		this.category = category;
 		
 	}
 	@Id
@@ -32,8 +34,9 @@ public class Income implements Serializable{
 	private String description;
 	@Column(name="Income_Timestamp", nullable = false)
 	private Date timestamp;
-	
-	private Account account;
+	@ManyToOne
+	@JoinColumn(name="Category_Id")
+	private Category category;
 	
 	public int getIncomeId() {
 		return incomeId;
@@ -60,12 +63,12 @@ public class Income implements Serializable{
 		this.timestamp = timestamp;
 	}
 
-	public Account getAccount() {
-		return account;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setAccountId(Account account) {
-		this.account = account;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 	
