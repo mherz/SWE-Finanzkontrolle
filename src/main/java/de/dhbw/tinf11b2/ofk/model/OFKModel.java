@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import de.dhbw.tinf11b2.ofk.model.dao.AccountDAO;
 import de.dhbw.tinf11b2.ofk.model.dao.CategoryDAO;
+import de.dhbw.tinf11b2.ofk.model.dao.CostsDAO;
 import de.dhbw.tinf11b2.ofk.model.dao.IncomeDAO;
 import de.dhbw.tinf11b2.ofk.model.dao.UserDAO;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
@@ -26,6 +27,7 @@ public class OFKModel {
 	private AccountDAO accountDAO;
 	private CategoryDAO categoryDAO;
 	private IncomeDAO incomeDAO;
+	private CostsDAO costsDAO;
 
 	public int authenticate(String username, String password) {
 		user = (User) userDAO.getUserByName(username);
@@ -46,6 +48,15 @@ public class OFKModel {
 		inc.setDescription(description);
 		inc.setTimestamp(new Date());
 		incomeDAO.create(inc);
+	}
+	public void addCosts(Category category, double value, String description){
+		Costs costs = new Costs();
+		costs.setCategory(category);
+		costs.setValue(value);
+		costs.setDescription(description);
+		costs.setTimestamp(new Date());
+		costsDAO.create(costs);
+		
 	}
 
 	public Category getCategoryByName(String catName) {
@@ -157,6 +168,15 @@ public class OFKModel {
 	public void setIncome(List<Income> income) {
 		this.income = income;
 	}
+
+	public CostsDAO getCostsDAO() {
+		return costsDAO;
+	}
+
+	public void setCostsDAO(CostsDAO costsDAO) {
+		this.costsDAO = costsDAO;
+	}
+	
 
 
 }

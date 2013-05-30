@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
 import de.dhbw.tinf11b2.ofk.model.pojo.Category;
-import de.dhbw.tinf11b2.ofk.view.Ausgabenseite;
 import de.dhbw.tinf11b2.ofk.view.Einnahmenseite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
@@ -60,7 +59,7 @@ public class OFKPresenter implements OFKViewListener {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Einnahmen")) {
-			view = new Einnahmenseite();
+			view = new Einnahmenseite("Einnahmen",true);
 			view.addListener(this);
 			List<Account> accList = model.getAccounts();
 			for (Account acc : accList) {
@@ -70,27 +69,47 @@ public class OFKPresenter implements OFKViewListener {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Ausgabe")) {
-			view = new Ausgabenseite();
+			view = new Einnahmenseite("Ausgaben",false);
 			view.addListener(this);
+			List<Account> accList = model.getAccounts();
+			for (Account acc : accList) {
+				((Einnahmenseite) view).addToKontoBox(acc.getName());
+			}
+			((Einnahmenseite) view).addToKategorieBox("default");
+			ui.setContent(view);
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Zurück")) {
-			System.out.println(this);
+
 			this.pageChangeback();
 		}
 
 		if (operation.contentEquals("Werte Speichern")) {
-			model.addIncome(model.getCategoryByName(((Einnahmenseite) view).getCategoryFieldValue())
-					,Double.parseDouble(((Einnahmenseite) view).getGeldFieldValue())
-					, "default");
-			view = new Einnahmenseite();
-			view.addListener(this);
-			ui.setContent(view);
+
+			if (!((Einnahmenseite)view).isEinnahme()) {
+				model.addCosts(model.getCategoryByName(((Einnahmenseite) view)
+						.getCategoryFieldValue()),
+						Double.parseDouble(((Einnahmenseite) view)
+								.getGeldFieldValue()), "default");
+				view = new Einnahmenseite("Ausgaben",false);
+				view.addListener(this);
+				ui.setContent(view);
+			}
+			if (((Einnahmenseite)view).isEinnahme()) {
+				model.addIncome(model.getCategoryByName(((Einnahmenseite) view)
+						.getCategoryFieldValue()), Double
+						.parseDouble(((Einnahmenseite) view)
+								.getGeldFieldValue()), "default");
+				view = new Einnahmenseite("Einnahmen",true);
+				view.addListener(this);
+				ui.setContent(view);
+			}
 		}
 		if (operation.contentEquals("Wechsel")) {
-			if (((UeberblickSeite)view).getCurrentTab() == 1)
-					((UeberblickSeite)view).wechselDich(model.getCategoryNames(),model.getIncomeValues());
-				
+			if (((UeberblickSeite) view).getCurrentTab() == 1)
+				((UeberblickSeite) view).wechselDich(model.getCategoryNames(),
+						model.getIncomeValues());
+
 		}
 
 	}
