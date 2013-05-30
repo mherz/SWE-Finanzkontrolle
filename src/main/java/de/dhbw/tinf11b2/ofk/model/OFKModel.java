@@ -176,6 +176,14 @@ public class OFKModel {
 	public void setCostsDAO(CostsDAO costsDAO) {
 		this.costsDAO = costsDAO;
 	}
+
+	public void logout() {
+		user = null;
+		account = null;
+		categories = null;
+		income = null;
+		
+	}
 	
 
 

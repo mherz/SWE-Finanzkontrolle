@@ -52,6 +52,12 @@ public class OFKPresenter implements OFKViewListener {
 				}
 			}
 		}
+		if (operation.contentEquals("Ausloggen")) {
+			model.logout();
+			view = new LoginSeite();
+			view.addListener(this);
+			ui.setContent(view);
+		}
 
 		if (operation.contentEquals("Übersicht")) {
 			view = new UeberblickSeite();
