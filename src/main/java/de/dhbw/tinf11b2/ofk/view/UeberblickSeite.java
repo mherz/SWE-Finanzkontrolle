@@ -270,7 +270,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		chart.setHeight("300px");
 		// Modify the default configuration a bit
 		Configuration conf = chart.getConfiguration();
-		conf.setTitle(gesamtLayout.toString());
+		conf.setTitle(gesamtLayout2.toString());
 		conf.setSubTitle("In dieser Kategorie bist du");
 		conf.getLegend().setEnabled(false); // Disable legend
 		// The data
