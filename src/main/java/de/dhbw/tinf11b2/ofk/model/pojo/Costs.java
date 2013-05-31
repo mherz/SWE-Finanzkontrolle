@@ -30,8 +30,8 @@ public class Costs implements Serializable{
 	@Column(name="Costs_Timestamp",nullable = false)
 	private Date timestamp;
 	@ManyToOne
-	@JoinColumn(name="Account_Id")
-	private Account account;
+	@JoinColumn(name="Category_Id")
+	private Category category;
 	
 	public int getCostsId() {
 		return costsId;
@@ -51,17 +51,17 @@ public class Costs implements Serializable{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Account getAccount() {
-		return account;
-	}
-	public void setAccount(Account account) {
-		this.account = account;
-	}
 	public Date getTimestamp() {
 		return timestamp;
 	}
 	public void setTimestamp(Date timestamp) {
 		this.timestamp = timestamp;
+	}
+	public Category getCategory() {
+		return category;
+	}
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
 }
