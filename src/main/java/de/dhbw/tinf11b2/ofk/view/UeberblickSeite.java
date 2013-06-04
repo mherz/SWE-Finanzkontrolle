@@ -216,13 +216,13 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		chartSelect.addItem("ZeitÜberblick");
 	}
 
-	public void wechselDich(String[] kategorien, double[] werte) {
+	public void wechselDich(String[] kategorien, Double[] werte) {
 
 		Chart chart;
 		
-		kategorieSelect.setVisible(false);
+		
 		if (ubersichtSheet.getSelectedTab() == ausgabenLayout) {
-			chart = setChartBar(kategorieSelect, chartSelect,ausgabenLayout);
+			chart = setChartBar(kategorieSelect, chartSelect,ausgabenLayout,kategorien,werte);
 			ausgabenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
 			// Chart
 			if (chartSelect.isSelected("ZeitÜberblick")) {
@@ -233,10 +233,12 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 				kategorieSelect.setHeight("-1px");
 				kategorieSelect.setVisible(true);
 				ausgabenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
+			} else {
+				kategorieSelect.setVisible(false);
 			}
 		}
 		else if (ubersichtSheet.getSelectedTab() == einnahmenLayout) {
-			chart = setChartBar(kategorieSelect, chartSelect, einnahmenLayout);
+			chart = setChartBar(kategorieSelect, chartSelect, einnahmenLayout,kategorien,werte);
 			einnahmenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
 			// Chart
 			if (chartSelect.isSelected("ZeitÜberblick")) {
@@ -247,10 +249,12 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 				kategorieSelect.setHeight("-1px");
 				kategorieSelect.setVisible(true);
 				einnahmenLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
+			}else {
+				kategorieSelect.setVisible(false);
 			}
 
 		} else if (ubersichtSheet.getSelectedTab() == gesamtLayout) {
-			chart = setChartBar(kategorieSelect, chartSelect,gesamtLayout);
+			chart = setChartBar(kategorieSelect, chartSelect,gesamtLayout,kategorien,werte);
 			gesamtLayout.addComponent(chart, "top:10.0%;left:0.0%;");
 			// Chart
 			if (chartSelect.isSelected("ZeitÜberblick")) {
@@ -261,12 +265,13 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 				kategorieSelect.setHeight("-1px");
 				kategorieSelect.setVisible(true);
 				gesamtLayout.addComponent(kategorieSelect, "top:92.0%;left:0.0%");
+			}else {
+				kategorieSelect.setVisible(false);
 			}
 		}}
 
 
-
-	private Chart setChartBar(NativeSelect kategorie, NativeSelect chartArt, AbsoluteLayout gesamtLayout2) {
+	private Chart setChartBar(NativeSelect kategorie, NativeSelect chartArt, AbsoluteLayout gesamtLayout2, String[] kategorien, Double[] werte) {
 		Chart chart = new Chart(ChartType.BAR);
 		chart.setWidth("400px");
 		chart.setHeight("300px");
@@ -278,7 +283,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		// The data
 
 		ListSeries series = new ListSeries("Diameter");
-		series.setData(4900, 12100, 12800, 6800, 143000, 125000, 51100, 49500); // als Int Array
+		series.setData(werte); // als Int Array
 		conf.addSeries(series);
 		// Set the category labels on the axis correspondingly
 		XAxis xaxis = new XAxis();

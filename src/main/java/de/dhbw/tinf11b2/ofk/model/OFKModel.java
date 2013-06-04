@@ -91,8 +91,8 @@ public class OFKModel {
 		return result;
 	}
 	
-	public double[] getIncomeValues(){
-		double[] result = new double[income.size()];
+	public Double[] getIncomeValues(){
+		Double[] result = new Double[income.size()];
 		for(int i = 0;i<income.size();i++){
 			result[i] = income.get(i).getValue();
 		}
