@@ -117,6 +117,7 @@ public class Startseite extends CustomComponent implements OFKView, ClickListene
 		startLayout.setSpacing(true);
 		startLayout.setColumns(3);
 		startLayout.setRows(3);
+		startLayout.setStyleName("test");
 
 		// uebersichtSeite
 		uebersichtSeite = new Button("Übersicht",this);
