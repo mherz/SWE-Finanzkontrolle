@@ -273,6 +273,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,ClickListen
 		neuButton.setImmediate(true);
 		neuButton.setWidth("-1px");
 		neuButton.setHeight("-1px");
+		neuButton.setEnabled(false);
 		eingabeLayout.addComponent(neuButton, 0, 5);
 		eingabeLayout.setComponentAlignment(neuButton, new Alignment(48));
 		

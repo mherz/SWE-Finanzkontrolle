@@ -16,7 +16,7 @@ import com.vaadin.ui.VerticalLayout;
 
 import de.dhbw.tinf11b2.ofk.presenter.OFKViewListener;
 
-public class RegisterSeite extends CustomComponent implements ClickListener {
+public class RegisterSeite extends CustomComponent implements ClickListener, OFKView {
 
 	/*- VaadinEditorProperties={"grid":"RegularGrid,20","showGrid":true,"snapToGrid":true,"snapToObject":true,"movingGuides":false,"snappingDistance":10} */
 	List<OFKViewListener> listeners = new ArrayList<OFKViewListener>();	

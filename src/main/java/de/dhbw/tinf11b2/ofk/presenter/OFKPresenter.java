@@ -1,20 +1,20 @@
 package de.dhbw.tinf11b2.ofk.presenter;
 
+import java.io.Serializable;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
-import de.dhbw.tinf11b2.ofk.model.pojo.Category;
 import de.dhbw.tinf11b2.ofk.view.EingabeSeite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
+import de.dhbw.tinf11b2.ofk.view.RegisterSeite;
 import de.dhbw.tinf11b2.ofk.view.Startseite;
 import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
-public class OFKPresenter implements OFKViewListener {
-
+public class OFKPresenter implements OFKViewListener, Serializable {
+	private static final long serialVersionUID = 1L;
+	
 	private OFKView view = new LoginSeite();
 	private OFKModel model;
 	private OFKUI ui;
@@ -61,6 +61,11 @@ public class OFKPresenter implements OFKViewListener {
 
 		if (operation.contentEquals("Übersicht")) {
 			view = new UeberblickSeite();
+			view.addListener(this);
+			ui.setContent(view);
+		}
+		if (operation.contentEquals("Registrieren")) {
+			view = new RegisterSeite();
 			view.addListener(this);
 			ui.setContent(view);
 		}
