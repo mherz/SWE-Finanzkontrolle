@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
 import de.dhbw.tinf11b2.ofk.model.pojo.Category;
-import de.dhbw.tinf11b2.ofk.view.Einnahmenseite;
+import de.dhbw.tinf11b2.ofk.view.EingabeSeite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
 import de.dhbw.tinf11b2.ofk.view.Startseite;
@@ -65,23 +65,23 @@ public class OFKPresenter implements OFKViewListener {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Einnahmen")) {
-			view = new Einnahmenseite("Einnahmen",true);
+			view = new EingabeSeite("Einnahmen",true);
 			view.addListener(this);
 			List<Account> accList = model.getAccounts();
 			for (Account acc : accList) {
-				((Einnahmenseite) view).addToKontoBox(acc.getName());
+				((EingabeSeite) view).addToKontoBox(acc.getName());
 			}
-			((Einnahmenseite) view).addToKategorieBox("default");
+			((EingabeSeite) view).addToKategorieBox("default");
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Ausgabe")) {
-			view = new Einnahmenseite("Ausgaben",false);
+			view = new EingabeSeite("Ausgaben",false);
 			view.addListener(this);
 			List<Account> accList = model.getAccounts();
 			for (Account acc : accList) {
-				((Einnahmenseite) view).addToKontoBox(acc.getName());
+				((EingabeSeite) view).addToKontoBox(acc.getName());
 			}
-			((Einnahmenseite) view).addToKategorieBox("default");
+			((EingabeSeite) view).addToKategorieBox("default");
 			ui.setContent(view);
 			ui.setContent(view);
 		}
@@ -92,21 +92,21 @@ public class OFKPresenter implements OFKViewListener {
 
 		if (operation.contentEquals("Werte Speichern")) {
 
-			if (!((Einnahmenseite)view).isEinnahme()) {
-				model.addCosts(model.getCategoryByName(((Einnahmenseite) view)
+			if (!((EingabeSeite)view).isEinnahme()) {
+				model.addCosts(model.getCategoryByName(((EingabeSeite) view)
 						.getCategoryFieldValue()),
-						Double.parseDouble(((Einnahmenseite) view)
+						Double.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new Einnahmenseite("Ausgaben",false);
+				view = new EingabeSeite("Ausgaben",false);
 				view.addListener(this);
 				ui.setContent(view);
 			}
-			if (((Einnahmenseite)view).isEinnahme()) {
-				model.addIncome(model.getCategoryByName(((Einnahmenseite) view)
+			if (((EingabeSeite)view).isEinnahme()) {
+				model.addIncome(model.getCategoryByName(((EingabeSeite) view)
 						.getCategoryFieldValue()), Double
-						.parseDouble(((Einnahmenseite) view)
+						.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new Einnahmenseite("Einnahmen",true);
+				view = new EingabeSeite("Einnahmen",true);
 				view.addListener(this);
 				ui.setContent(view);
 			}
