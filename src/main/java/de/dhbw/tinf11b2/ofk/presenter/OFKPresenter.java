@@ -30,6 +30,40 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		view.addListener(this);
 		ui.setContent(view);
 	}
+	
+	private void generateEinnahmen(){
+		view = new EingabeSeite("Einnahmen", false);
+		view.addListener(this);
+		List<Account> accList = model.getAccounts();
+		String [] konten = new String [accList.size()];
+		int i = 0;
+		for (Account acc : accList) {
+			konten[i]=acc.getName();
+			i++;
+		}
+		String [] kategorien =  {"default", "hund", "katze"};
+		((EingabeSeite) view).feldErstellung(konten, kategorien);
+		ui.setContent(view);
+		ui.setContent(view);
+	}
+	
+	private void generateAusgaben(){
+
+		
+		view = new EingabeSeite("Ausgaben", false);
+		view.addListener(this);
+		List<Account> accList = model.getAccounts();
+		String [] konten = new String [accList.size()];
+		int i = 0;
+		for (Account acc : accList) {
+			konten[i]=acc.getName();
+			i++;
+		}
+		String [] kategorien =  {"default", "hund", "katze"};
+		((EingabeSeite) view).feldErstellung(konten, kategorien);
+		ui.setContent(view);
+		ui.setContent(view);
+	}
 
 	@Override
 	public void buttonClick(String operation) {
@@ -70,25 +104,11 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Einnahmen")) {
-			view = new EingabeSeite("Einnahmen", true);
-			view.addListener(this);
-			List<Account> accList = model.getAccounts();
-			for (Account acc : accList) {
-				((EingabeSeite) view).addToKontoBox(acc.getName());
-			}
-			((EingabeSeite) view).addToKategorieBox("default");
-			ui.setContent(view);
+			generateEinnahmen();
 		}
 		if (operation.contentEquals("Ausgabe")) {
-			view = new EingabeSeite("Ausgaben", false);
-			view.addListener(this);
-			List<Account> accList = model.getAccounts();
-			for (Account acc : accList) {
-				((EingabeSeite) view).addToKontoBox(acc.getName());
-			}
-			((EingabeSeite) view).addToKategorieBox("default");
-			ui.setContent(view);
-			ui.setContent(view);
+			
+			generateAusgaben();
 		}
 		if (operation.contentEquals("Zurück")) {
 
@@ -102,19 +122,19 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 						.getCategoryFieldValue()),
 						Double.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new EingabeSeite("Ausgaben", false);
-				view.addListener(this);
-				ui.setContent(view);
+			
+				generateEinnahmen();
+				((EingabeSeite) view).bestaetige();
 			}
 			if (((EingabeSeite) view).isEinnahme()) {
 				model.addIncome(model.getCategoryByName(((EingabeSeite) view)
 						.getCategoryFieldValue()),
 						Double.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new EingabeSeite("Einnahmen", true);
-				view.addListener(this);
-				ui.setContent(view);
+				generateAusgaben();
+				((EingabeSeite) view).bestaetige();
 			}
+			
 		}
 		if (operation.contentEquals("WechselA")) {
 			System.out.println("Ich bin in dem wechsel");

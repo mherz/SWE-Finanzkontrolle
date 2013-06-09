@@ -168,102 +168,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,ClickListen
 		werteLabel.setValue("Wert");
 		eingabeLayout.addComponent(werteLabel, 2, 0);
 		eingabeLayout.setComponentAlignment(werteLabel, new Alignment(9));
-		
-		// kontoBox_1
-		kontoBox_1 = new ComboBox();
-		kontoBox_1.setImmediate(false);
-		kontoBox_1.setWidth("-1px");
-		kontoBox_1.setHeight("-1px");
-		eingabeLayout.addComponent(kontoBox_1, 0, 1);
-		eingabeLayout.setComponentAlignment(kontoBox_1, new Alignment(34));
-		
-		// kategorieBox_1
-		kategorieBox_1 = new ComboBox();
-		kategorieBox_1.setImmediate(false);
-		kategorieBox_1.setWidth("-1px");
-		kategorieBox_1.setHeight("-1px");
-		eingabeLayout.addComponent(kategorieBox_1, 1, 1);
-		eingabeLayout.setComponentAlignment(kategorieBox_1, new Alignment(48));
-		
-		// geldFeld_1
-		geldFeld_1 = new TextField();
-		geldFeld_1.setImmediate(false);
-		geldFeld_1.setWidth("-1px");
-		geldFeld_1.setHeight("-1px");
-		eingabeLayout.addComponent(geldFeld_1, 2, 1);
-		eingabeLayout.setComponentAlignment(geldFeld_1, new Alignment(33));
-		
-		// kontoBox_2
-		kontoBox_2 = new ComboBox();
-		kontoBox_2.setImmediate(false);
-		kontoBox_2.setWidth("-1px");
-		kontoBox_2.setHeight("-1px");
-		eingabeLayout.addComponent(kontoBox_2, 0, 2);
-		eingabeLayout.setComponentAlignment(kontoBox_2, new Alignment(34));
-		
-		// kategorieBox_2
-		kategorieBox_2 = new ComboBox();
-		kategorieBox_2.setImmediate(false);
-		kategorieBox_2.setWidth("-1px");
-		kategorieBox_2.setHeight("-1px");
-		eingabeLayout.addComponent(kategorieBox_2, 1, 2);
-		eingabeLayout.setComponentAlignment(kategorieBox_2, new Alignment(48));
-		
-		// geldFeld_2
-		geldFeld_2 = new TextField();
-		geldFeld_2.setImmediate(false);
-		geldFeld_2.setWidth("-1px");
-		geldFeld_2.setHeight("-1px");
-		eingabeLayout.addComponent(geldFeld_2, 2, 2);
-		eingabeLayout.setComponentAlignment(geldFeld_2, new Alignment(33));
-		
-		// kontoBox_3
-		kontoBox_3 = new ComboBox();
-		kontoBox_3.setImmediate(false);
-		kontoBox_3.setWidth("-1px");
-		kontoBox_3.setHeight("-1px");
-		eingabeLayout.addComponent(kontoBox_3, 0, 3);
-		eingabeLayout.setComponentAlignment(kontoBox_3, new Alignment(34));
-		
-		// kategorieBox_3
-		kategorieBox_3 = new ComboBox();
-		kategorieBox_3.setImmediate(false);
-		kategorieBox_3.setWidth("-1px");
-		kategorieBox_3.setHeight("-1px");
-		eingabeLayout.addComponent(kategorieBox_3, 1, 3);
-		eingabeLayout.setComponentAlignment(kategorieBox_3, new Alignment(48));
-		
-		// geldFeld_3
-		geldFeld_3 = new TextField();
-		geldFeld_3.setImmediate(false);
-		geldFeld_3.setWidth("-1px");
-		geldFeld_3.setHeight("-1px");
-		eingabeLayout.addComponent(geldFeld_3, 2, 3);
-		eingabeLayout.setComponentAlignment(geldFeld_3, new Alignment(33));
-		
-		// kontoBox_4
-		kontoBox_4 = new ComboBox();
-		kontoBox_4.setImmediate(false);
-		kontoBox_4.setWidth("-1px");
-		kontoBox_4.setHeight("-1px");
-		eingabeLayout.addComponent(kontoBox_4, 0, 4);
-		eingabeLayout.setComponentAlignment(kontoBox_4, new Alignment(34));
-		
-		// kategorieBox_4
-		kategorieBox_4 = new ComboBox();
-		kategorieBox_4.setImmediate(false);
-		kategorieBox_4.setWidth("-1px");
-		kategorieBox_4.setHeight("-1px");
-		eingabeLayout.addComponent(kategorieBox_4, 1, 4);
-		eingabeLayout.setComponentAlignment(kategorieBox_4, new Alignment(48));
-		
-		// geldFeld_4
-		geldFeld_4 = new TextField();
-		geldFeld_4.setImmediate(false);
-		geldFeld_4.setWidth("-1px");
-		geldFeld_4.setHeight("-1px");
-		eingabeLayout.addComponent(geldFeld_4, 2, 4);
-		eingabeLayout.setComponentAlignment(geldFeld_4, new Alignment(33));
+	
 		
 		// neuButton
 		neuButton = new Button();
@@ -304,11 +209,12 @@ public class EingabeSeite extends CustomComponent implements OFKView,ClickListen
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		if (event.getButton().getCaption().equals(speicherButton))
-		bestaetige();
+		
 		 for (OFKViewListener listener: listeners)
 	            listener.buttonClick(event.getButton()
 	                                 .getCaption());
+			
+			
 		
 	}
 	
@@ -318,6 +224,9 @@ public class EingabeSeite extends CustomComponent implements OFKView,ClickListen
 //		kontoBox_3.addItem(Kontoname);
 //		kontoBox_4.addItem(Kontoname);
 	}
+	
+
+	
 	public void addToKategorieBox(String Kategoriename){
 		kategorieBox_1.addItem(Kategoriename);
 	}
@@ -332,6 +241,121 @@ public class EingabeSeite extends CustomComponent implements OFKView,ClickListen
 
 	public boolean isEinnahme() {
 		return this.isEinnahme;
+	}
+	
+	public void feldErstellung (String[] konten, String [] kategorien){
+		
+		// kontoBox_1
+		kontoBox_1 = kontoBoxErstellung(konten);
+		kontoBox_1.setImmediate(false);
+		kontoBox_1.setWidth("-1px");
+		kontoBox_1.setHeight("-1px");
+		eingabeLayout.addComponent(kontoBox_1, 0, 1);
+		eingabeLayout.setComponentAlignment(kontoBox_1, new Alignment(34));
+		
+		// kategorieBox_1
+		kategorieBox_1 = kategorieErstellung(kategorien);
+		kategorieBox_1.setImmediate(false);
+		kategorieBox_1.setWidth("-1px");
+		kategorieBox_1.setHeight("-1px");
+		eingabeLayout.addComponent(kategorieBox_1, 1, 1);
+		eingabeLayout.setComponentAlignment(kategorieBox_1, new Alignment(48));
+		
+		// geldFeld_1
+		geldFeld_1 = new TextField();
+		geldFeld_1.setImmediate(false);
+		geldFeld_1.setWidth("-1px");
+		geldFeld_1.setHeight("-1px");
+		eingabeLayout.addComponent(geldFeld_1, 2, 1);
+		eingabeLayout.setComponentAlignment(geldFeld_1, new Alignment(33));
+		
+		// kontoBox_2
+		kontoBox_2 = kontoBoxErstellung(konten);;
+		kontoBox_2.setImmediate(false);
+		kontoBox_2.setWidth("-1px");
+		kontoBox_2.setHeight("-1px");
+		eingabeLayout.addComponent(kontoBox_2, 0, 2);
+		eingabeLayout.setComponentAlignment(kontoBox_2, new Alignment(34));
+		
+		// kategorieBox_2
+		kategorieBox_2 =  kategorieErstellung(kategorien);
+		kategorieBox_2.setImmediate(false);
+		kategorieBox_2.setWidth("-1px");
+		kategorieBox_2.setHeight("-1px");
+		eingabeLayout.addComponent(kategorieBox_2, 1, 2);
+		eingabeLayout.setComponentAlignment(kategorieBox_2, new Alignment(48));
+		
+		// geldFeld_2
+		geldFeld_2 = new TextField();
+		geldFeld_2.setImmediate(false);
+		geldFeld_2.setWidth("-1px");
+		geldFeld_2.setHeight("-1px");
+		eingabeLayout.addComponent(geldFeld_2, 2, 2);
+		eingabeLayout.setComponentAlignment(geldFeld_2, new Alignment(33));
+		
+		// kontoBox_3
+		kontoBox_3 = kontoBoxErstellung(konten);;
+		kontoBox_3.setImmediate(false);
+		kontoBox_3.setWidth("-1px");
+		kontoBox_3.setHeight("-1px");
+		eingabeLayout.addComponent(kontoBox_3, 0, 3);
+		eingabeLayout.setComponentAlignment(kontoBox_3, new Alignment(34));
+		
+		// kategorieBox_3
+		kategorieBox_3 =  kategorieErstellung(kategorien);
+		kategorieBox_3.setImmediate(false);
+		kategorieBox_3.setWidth("-1px");
+		kategorieBox_3.setHeight("-1px");
+		eingabeLayout.addComponent(kategorieBox_3, 1, 3);
+		eingabeLayout.setComponentAlignment(kategorieBox_3, new Alignment(48));
+		
+		// geldFeld_3
+		geldFeld_3 = new TextField();
+		geldFeld_3.setImmediate(false);
+		geldFeld_3.setWidth("-1px");
+		geldFeld_3.setHeight("-1px");
+		eingabeLayout.addComponent(geldFeld_3, 2, 3);
+		eingabeLayout.setComponentAlignment(geldFeld_3, new Alignment(33));
+		
+		// kontoBox_4
+		kontoBox_4 = kontoBoxErstellung(konten);
+		kontoBox_4.setImmediate(false);
+		kontoBox_4.setWidth("-1px");
+		kontoBox_4.setHeight("-1px");
+		eingabeLayout.addComponent(kontoBox_4, 0, 4);
+		eingabeLayout.setComponentAlignment(kontoBox_4, new Alignment(34));
+		
+		// kategorieBox_4
+		kategorieBox_4 =  kategorieErstellung(kategorien);
+		kategorieBox_4.setImmediate(false);
+		kategorieBox_4.setWidth("-1px");
+		kategorieBox_4.setHeight("-1px");
+		eingabeLayout.addComponent(kategorieBox_4, 1, 4);
+		eingabeLayout.setComponentAlignment(kategorieBox_4, new Alignment(48));
+		
+		// geldFeld_4
+		geldFeld_4 = new TextField();
+		geldFeld_4.setImmediate(false);
+		geldFeld_4.setWidth("-1px");
+		geldFeld_4.setHeight("-1px");
+		eingabeLayout.addComponent(geldFeld_4, 2, 4);
+		eingabeLayout.setComponentAlignment(geldFeld_4, new Alignment(33));
+	}
+	
+	private ComboBox kontoBoxErstellung (String[] Konten){
+		ComboBox erstellung = new ComboBox();
+		for(String name:Konten){
+			erstellung.addItem(name);
+		}
+	
+		return erstellung;
+	}
+	private ComboBox kategorieErstellung (String [] Kategorien){
+		ComboBox erstellung = new ComboBox();
+		for (String name:Kategorien){
+			erstellung.addItem(name);
+		}
+		return erstellung;
 	}
 	
 	// Bei erfolgreichem Spichervorgang rückmeldung benötigt
