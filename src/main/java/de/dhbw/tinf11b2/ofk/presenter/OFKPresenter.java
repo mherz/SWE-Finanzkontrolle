@@ -1,19 +1,19 @@
 package de.dhbw.tinf11b2.ofk.presenter;
 
+import java.io.Serializable;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
-import de.dhbw.tinf11b2.ofk.model.pojo.Category;
-import de.dhbw.tinf11b2.ofk.view.Einnahmenseite;
+import de.dhbw.tinf11b2.ofk.view.EingabeSeite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
+import de.dhbw.tinf11b2.ofk.view.RegisterSeite;
 import de.dhbw.tinf11b2.ofk.view.Startseite;
 import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
-public class OFKPresenter implements OFKViewListener {
+public class OFKPresenter implements OFKViewListener, Serializable {
+	private static final long serialVersionUID = 1L;
 
 	private OFKView view = new LoginSeite();
 	private OFKModel model;
@@ -28,6 +28,40 @@ public class OFKPresenter implements OFKViewListener {
 	public void pageChangeback() {
 		view = new Startseite();
 		view.addListener(this);
+		ui.setContent(view);
+	}
+	
+	private void generateEinnahmen(){
+		view = new EingabeSeite("Einnahmen", false);
+		view.addListener(this);
+		List<Account> accList = model.getAccounts();
+		String [] konten = new String [accList.size()];
+		int i = 0;
+		for (Account acc : accList) {
+			konten[i]=acc.getName();
+			i++;
+		}
+		String [] kategorien =  {"default", "hund", "katze"};
+		((EingabeSeite) view).feldErstellung(konten, kategorien);
+		ui.setContent(view);
+		ui.setContent(view);
+	}
+	
+	private void generateAusgaben(){
+
+		
+		view = new EingabeSeite("Ausgaben", false);
+		view.addListener(this);
+		List<Account> accList = model.getAccounts();
+		String [] konten = new String [accList.size()];
+		int i = 0;
+		for (Account acc : accList) {
+			konten[i]=acc.getName();
+			i++;
+		}
+		String [] kategorien =  {"default", "hund", "katze"};
+		((EingabeSeite) view).feldErstellung(konten, kategorien);
+		ui.setContent(view);
 		ui.setContent(view);
 	}
 
@@ -64,26 +98,17 @@ public class OFKPresenter implements OFKViewListener {
 			view.addListener(this);
 			ui.setContent(view);
 		}
-		if (operation.contentEquals("Einnahmen")) {
-			view = new Einnahmenseite("Einnahmen",true);
+		if (operation.contentEquals("Registrieren")) {
+			view = new RegisterSeite();
 			view.addListener(this);
-			List<Account> accList = model.getAccounts();
-			for (Account acc : accList) {
-				((Einnahmenseite) view).addToKontoBox(acc.getName());
-			}
-			((Einnahmenseite) view).addToKategorieBox("default");
 			ui.setContent(view);
 		}
+		if (operation.contentEquals("Einnahmen")) {
+			generateEinnahmen();
+		}
 		if (operation.contentEquals("Ausgabe")) {
-			view = new Einnahmenseite("Ausgaben",false);
-			view.addListener(this);
-			List<Account> accList = model.getAccounts();
-			for (Account acc : accList) {
-				((Einnahmenseite) view).addToKontoBox(acc.getName());
-			}
-			((Einnahmenseite) view).addToKategorieBox("default");
-			ui.setContent(view);
-			ui.setContent(view);
+			
+			generateAusgaben();
 		}
 		if (operation.contentEquals("Zurück")) {
 
@@ -92,30 +117,44 @@ public class OFKPresenter implements OFKViewListener {
 
 		if (operation.contentEquals("Werte Speichern")) {
 
-			if (!((Einnahmenseite)view).isEinnahme()) {
-				model.addCosts(model.getCategoryByName(((Einnahmenseite) view)
+			if (!((EingabeSeite) view).isEinnahme()) {
+				model.addCosts(model.getCategoryByName(((EingabeSeite) view)
 						.getCategoryFieldValue()),
-						Double.parseDouble(((Einnahmenseite) view)
+						Double.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new Einnahmenseite("Ausgaben",false);
-				view.addListener(this);
-				ui.setContent(view);
-			}
-			if (((Einnahmenseite)view).isEinnahme()) {
-				model.addIncome(model.getCategoryByName(((Einnahmenseite) view)
-						.getCategoryFieldValue()), Double
-						.parseDouble(((Einnahmenseite) view)
-								.getGeldFieldValue()), "default");
-				view = new Einnahmenseite("Einnahmen",true);
-				view.addListener(this);
-				ui.setContent(view);
-			}
-		}
-		if (operation.contentEquals("Wechsel")) {
-			if (((UeberblickSeite) view).getCurrentTab() == 1)
-				((UeberblickSeite) view).wechselDich(new String[]{"default","hallo"},new Double[]{500D,300D});
-				
 			
+				generateEinnahmen();
+				((EingabeSeite) view).bestaetige();
+			}
+			if (((EingabeSeite) view).isEinnahme()) {
+				model.addIncome(model.getCategoryByName(((EingabeSeite) view)
+						.getCategoryFieldValue()),
+						Double.parseDouble(((EingabeSeite) view)
+								.getGeldFieldValue()), "default");
+				generateAusgaben();
+				((EingabeSeite) view).bestaetige();
+			}
+			
+		}
+		if (operation.contentEquals("WechselA")) {
+			System.out.println("Ich bin in dem wechsel");
+
+			((UeberblickSeite) view).wechselDichA(model.getCategoryNames(),
+					model.getIncomeValues());
+		}
+
+		if (operation.contentEquals("WechselG")) {
+			System.out.println("Ich bin in dem wechsel");
+
+			((UeberblickSeite) view).wechselDichG(model.getCategoryNames(),
+					model.getIncomeValues());
+		}
+
+		if (operation.contentEquals("WechselE")) {
+			System.out.println("Ich bin in dem wechsel");
+
+			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
+					model.getIncomeValues());
 		}
 
 	}
