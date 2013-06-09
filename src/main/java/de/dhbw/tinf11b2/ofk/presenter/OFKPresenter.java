@@ -14,7 +14,7 @@ import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
 public class OFKPresenter implements OFKViewListener, Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private OFKView view = new LoginSeite();
 	private OFKModel model;
 	private OFKUI ui;
@@ -70,7 +70,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Einnahmen")) {
-			view = new EingabeSeite("Einnahmen",true);
+			view = new EingabeSeite("Einnahmen", true);
 			view.addListener(this);
 			List<Account> accList = model.getAccounts();
 			for (Account acc : accList) {
@@ -80,7 +80,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			ui.setContent(view);
 		}
 		if (operation.contentEquals("Ausgabe")) {
-			view = new EingabeSeite("Ausgaben",false);
+			view = new EingabeSeite("Ausgaben", false);
 			view.addListener(this);
 			List<Account> accList = model.getAccounts();
 			for (Account acc : accList) {
@@ -97,30 +97,44 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 		if (operation.contentEquals("Werte Speichern")) {
 
-			if (!((EingabeSeite)view).isEinnahme()) {
+			if (!((EingabeSeite) view).isEinnahme()) {
 				model.addCosts(model.getCategoryByName(((EingabeSeite) view)
 						.getCategoryFieldValue()),
 						Double.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new EingabeSeite("Ausgaben",false);
+				view = new EingabeSeite("Ausgaben", false);
 				view.addListener(this);
 				ui.setContent(view);
 			}
-			if (((EingabeSeite)view).isEinnahme()) {
+			if (((EingabeSeite) view).isEinnahme()) {
 				model.addIncome(model.getCategoryByName(((EingabeSeite) view)
-						.getCategoryFieldValue()), Double
-						.parseDouble(((EingabeSeite) view)
+						.getCategoryFieldValue()),
+						Double.parseDouble(((EingabeSeite) view)
 								.getGeldFieldValue()), "default");
-				view = new EingabeSeite("Einnahmen",true);
+				view = new EingabeSeite("Einnahmen", true);
 				view.addListener(this);
 				ui.setContent(view);
 			}
 		}
-		if (operation.contentEquals("Wechsel")) {
-			if (((UeberblickSeite) view).getCurrentTab() == 1)
-				((UeberblickSeite) view).wechselDich(model.getCategoryNames(),
-						model.getIncomeValues());
+		if (operation.contentEquals("WechselA")) {
+			System.out.println("Ich bin in dem wechsel");
 
+			((UeberblickSeite) view).wechselDichA(model.getCategoryNames(),
+					model.getIncomeValues());
+		}
+
+		if (operation.contentEquals("WechselG")) {
+			System.out.println("Ich bin in dem wechsel");
+
+			((UeberblickSeite) view).wechselDichG(model.getCategoryNames(),
+					model.getIncomeValues());
+		}
+
+		if (operation.contentEquals("WechselE")) {
+			System.out.println("Ich bin in dem wechsel");
+
+			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
+					model.getIncomeValues());
 		}
 
 	}
