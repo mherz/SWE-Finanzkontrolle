@@ -77,16 +77,7 @@ public class LoginSeite extends CustomComponent implements OFKView, ClickListene
 		verticalLayout.addComponent(loginButton);
 		verticalLayout.addComponent(label);
 		mainLayout.addComponent(verticalLayout, "top:30.0%;left:40.0%;");
-		
-		
-		
-//      Deprecated code:
-//		loginForm_1 = new LoginForm();
-//		loginForm_1.setStyleName("v-loginform");
-//		loginForm_1.setImmediate(false);
-//		loginForm_1.setWidth("-1px");
-//		loginForm_1.setHeight("-1px");
-//		mainLayout.addComponent(loginForm_1, "top:30.0%;left:40.0%;");
+	
 		
 		// registrierButton
 		registrierButton = new Button("Registrieren",this);

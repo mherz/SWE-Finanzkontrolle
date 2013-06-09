@@ -304,7 +304,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,ClickListen
 
 	@Override
 	public void buttonClick(ClickEvent event) {
-		
+		if (event.getButton().getCaption().equals(speicherButton))
 		bestaetige();
 		 for (OFKViewListener listener: listeners)
 	            listener.buttonClick(event.getButton()
