@@ -287,8 +287,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		conf.addSeries(series);
 		// Set the category labels on the axis correspondingly
 		XAxis xaxis = new XAxis();
-		xaxis.setCategories("Mercury", "Venus", "Earth", "Mars", "Jupiter",
-				"Saturn", "Uranus", "Neptune"); // als String Array
+		xaxis.setCategories(kategorien); // als String Array
 		xaxis.setTitle("Kategorien");
 		conf.addxAxis(xaxis);
 		// Set the Y axis title

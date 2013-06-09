@@ -27,7 +27,11 @@ public class IncomeDAO extends AbstractHibernateDAO implements Serializable{
 		
 		
 		return this.sessionFactory.getCurrentSession()
-				.createQuery("from Income")
+				.createQuery("select * from Income as income " +
+						"inner join Category.Category_Id as catId" +
+						"inner join Account.Account_Id as accId" +
+						"where accId=:account")
+				.setParameter("account", account.getAccountId())
 				.list();
 	}
 }

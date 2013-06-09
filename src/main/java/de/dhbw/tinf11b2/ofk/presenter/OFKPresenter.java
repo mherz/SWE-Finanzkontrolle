@@ -113,9 +113,9 @@ public class OFKPresenter implements OFKViewListener {
 		}
 		if (operation.contentEquals("Wechsel")) {
 			if (((UeberblickSeite) view).getCurrentTab() == 1)
-				((UeberblickSeite) view).wechselDich(model.getCategoryNames(),
-						model.getIncomeValues());
-
+				((UeberblickSeite) view).wechselDich(new String[]{"default","hallo"},new Double[]{500D,300D});
+				
+			
 		}
 
 	}

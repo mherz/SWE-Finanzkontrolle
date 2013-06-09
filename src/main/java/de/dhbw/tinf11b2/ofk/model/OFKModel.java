@@ -49,14 +49,15 @@ public class OFKModel {
 		inc.setTimestamp(new Date());
 		incomeDAO.create(inc);
 	}
-	public void addCosts(Category category, double value, String description){
+
+	public void addCosts(Category category, double value, String description) {
 		Costs costs = new Costs();
 		costs.setCategory(category);
 		costs.setValue(value);
 		costs.setDescription(description);
 		costs.setTimestamp(new Date());
 		costsDAO.create(costs);
-		
+
 	}
 
 	public Category getCategoryByName(String catName) {
@@ -67,7 +68,8 @@ public class OFKModel {
 
 		return null;
 	}
-	public List<Category> getCategoriesByAccount(Account account){
+
+	public List<Category> getCategoriesByAccount(Account account) {
 		System.out.println(categoryDAO);
 		return categoryDAO.getAccCategories(account);
 	}
@@ -78,27 +80,32 @@ public class OFKModel {
 		return list;
 	}
 
-	public List<Income> getIncomeByAccount(Account account){
+	public List<Income> getIncomeByAccount(Account account) {
 		return incomeDAO.getIncomeByAccount(account);
 	}
-	
-	public String[] getCategoryNames(){
+
+	public String[] getCategoryNames() {
 		String[] result = new String[categories.size()];
-		for(int i = 0;i<categories.size();i++){
+		for (int i = 0; i < categories.size(); i++) {
 			result[i] = categories.get(i).getName();
 		}
-		
+
 		return result;
 	}
-	
-	public Double[] getIncomeValues(){
+
+	public Double[] getIncomeValues() {
 		Double[] result = new Double[income.size()];
-		for(int i = 0;i<income.size();i++){
-			result[i] = income.get(i).getValue();
+		Income help = null;
+		for (int j = 0; j < categories.size(); j++) {
+			for (int i = 0; i < income.size(); i++) {
+				help = income.get(i);
+				if (help.getCategory().equals(categories.get(j)))
+					result[j] += income.get(i).getValue();
+			}
 		}
 		return result;
 	}
-	
+
 	public List<Account> getAccounts() {
 		return accountDAO.getAccounts();
 	}
@@ -182,9 +189,7 @@ public class OFKModel {
 		account = null;
 		categories = null;
 		income = null;
-		
-	}
-	
 
+	}
 
 }
