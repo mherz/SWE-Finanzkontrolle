@@ -1,2 +1,0 @@
-# Module de.dhbw.tinf11b2.ofk.view.CustomWidgetset
-# RPC service class, partial path of RPC policy file

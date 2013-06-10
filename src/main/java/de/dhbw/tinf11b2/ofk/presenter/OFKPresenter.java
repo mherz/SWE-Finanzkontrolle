@@ -5,7 +5,7 @@ import java.util.List;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
-import de.dhbw.tinf11b2.ofk.model.pojo.Category;
+
 import de.dhbw.tinf11b2.ofk.view.EingabeSeite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
@@ -36,17 +36,12 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		view = new EingabeSeite("Einnahmen", false);
 		view.addListener(this);
 		List<Account> accList = model.getAccounts();
-		List<Category> categoryList = model.getCategories();
-		String[] kategorien = new String [categoryList.size()];
+
+		String[] kategorien = model.getCategoryNames();
 		String[] konten = new String[accList.size()];
 		int i = 0;
 		for (Account acc : accList) {
 			konten[i] = acc.getName();
-			i++;
-		}
-		i= 0;
-		for (Category cat: categoryList){
-			kategorien[i]= cat.getName();
 			i++;
 		}
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
@@ -59,20 +54,15 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		view = new EingabeSeite("Ausgaben", false);
 		view.addListener(this);
 		List<Account> accList = model.getAccounts();
-		List<Category> categoryList = model.getCategories();
-		String[] kategorien = new String [categoryList.size()];
+
+		String[] kategorien = model.getCategoryNames();
 		String[] konten = new String[accList.size()];
 		int i = 0;
 		for (Account acc : accList) {
 			konten[i] = acc.getName();
 			i++;
 		}
-		i= 0;
-		for (Category cat: categoryList){
-			kategorien[i]= cat.getName();
-			i++;
-		}
-		
+
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
 		ui.setContent(view);
 	}
@@ -110,8 +100,8 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			view.addListener(this);
 			ui.setContent(view);
 		}
-		if (operation.contentEquals("Registrieren")
-				|| operation.contentEquals("Zurück zum Login")) {
+
+		if (operation.contentEquals("Registrieren")) {
 			view = new RegisterSeite();
 			view.addListener(this);
 			ui.setContent(view);
@@ -197,6 +187,11 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
 					model.getIncomeValues());
+		}
+		if (operation.contentEquals("Zurück zum Login")){
+			view = new LoginSeite();
+			view.addListener(this);
+			ui.setContent(view);
 		}
 
 	}
