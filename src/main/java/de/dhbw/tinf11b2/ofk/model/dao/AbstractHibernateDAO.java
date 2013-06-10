@@ -2,6 +2,7 @@ package de.dhbw.tinf11b2.ofk.model.dao;
  
 import com.google.common.base.Preconditions;
 import java.io.Serializable;
+import java.net.ConnectException;
 import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -31,7 +32,7 @@ public abstract class AbstractHibernateDAO< T extends Serializable> {
         return this.getCurrentSession().createQuery("from " + this.entity.getName()).list();
     }
  
-    public void create(final T entity) {
+    public void create(final T entity){
         Preconditions.checkNotNull(entity);
         this.getCurrentSession().persist(entity);
     }

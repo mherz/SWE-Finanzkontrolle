@@ -1,5 +1,6 @@
 package de.dhbw.tinf11b2.ofk.model;
 
+import java.rmi.ConnectException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -42,23 +43,37 @@ public class OFKModel {
 			return -1;
 	}
 
-	public void addIncome(Category category, double value, String description) {
+	public boolean addIncome(Category category, double value, String description) {
+
 		Income inc = new Income();
 		inc.setCategory(category);
 		inc.setValue(value);
 		inc.setDescription(description);
 		inc.setTimestamp(new Date());
+		try{
 		incomeDAO.create(inc);
+		} catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		setIncome(incomeDAO.getAll());
+		return true;
 	}
 
-	public void addCosts(Category category, double value, String description) {
+	public boolean addCosts(Category category, double value, String description) {
+		
 		Costs costs = new Costs();
 		costs.setCategory(category);
 		costs.setValue(value);
 		costs.setDescription(description);
 		costs.setTimestamp(new Date());
+		try{
 		costsDAO.create(costs);
-
+		} catch(Exception e){
+			e.printStackTrace();
+			return false;
+		}
+		return true;
 	}
 
 	public Category getCategoryByName(String catName) {
@@ -200,7 +215,6 @@ public class OFKModel {
 		account = null;
 		categories = null;
 		income = null;
-
 	}
 
 }
