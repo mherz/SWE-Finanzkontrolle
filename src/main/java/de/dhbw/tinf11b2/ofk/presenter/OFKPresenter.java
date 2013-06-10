@@ -98,7 +98,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			view.addListener(this);
 			ui.setContent(view);
 		}
-		if (operation.contentEquals("Registrieren")) {
+		if (operation.contentEquals("Registrieren") || operation.contentEquals("Zurück zum Login") ) {
 			view = new RegisterSeite();
 			view.addListener(this);
 			ui.setContent(view);

@@ -82,8 +82,7 @@ public class RegisterSeite extends CustomComponent implements ClickListener, OFK
 				"top:0.0px;right:-1.0px;bottom:10.0%;left:0.0px;");
 		
 		// zurueckButton
-		zurueckButton = new Button();
-		zurueckButton.setCaption("Button");
+		zurueckButton = new Button("Zurück zum Login",this);
 		zurueckButton.setImmediate(true);
 		zurueckButton.setWidth("-1px");
 		zurueckButton.setHeight("-1px");
@@ -139,8 +138,7 @@ public class RegisterSeite extends CustomComponent implements ClickListener, OFK
 		verticalLayout_1.setComponentAlignment(emailFeld, new Alignment(48));
 		
 		// speicherButton
-		speicherButton = new Button();
-		speicherButton.setCaption("Speichern");
+		speicherButton = new Button("Speichern",this);
 		speicherButton.setImmediate(true);
 		speicherButton.setWidth("-1px");
 		speicherButton.setHeight("-1px");

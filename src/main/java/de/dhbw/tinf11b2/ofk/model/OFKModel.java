@@ -1,5 +1,6 @@
 package de.dhbw.tinf11b2.ofk.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -70,7 +71,7 @@ public class OFKModel {
 	}
 
 	public List<Category> getCategoriesByAccount(Account account) {
-		System.out.println(categoryDAO);
+		
 		return categoryDAO.getAccCategories(account);
 	}
 
@@ -81,7 +82,17 @@ public class OFKModel {
 	}
 
 	public List<Income> getIncomeByAccount(Account account) {
-		return incomeDAO.getIncomeByAccount(account);
+		List<Income> list = incomeDAO.getIncomeByAccount(account);
+		List<Income> result = new ArrayList<Income>();
+		
+		for(int i = 0;i<categories.size();i++){
+			for(int j = 0;j<list.size();j++){
+				if(list.get(j).getCategory().getCatId()==categories.get(i).getCatId())
+				result.add(list.get(j));
+			}
+		}
+		
+		return result;
 	}
 
 	public String[] getCategoryNames() {
