@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
+import de.dhbw.tinf11b2.ofk.model.pojo.Category;
 import de.dhbw.tinf11b2.ofk.view.EingabeSeite;
 import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.view.OFKView;
@@ -30,38 +31,49 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		view.addListener(this);
 		ui.setContent(view);
 	}
-	
-	private void generateEinnahmen(){
+
+	private void generateEinnahmen() {
 		view = new EingabeSeite("Einnahmen", false);
 		view.addListener(this);
 		List<Account> accList = model.getAccounts();
-		String [] konten = new String [accList.size()];
+		List<Category> categoryList = model.getCategories();
+		String[] kategorien = new String [categoryList.size()];
+		String[] konten = new String[accList.size()];
 		int i = 0;
 		for (Account acc : accList) {
-			konten[i]=acc.getName();
+			konten[i] = acc.getName();
 			i++;
 		}
-		String [] kategorien =  {"default", "hund", "katze"};
+		i= 0;
+		for (Category cat: categoryList){
+			kategorien[i]= cat.getName();
+			i++;
+		}
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
 		ui.setContent(view);
 		ui.setContent(view);
 	}
-	
-	private void generateAusgaben(){
 
-		
+	private void generateAusgaben() {
+
 		view = new EingabeSeite("Ausgaben", false);
 		view.addListener(this);
 		List<Account> accList = model.getAccounts();
-		String [] konten = new String [accList.size()];
+		List<Category> categoryList = model.getCategories();
+		String[] kategorien = new String [categoryList.size()];
+		String[] konten = new String[accList.size()];
 		int i = 0;
 		for (Account acc : accList) {
-			konten[i]=acc.getName();
+			konten[i] = acc.getName();
 			i++;
 		}
-		String [] kategorien =  {"default", "hund", "katze"};
+		i= 0;
+		for (Category cat: categoryList){
+			kategorien[i]= cat.getName();
+			i++;
+		}
+		
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
-		ui.setContent(view);
 		ui.setContent(view);
 	}
 
@@ -98,7 +110,8 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			view.addListener(this);
 			ui.setContent(view);
 		}
-		if (operation.contentEquals("Registrieren") || operation.contentEquals("Zurück zum Login") ) {
+		if (operation.contentEquals("Registrieren")
+				|| operation.contentEquals("Zurück zum Login")) {
 			view = new RegisterSeite();
 			view.addListener(this);
 			ui.setContent(view);
@@ -107,7 +120,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			generateEinnahmen();
 		}
 		if (operation.contentEquals("Ausgabe")) {
-			
+
 			generateAusgaben();
 		}
 		if (operation.contentEquals("Zurück")) {
@@ -118,23 +131,52 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		if (operation.contentEquals("Werte Speichern")) {
 
 			if (!((EingabeSeite) view).isEinnahme()) {
-				model.addCosts(model.getCategoryByName(((EingabeSeite) view)
-						.getCategoryFieldValue()),
-						Double.parseDouble(((EingabeSeite) view)
-								.getGeldFieldValue()), "default");
-			
-				generateEinnahmen();
-				((EingabeSeite) view).bestaetige();
-			}
-			if (((EingabeSeite) view).isEinnahme()) {
-				model.addIncome(model.getCategoryByName(((EingabeSeite) view)
-						.getCategoryFieldValue()),
-						Double.parseDouble(((EingabeSeite) view)
-								.getGeldFieldValue()), "default");
+				String[] geldWerte = ((EingabeSeite) view).getGeldFieldValue();
+				String[] kategorieWerte = ((EingabeSeite) view)
+						.getKategorieFieldValue();
+				String[] kontenWerte = ((EingabeSeite) view)
+						.getKontoFieldValue();
+
+				for (int i = 0; i < 4; i++) {
+					if (geldWerte[i].equals("blanck")
+							| kategorieWerte[i].equals("blanck")
+							| kontenWerte[i].equals("blanck")) {
+					} else {
+						model.addCosts(
+								model.getCategoryByName(kategorieWerte[i]),
+								Double.parseDouble(geldWerte[i]),
+								kontenWerte[i]);
+						System.out.println(kategorieWerte[i]+ "  "+ geldWerte[i]+ "  "+ kontenWerte[i]);
+					}
+
+				}
+
 				generateAusgaben();
 				((EingabeSeite) view).bestaetige();
 			}
-			
+			if (((EingabeSeite) view).isEinnahme()) {
+				String[] geldWerte = ((EingabeSeite) view).getGeldFieldValue();
+				String[] kategorieWerte = ((EingabeSeite) view)
+						.getKategorieFieldValue();
+				String[] kontenWerte = ((EingabeSeite) view)
+						.getKontoFieldValue();
+				for (int i = 0; i < 4; i++) {
+					if (geldWerte[i].equals("blanck")
+							| kategorieWerte[i].equals("blanck")
+							| kontenWerte[i].equals("blanck")) {
+					} else {
+						model.addIncome(
+								model.getCategoryByName(kategorieWerte[i]),
+								Double.parseDouble(geldWerte[i]),
+								kontenWerte[i]);
+					}
+
+				}
+				generateEinnahmen();
+
+				((EingabeSeite) view).bestaetige();
+			}
+
 		}
 		if (operation.contentEquals("WechselA")) {
 			System.out.println("Ich bin in dem wechsel");
