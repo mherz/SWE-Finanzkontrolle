@@ -1,0 +1,11 @@
+@import "ofk.scss";
+
+/* This file prefixes all rules with the theme name to avoid causing conflicts with other themes. */
+/* The actual styles should be defined in finanzkontrolleonlinetheme.scss */
+.ofk {
+  @include ofk;
+.test{background-color:black;}
+.positiv{
+background-color:green; 
+}
+ }
