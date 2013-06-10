@@ -59,7 +59,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			konten[i]=acc.getName();
 			i++;
 		}
-		String [] kategorien =  {"default", "hund", "katze"};
+		String [] kategorien =  {"default"};
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
 		ui.setContent(view);
 		ui.setContent(view);
@@ -98,7 +98,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			view.addListener(this);
 			ui.setContent(view);
 		}
-		if (operation.contentEquals("Registrieren") || operation.contentEquals("Zurück zum Login") ) {
+		if (operation.contentEquals("Registrieren")) {
 			view = new RegisterSeite();
 			view.addListener(this);
 			ui.setContent(view);
@@ -155,6 +155,11 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
 					model.getIncomeValues());
+		}
+		if (operation.contentEquals("Zurück zum Login")){
+			view = new LoginSeite();
+			view.addListener(this);
+			ui.setContent(view);
 		}
 
 	}
