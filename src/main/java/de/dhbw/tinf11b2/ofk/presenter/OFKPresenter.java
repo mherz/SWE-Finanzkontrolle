@@ -1,6 +1,7 @@
 package de.dhbw.tinf11b2.ofk.presenter;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
@@ -33,7 +34,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	private void generateEinnahmen() {
-		view = new EingabeSeite("Einnahmen", false);
+		view = new EingabeSeite("Einnahmen", true);
 		view.addListener(this);
 		List<Account> accList = model.getAccounts();
 
@@ -130,13 +131,15 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 				for (int i = 0; i < 4; i++) {
 					if (geldWerte[i].equals("blanck")
 							| kategorieWerte[i].equals("blanck")
-							| kontenWerte[i].equals("blanck")) {
+							| kontenWerte[i].equals("blanck")
+							| geldWerte[i].matches("[a-zA-Z]")) {
 					} else {
 						model.addCosts(
 								model.getCategoryByName(kategorieWerte[i]),
 								Double.parseDouble(geldWerte[i]),
 								kontenWerte[i]);
-						System.out.println(kategorieWerte[i]+ "  "+ geldWerte[i]+ "  "+ kontenWerte[i]);
+						System.out.println(kategorieWerte[i] + "  "
+								+ geldWerte[i] + "  " + kontenWerte[i]);
 					}
 
 				}
@@ -150,21 +153,47 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 						.getKategorieFieldValue();
 				String[] kontenWerte = ((EingabeSeite) view)
 						.getKontoFieldValue();
+				boolean charInside = true;
+				boolean wechseln = true;
+				List<Integer> fehler = new ArrayList<Integer>();
 				for (int i = 0; i < 4; i++) {
 					if (geldWerte[i].equals("blanck")
 							| kategorieWerte[i].equals("blanck")
 							| kontenWerte[i].equals("blanck")) {
-					} else {
-						model.addIncome(
-								model.getCategoryByName(kategorieWerte[i]),
-								Double.parseDouble(geldWerte[i]),
-								kontenWerte[i]);
+						if (!geldWerte[i].equals("blanck")
+								| !kategorieWerte[i].equals("blanck")
+								| !kontenWerte[i].equals("blanck")) {
+						((EingabeSeite) view).eingabeFehler(i);
+						wechseln = false;
+						i = 5;}
+					}
+
+					else {
+						try {
+							Double doubleTest = Double
+									.parseDouble(geldWerte[i]);
+					
+								model.addIncome(model
+										.getCategoryByName(kategorieWerte[i]),
+										Double.parseDouble(geldWerte[i]),
+										kontenWerte[i]);
+								
+							
+						} catch (NumberFormatException e) {
+							fehler.add(i);
+							charInside = false;
+						}
+
 					}
 
 				}
+				if (wechseln){
 				generateEinnahmen();
-
-				((EingabeSeite) view).bestaetige();
+				if (charInside) {
+					((EingabeSeite) view).bestaetige();
+				} else {
+					((EingabeSeite) view).warne(fehler);
+				}}
 			}
 
 		}
@@ -188,7 +217,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
 					model.getIncomeValues());
 		}
-		if (operation.contentEquals("Zurück zum Login")){
+		if (operation.contentEquals("Zurück zum Login")) {
 			view = new LoginSeite();
 			view.addListener(this);
 			ui.setContent(view);
