@@ -24,6 +24,7 @@ public class OFKModel {
 	private Account account;
 	private List<Category> categories;
 	private List<Income> income;
+	private List<Costs> costs;
 
 	private UserDAO userDAO;
 	private AccountDAO accountDAO;
@@ -109,6 +110,20 @@ public class OFKModel {
 		
 		return result;
 	}
+	
+	public List<Costs> getCostsByAccount(Account account) {
+		List<Costs> list = costsDAO.getCostsByAccount(account);
+		List<Costs> result = new ArrayList<Costs>();
+		
+		for(int i = 0;i<categories.size();i++){
+			for(int j = 0;j<list.size();j++){
+				if(list.get(j).getCategory().getCatId()==categories.get(i).getCatId())
+				result.add(list.get(j));
+			}
+		}
+		
+		return result;
+	}
 
 	public String[] getCategoryNames() {
 		String[] result = new String[categories.size()];
@@ -168,6 +183,7 @@ public class OFKModel {
 		this.account = account;
 		categories = getCategoriesByAccount(account);
 		income = getIncomeByAccount(account);
+		costs = getCostsByAccount(account);
 	}
 
 	public List<Category> getCategories() {
@@ -215,6 +231,14 @@ public class OFKModel {
 		account = null;
 		categories = null;
 		income = null;
+	}
+
+	public List<Costs> getCosts() {
+		return costs;
+	}
+
+	public void setCosts(List<Costs> costs) {
+		this.costs = costs;
 	}
 
 }
