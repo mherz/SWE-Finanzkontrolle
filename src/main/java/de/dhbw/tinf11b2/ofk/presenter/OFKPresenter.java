@@ -181,7 +181,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 		if (operation.contentEquals("WechselE")) {
 			System.out.println("Ich bin in dem wechsel E");
-			System.out.println(model.getCategories()+" "+ model.getIncomeValues());
+			System.out.println(model.getCategories()+" "+ model.getIncomeValues().length);
 			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
 					model.getIncomeValues());
 		}
@@ -212,6 +212,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		int[] codes;
 		int fehlerzeile = 0;
 
+		// überprüfung auf leereingaben
 		for (int i = 0; i < 4; i++) {
 			if (geldWerte[i].equals("blanck")
 					|| kategorieWerte[i].equals("blanck")
@@ -232,7 +233,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 					Double doubleTest = Double.parseDouble(geldWerte[i]);
 
 					datenListe.add(i);
-
+// überprüfung auf falscheingaben
 				} catch (NumberFormatException e) {
 					fehler.add(i + 1);
 					datenListe.add(5);
@@ -241,6 +242,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			}
 
 		}
+		// setzen der fehler notification oder übergabewerte
 		if (datenListe.contains(5) | datenListe.contains(6)) {
 			codes = new int[1];
 			codes[0] = 6;
