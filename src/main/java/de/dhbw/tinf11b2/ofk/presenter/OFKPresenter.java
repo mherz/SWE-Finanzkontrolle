@@ -127,25 +127,20 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 						.getKategorieFieldValue();
 				String[] kontenWerte = ((EingabeSeite) view)
 						.getKontoFieldValue();
+				int[] daten = datenCodes();
+				if (daten[0] <= 4) {
+					for (int i = 0; i < daten.length; i++) {
 
-				for (int i = 0; i < 4; i++) {
-					if (geldWerte[i].equals("blanck")
-							| kategorieWerte[i].equals("blanck")
-							| kontenWerte[i].equals("blanck")
-							| geldWerte[i].matches("[a-zA-Z]")) {
-					} else {
-						model.addCosts(
-								model.getCategoryByName(kategorieWerte[i]),
-								Double.parseDouble(geldWerte[i]),
-								kontenWerte[i]);
-						System.out.println(kategorieWerte[i] + "  "
-								+ geldWerte[i] + "  " + kontenWerte[i]);
+						model.addCosts(model
+								.getCategoryByName(kategorieWerte[daten[i]]),
+								Double.parseDouble(geldWerte[daten[i]]),
+								kontenWerte[daten[i]]);
+
 					}
 
+					generateAusgaben();
+					((EingabeSeite) view).bestaetige();
 				}
-
-				generateAusgaben();
-				((EingabeSeite) view).bestaetige();
 			}
 			if (((EingabeSeite) view).isEinnahme()) {
 				String[] geldWerte = ((EingabeSeite) view).getGeldFieldValue();
@@ -153,47 +148,20 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 						.getKategorieFieldValue();
 				String[] kontenWerte = ((EingabeSeite) view)
 						.getKontoFieldValue();
-				boolean charInside = true;
-				boolean wechseln = true;
-				List<Integer> fehler = new ArrayList<Integer>();
-				for (int i = 0; i < 4; i++) {
-					if (geldWerte[i].equals("blanck")
-							| kategorieWerte[i].equals("blanck")
-							| kontenWerte[i].equals("blanck")) {
-						if (!geldWerte[i].equals("blanck")
-								| !kategorieWerte[i].equals("blanck")
-								| !kontenWerte[i].equals("blanck")) {
-						((EingabeSeite) view).eingabeFehler(i);
-						wechseln = false;
-						i = 5;}
+				int[] daten = datenCodes();
+				if (daten[0] <= 4) {
+					for (int i = 0; i < daten.length; i++) {
+						int wert = daten[i];
+						model.addIncome(
+								model.getCategoryByName(kategorieWerte[wert]),
+								Double.parseDouble(geldWerte[wert]),
+								kontenWerte[wert]);
 					}
 
-					else {
-						try {
-							Double doubleTest = Double
-									.parseDouble(geldWerte[i]);
-					
-								model.addIncome(model
-										.getCategoryByName(kategorieWerte[i]),
-										Double.parseDouble(geldWerte[i]),
-										kontenWerte[i]);
-								
-							
-						} catch (NumberFormatException e) {
-							fehler.add(i);
-							charInside = false;
-						}
-
-					}
-
-				}
-				if (wechseln){
-				generateEinnahmen();
-				if (charInside) {
+					generateEinnahmen();
 					((EingabeSeite) view).bestaetige();
-				} else {
-					((EingabeSeite) view).warne(fehler);
-				}}
+				}
+
 			}
 
 		}
@@ -212,8 +180,8 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		}
 
 		if (operation.contentEquals("WechselE")) {
-			System.out.println("Ich bin in dem wechsel");
-
+			System.out.println("Ich bin in dem wechsel E");
+			System.out.println(model.getCategories()+" "+ model.getIncomeValues().length);
 			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
 					model.getIncomeValues());
 		}
@@ -231,6 +199,69 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 	public void setModel(OFKModel model) {
 		this.model = model;
+	}
+
+	private int[] datenCodes() {
+
+		String[] geldWerte = ((EingabeSeite) view).getGeldFieldValue();
+		String[] kategorieWerte = ((EingabeSeite) view)
+				.getKategorieFieldValue();
+		String[] kontenWerte = ((EingabeSeite) view).getKontoFieldValue();
+		List<Integer> datenListe = new ArrayList<Integer>();
+		List<Integer> fehler = new ArrayList<Integer>();
+		int[] codes;
+		int fehlerzeile = 0;
+
+		// überprüfung auf leereingaben
+		for (int i = 0; i < 4; i++) {
+			if (geldWerte[i].equals("blanck")
+					|| kategorieWerte[i].equals("blanck")
+					|| kontenWerte[i].equals("blanck")) {
+
+				if (!geldWerte[i].equals("blanck")
+						|| !kategorieWerte[i].equals("blanck")
+						|| !kontenWerte[i].equals("blanck")) {
+					fehlerzeile = i + 1;
+					datenListe.add(6);
+					i = 7;
+				}
+
+			}
+
+			else {
+				try {
+					Double doubleTest = Double.parseDouble(geldWerte[i]);
+
+					datenListe.add(i);
+// überprüfung auf falscheingaben
+				} catch (NumberFormatException e) {
+					fehler.add(i + 1);
+					datenListe.add(5);
+				}
+
+			}
+
+		}
+		// setzen der fehler notification oder übergabewerte
+		if (datenListe.contains(5) | datenListe.contains(6)) {
+			codes = new int[1];
+			codes[0] = 6;
+			if (datenListe.contains(5)) {
+				((EingabeSeite) view).warne(fehler);
+			} else {
+				((EingabeSeite) view).eingabeFehler(fehlerzeile);
+			}
+		} else {
+			codes = new int[datenListe.size()];
+			int i = 0;
+			for (Integer daten : datenListe) {
+				codes[i] = daten;
+				i++;
+			}
+
+		}
+
+		return codes;
 	}
 
 }

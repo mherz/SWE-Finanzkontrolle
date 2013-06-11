@@ -221,8 +221,8 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		String[] test3 = { "Auto", "Bahn", "Fahrrad", "Motorrad" };
 
 		if (chartSelectE.getValue().equals(gesamt)) {
-			Double[] test4 = { 312D, 311D, 318D, 419D };
-			chart = setChartBarEinzel(test3, test4, "Einnahmen "+gesamt);
+			
+			chart = setChartBarEinzel(kategorien, werte, "Einnahmen "+gesamt);
 		} else {
 			Double[] test4 = { 312D, 211D, 918D, 419D };
 			chart = setChartBarEinzel(test3, test4, "Einnahmen "+zeit);

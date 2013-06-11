@@ -135,13 +135,14 @@ public class OFKModel {
 	}
 
 	public Double[] getIncomeValues() {
-		Double[] result = new Double[income.size()];
+		Double[] result = new Double[categories.size()];
 		Income help = null;
 		for (int j = 0; j < categories.size(); j++) {
+			result[j] = 0D;
 			for (int i = 0; i < income.size(); i++) {
 				help = income.get(i);
-				if (help.getCategory().equals(categories.get(j)))
-					result[j] += income.get(i).getValue();
+				if (help.getCategory().getCatId()==categories.get(j).getCatId())
+					result[j] = result[j] + help.getValue();
 			}
 		}
 		return result;
