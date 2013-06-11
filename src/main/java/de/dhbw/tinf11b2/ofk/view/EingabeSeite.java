@@ -211,7 +211,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 		speicherNotification = new Notification("Daten Sichern",
 				"<br/> Eingaben in: "+ fehler+" nicht erfolgreich bitte nur Zahlen eingeben",Notification.TYPE_WARNING_MESSAGE,true
 				);
-		speicherNotification.setStyleName(".negativ");
+		speicherNotification.setStyleName("negativ");
 		speicherNotification.show(Page.getCurrent());
 	}
 	@SuppressWarnings("deprecation")
@@ -220,7 +220,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 		speicherNotification = new Notification("Daten falsch eingegeben",
 				"<br/> Bitte Eingaben Prüfen, eines der Felder in Zeile "+i + " ist leer",Notification.TYPE_WARNING_MESSAGE,true
 				);
-		speicherNotification.setStyleName(".negativ");
+		speicherNotification.setStyleName("negativ");
 		speicherNotification.show(Page.getCurrent());
 	}
 
@@ -359,22 +359,22 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 	
 	public String[] getGeldFieldValue() {
 		String[] geldWerte = new String[4];
-		if (geldFeld_1.getValue() != null) {
+		if (!geldFeld_1.getValue().equals("")) {
 			geldWerte[0]=geldFeld_1.getValue();
 		} else {
 			geldWerte[0]= "blanck";
 		}
-		if (geldFeld_2.getValue() != null) {
+		if (!geldFeld_2.getValue().equals("")) {
 			geldWerte[1]=geldFeld_2.getValue();
 		} else {
 			geldWerte[1]= "blanck";
 		}
-		if (geldFeld_3.getValue() != null) {
+		if (!geldFeld_3.getValue().equals("")) {
 			geldWerte[2]=geldFeld_3.getValue();
 		} else {
 			geldWerte[2]= "blanck";
 		}
-		if (geldFeld_4.getValue() != null) {
+		if (!geldFeld_4.getValue().equals("")) {
 			geldWerte[3]=geldFeld_4.getValue();
 		} else {
 			geldWerte[3]= "blanck";
