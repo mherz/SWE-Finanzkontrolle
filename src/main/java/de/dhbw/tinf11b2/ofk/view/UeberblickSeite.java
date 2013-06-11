@@ -60,6 +60,8 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	private Button ausgabeButton;
 	private Button gesamtButton;
 
+	private String gesamt = "Gesamtübersicht";
+	private String zeit = "Zeitübersicht";
 	
 
 	/**
@@ -206,8 +208,9 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	
 		
 
-		chartSelect.addItem("Gesamt Überblick");
-		chartSelect.addItem("Zeit Überblick");
+		chartSelect.addItem(gesamt);
+		chartSelect.addItem(zeit);
+		chartSelect.setValue(zeit);
 		chartSelect.setDescription("Hier kann eine Kategorie gewählt werden");
 		chartSelect.setImmediate(true);
 		return chartSelect;
@@ -217,16 +220,16 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		Chart chart;
 		String[] test3 = { "Auto", "Bahn", "Fahrrad", "Motorrad" };
 
-		if (chartSelectE.getValue().equals("Gesamt Überblick")) {
+		if (chartSelectE.getValue().equals(gesamt)) {
 			Double[] test4 = { 312D, 311D, 318D, 419D };
-			chart = setChartBarEinzel(test3, test4, "Einnahmen Gesamtübersicht");
+			chart = setChartBarEinzel(test3, test4, "Einnahmen "+gesamt);
 		} else {
 			Double[] test4 = { 312D, 211D, 918D, 419D };
-			chart = setChartBarEinzel(test3, test4, "Einnahmen Zeitübersicht");
+			chart = setChartBarEinzel(test3, test4, "Einnahmen "+zeit);
 		}
 		
 		if (chart != null) 
-		einnahmenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
+		einnahmenLayout.addComponent(chart, "top:12.0%;left:0.0%;");
 		
 
 	}
@@ -235,17 +238,17 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		Chart chart;
 
 		String[] test3 = { "Auto", "Bahn", "Fahrrad", "Motorrad" };
-		if (chartSelectA.getValue().equals("Gesamt Überblick")) {
+		if (chartSelectA.getValue().equals(gesamt)) {
 			Double[] test4 = { 312D, 311D, 3318D, 419D };
-			chart = setChartBarEinzel(test3, test4, "Ausgaben Gesamtübersicht");
+			chart = setChartBarEinzel(test3, test4, "Ausgaben "+gesamt);
 		} else {
 			Double[] test4 = { 312D, 211D, 418D, 419D };
-			chart = setChartBarEinzel(test3, test4, "Ausgaben Zeitübersicht");
+			chart = setChartBarEinzel(test3, test4, "Ausgaben "+zeit);
 		}
 
 		// Chart
 		if (chart != null)
-		ausgabenLayout.addComponent(chart, "top:10.0%;left:0.0%;");
+		ausgabenLayout.addComponent(chart, "top:12.0%;left:0.0%;");
 		
 	
 	}
@@ -258,7 +261,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 
 		chart = setChartBarMulti(test3, test4, "Einnahmen", test2, "Ausgaben");
 
-		gesamtLayout.addComponent(chart, "top:10.0%;left:0.0%;");
+		gesamtLayout.addComponent(chart, "top:12.0%;left:0.0%;");
 
 	}
 

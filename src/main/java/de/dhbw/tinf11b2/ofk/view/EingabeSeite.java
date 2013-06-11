@@ -75,6 +75,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 
 	private Notification speicherNotification;
 
+
 	private String beschreibung;
 
 	boolean isEinnahme;
@@ -194,6 +195,7 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 
 	}
 
+	@SuppressWarnings("deprecation")
 	public void bestaetige() {
 
 		speicherNotification = new Notification("Daten Sichern",
@@ -202,12 +204,23 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 		speicherNotification.setStyleName("positiv");
 		speicherNotification.show(Page.getCurrent());
 	}
-	public void warne() {
+	
+	@SuppressWarnings("deprecation")
+	public void warne(List<Integer> fehler) {
 
 		speicherNotification = new Notification("Daten Sichern",
-				"<br/>Eingaben NICHT erfolgreich gespeichert",
-				Notification.TYPE_WARNING_MESSAGE, true);
-		speicherNotification.setStyleName("positiv");
+				"<br/> Eingaben in: "+ fehler+" nicht erfolgreich bitte nur Zahlen eingeben",Notification.TYPE_WARNING_MESSAGE,true
+				);
+		speicherNotification.setStyleName(".negativ");
+		speicherNotification.show(Page.getCurrent());
+	}
+	@SuppressWarnings("deprecation")
+	public void eingabeFehler(int i) {
+
+		speicherNotification = new Notification("Daten falsch eingegeben",
+				"<br/> Bitte Eingaben Prüfen, eines der Felder in Zeile "+i + " ist leer",Notification.TYPE_WARNING_MESSAGE,true
+				);
+		speicherNotification.setStyleName(".negativ");
 		speicherNotification.show(Page.getCurrent());
 	}
 
