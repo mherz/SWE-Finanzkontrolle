@@ -240,7 +240,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		String[] test3 = { "Auto", "Bahn", "Fahrrad", "Motorrad" };
 		if (chartSelectA.getValue().equals(gesamt)) {
 			Double[] test4 = { 312D, 311D, 3318D, 419D };
-			chart = setChartBarEinzel(test3, test4, "Ausgaben "+gesamt);
+			chart = setChartBarEinzel(strings, doubles, "Ausgaben "+gesamt);
 		} else {
 			Double[] test4 = { 312D, 211D, 418D, 419D };
 			chart = setChartBarEinzel(test3, test4, "Ausgaben "+zeit);
@@ -253,13 +253,11 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	
 	}
 
-	public void wechselDichG(String[] strings, Double[] doubles) {
+	public void wechselDichG(String[] kategorien, Double[] einnahmen, Double[] ausgaben) {
 		Chart chart;
-		Double[] test2 = { 112D, 211D, 800D, 500D };
-		String[] test3 = { "Auto", "Bahn", "Fahrrad", "Motorrad" };
-		Double[] test4 = { 112D, 411D, 118D, 119D };
 
-		chart = setChartBarMulti(test3, test4, "Einnahmen", test2, "Ausgaben");
+
+		chart = setChartBarMulti(kategorien, einnahmen, "Einnahmen", ausgaben, "Ausgaben");
 
 		gesamtLayout.addComponent(chart, "top:12.0%;left:0.0%;");
 

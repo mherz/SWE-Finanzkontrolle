@@ -17,7 +17,7 @@ public class CostsDAO extends AbstractHibernateDAO implements Serializable{
 	@SuppressWarnings("unchecked")
 	public List<Costs> getCostsByAccount(Account account){
 		
-		return this.sessionFactory.getCurrentSession().createQuery("from Income").list();
+		return this.sessionFactory.getCurrentSession().createQuery("from Costs").list();
 	
 	}
 	

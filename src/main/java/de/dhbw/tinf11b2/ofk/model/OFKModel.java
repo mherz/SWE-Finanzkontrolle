@@ -147,6 +147,19 @@ public class OFKModel {
 		}
 		return result;
 	}
+	public Double[] getCostValues() {
+		Double[] result = new Double[categories.size()];
+		Costs help = null;
+		for (int j = 0; j < categories.size(); j++) {
+			result[j] = 0D;
+			for (int i = 0; i < costs.size(); i++) {
+				help = costs.get(i);
+				if (help.getCategory().getCatId()==categories.get(j).getCatId())
+					result[j] = result[j] + help.getValue();
+			}
+		}
+		return result;
+	}
 
 	public List<Account> getAccounts() {
 		return accountDAO.getAccounts();

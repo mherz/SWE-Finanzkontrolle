@@ -169,14 +169,14 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			System.out.println("Ich bin in dem wechsel");
 
 			((UeberblickSeite) view).wechselDichA(model.getCategoryNames(),
-					model.getIncomeValues());
+					model.getCostValues());
 		}
 
 		if (operation.contentEquals("WechselG")) {
 			System.out.println("Ich bin in dem wechsel");
 
 			((UeberblickSeite) view).wechselDichG(model.getCategoryNames(),
-					model.getIncomeValues());
+					model.getIncomeValues(),model.getCostValues());
 		}
 
 		if (operation.contentEquals("WechselE")) {
