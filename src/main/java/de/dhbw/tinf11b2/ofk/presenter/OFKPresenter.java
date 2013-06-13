@@ -232,11 +232,19 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			else {
 				try {
 					Double doubleTest = Double.parseDouble(geldWerte[i]);
+					if (doubleTest > 0){
+						
+					}
+					else {
+						fehlerzeile = i + 1;
+						datenListe.add(7);
+					}
 
 					datenListe.add(i);
 // überprüfung auf falscheingaben
 				} catch (NumberFormatException e) {
 					fehler.add(i + 1);
+					fehlerzeile = i + 1;
 					datenListe.add(5);
 				}
 
@@ -244,11 +252,13 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 		}
 		// setzen der fehler notification oder übergabewerte
-		if (datenListe.contains(5) | datenListe.contains(6)) {
+		if (datenListe.contains(5) | datenListe.contains(6)|datenListe.contains(7)) {
 			codes = new int[1];
 			codes[0] = 6;
 			if (datenListe.contains(5)) {
-				((EingabeSeite) view).warne(fehler);
+				((EingabeSeite) view).warne(fehlerzeile," ");
+			} else if (datenListe.contains(7)) {
+				((EingabeSeite) view).warne(fehlerzeile," positive ");
 			} else {
 				((EingabeSeite) view).eingabeFehler(fehlerzeile);
 			}

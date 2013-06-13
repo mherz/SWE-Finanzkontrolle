@@ -74,7 +74,7 @@ public class Startseite extends CustomComponent implements OFKView, ClickListene
 	private AbsoluteLayout buildMainLayout() {
 		// common part: create layout
 		
-		System.out.println(koordinaten.getMain()+ "  bin gespannt");
+	
 		mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
 		mainLayout.setWidth("100%");

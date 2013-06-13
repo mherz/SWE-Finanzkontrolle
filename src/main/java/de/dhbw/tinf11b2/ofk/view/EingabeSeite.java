@@ -195,11 +195,13 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 	}
 	
 	@SuppressWarnings("deprecation")
-	public void warne(List<Integer> fehler) {
-
-		speicherNotification = new Notification("Daten Sichern",
-				"<br/> Eingaben in: "+ fehler+" nicht erfolgreich bitte nur Zahlen eingeben",Notification.TYPE_WARNING_MESSAGE,true
-				);
+	public void warne(int i, String wert) {
+		
+	
+			speicherNotification = new Notification("Daten Sichern",
+					"<br/> Eingaben in Zeile: "+ i+" nicht erfolgreich bitte nur"+ wert+ "Zahlen eingeben",Notification.TYPE_WARNING_MESSAGE,true
+					);
+		
 		speicherNotification.setStyleName("negativ");
 		speicherNotification.show(Page.getCurrent());
 	}
