@@ -4,9 +4,9 @@
 	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
 
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
-          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
+           http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+           http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
 ">
 	<context:annotation-config />
 	<aop:config proxy-target-class="true" />
@@ -46,11 +46,15 @@
 		scope="session">
 		<aop:scoped-proxy />
 		<property name="presenter" ref="presenter"></property>
+		<property name="startView" ref="startView"></property>
 	</bean>
 	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter"
 		scope="session">
 		<property name="model" ref="model"></property>
+
 	</bean>
+
+	<bean id="startView" class="de.dhbw.tinf11b2.ofk.view.LoginSeite" />
 
 
 	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">
@@ -63,8 +67,8 @@
 	</bean>
 
 
-	<!-- Note the usage of abstract="true" and parent="AbstractHibernateDAO" 
-		in the implementations -->
+	<!--  Note the usage of abstract="true" and parent="AbstractHibernateDAO"-->
+	<!-- in the implementations -->
 	<bean id="abstractHibernateDAO" abstract="true"
 		class="de.dhbw.tinf11b2.ofk.model.dao.AbstractHibernateDAO">
 		<property name="sessionFactory" ref="sessionFactory"></property>

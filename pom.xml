@@ -175,6 +175,12 @@
 			<artifactId>maven-resources-plugin</artifactId>
 			<version>2.4.3</version>
 		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+			<version>1.4.01</version>
+		</dependency>
+
 
 	</dependencies>
 
@@ -275,6 +281,85 @@
 							</pluginExecutions>
 						</lifecycleMappingMetadata>
 					</configuration>
+				</plugin>
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>selenium-maven-plugin</artifactId>
+					<version>2.3</version>
+					<executions>
+						<execution>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>start-server</goal>
+							</goals>
+							<configuration>
+								<background>true</background>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<!-- Skip the normal tests, we'll run them in the integration-test 
+							phase -->
+						<skip>true</skip>
+					</configuration>
+
+					<executions>
+						<execution>
+							<phase>integration-test</phase>
+							<goals>
+								<goal>test</goal>
+							</goals>
+							<configuration>
+								<skip>false</skip>
+							</configuration>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.tomcat.maven</groupId>
+					<artifactId>tomcat7-maven-plugin</artifactId>
+					<version>2.1</version>
+					<configuration>
+						<path>/ofk-core</path>
+						<contextFile>${basedir}/src/test/resources/tomcat/context.xml</contextFile>
+						<useTestClasspath>true</useTestClasspath>
+					</configuration>
+					<executions>
+						<!-- At pre-integration-test phase, run the war in an embedded Tomcat 
+							server. -->
+						<execution>
+							<id>start-tomcat</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>tomcat:run</goal>
+							</goals>
+							<configuration>
+								<port>8080</port>
+								<fork>true</fork>
+							</configuration>
+						</execution>
+						<!-- At post-integration-test phase, stop the embedded Tomcat server. -->
+						<execution>
+							<id>stop-tomcat</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>shutdown</goal>
+							</goals>
+						</execution>
+					</executions>
+					<dependencies>
+						<!-- Used to allow embedded Tomcat to connect to a MySQL database -->
+						<dependency>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<version>5.1.21</version>
+						</dependency>
+					</dependencies>
 				</plugin>
 			</plugins>
 		</pluginManagement>

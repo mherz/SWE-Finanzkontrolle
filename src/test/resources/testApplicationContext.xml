@@ -22,8 +22,7 @@
 			<props>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hbm2ddl.auto">validate</prop>
-				<prop key="hibernate.hbm2ddl.auto">validate</prop>
+				<prop key="hibernate.hbm2ddl.auto">create</prop>
 			</props>
 		</property>
 	</bean>
@@ -43,21 +42,24 @@
 	<tx:annotation-driven transaction-manager="txManager" />
 
 
-	<bean id="OFKUI" class="de.dhbw.tinf11b2.ofk.presenter.OFKUI"
-		scope="session">
+	<bean id="OFKUI" class="de.dhbw.tinf11b2.ofk.presenter.OFKUI">
 		<aop:scoped-proxy />
 		<property name="presenter" ref="presenter"></property>
+		<property name="startView" ref="startView"></property>
 	</bean>
-	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter"
-		scope="session">
+	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter">
 		<property name="model" ref="model"></property>
 	</bean>
 
+	<bean id="startView" class="de.dhbw.tinf11b2.ofk.view.Startseite"/>
 
 	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">
 		<aop:scoped-proxy />
 		<property name="userDAO" ref="userDAO"></property>
 		<property name="accountDAO" ref="accountDAO"></property>
+		<property name="categoryDAO" ref="categoryDAO"></property>
+		<property name="incomeDAO" ref="incomeDAO"></property>
+		<property name="costsDAO" ref="costsDAO"></property>
 	</bean>
 
 

@@ -160,6 +160,14 @@ public class OFKModel {
 		}
 		return result;
 	}
+	
+	public void addUser(String email, String name, String password){
+		User user = new User();
+		user.setEmail(email);
+		user.setName(name);
+		user.setPassword(password);
+		userDAO.create(user);
+	}
 
 	public List<Account> getAccounts() {
 		return accountDAO.getAccounts();
