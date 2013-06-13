@@ -115,7 +115,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			generateAusgaben();
 		}
 		if (operation.contentEquals("Zurück")) {
-
+			System.out.println("Ich bin da");
 			this.pageChangeback();
 		}
 

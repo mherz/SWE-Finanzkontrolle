@@ -63,6 +63,8 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 	private String gesamt = "Gesamtübersicht";
 	private String zeit = "Zeitübersicht";
 	
+	private StandardElement elemente = new StandardElement();
+	private Koordinaten koordinaten = new Koordinaten();
 
 	/**
 	 * The constructor should first build the main layout, set the composition
@@ -96,19 +98,17 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		uebersichtLabel.setWidth("-1px");
 		uebersichtLabel.setHeight("-1px");
 		uebersichtLabel.setValue("Übersicht");
-		mainLayout.addComponent(uebersichtLabel, "top:0.0px;left:40%;");
+		mainLayout.addComponent(uebersichtLabel, koordinaten.getLabel());
 
 		// ubersichtSheet
 		ubersichtSheet = buildUbersichtSheet();
-		mainLayout.addComponent(ubersichtSheet, "top:10%;left:0%;");
+		mainLayout.addComponent(ubersichtSheet, koordinaten.getMain());
 
 		// zurueckButton
-		zurueckButton = new Button("Zurück", this);
-		zurueckButton.setImmediate(false);
-		zurueckButton.setWidth("-1px");
-		zurueckButton.setHeight("-1px");
+		zurueckButton = elemente.zurueckGen();
 		zurueckButton.setId("Zurück");
-		mainLayout.addComponent(zurueckButton, "top:92.0%;left:90.0%;");
+		zurueckButton.addClickListener(this);
+		mainLayout.addComponent(zurueckButton, koordinaten.getZurueck());
 
 		return mainLayout;
 	}
@@ -229,7 +229,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 		}
 		
 		if (chart != null) 
-		einnahmenLayout.addComponent(chart, "top:12.0%;left:0.0%;");
+		einnahmenLayout.addComponent(chart, koordinaten.getChart() );
 		
 
 	}
@@ -239,7 +239,6 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 
 		String[] test3 = { "Auto", "Bahn", "Fahrrad", "Motorrad" };
 		if (chartSelectA.getValue().equals(gesamt)) {
-			Double[] test4 = { 312D, 311D, 3318D, 419D };
 			chart = setChartBarEinzel(strings, doubles, "Ausgaben "+gesamt);
 		} else {
 			Double[] test4 = { 312D, 211D, 418D, 419D };
@@ -248,7 +247,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 
 		// Chart
 		if (chart != null)
-		ausgabenLayout.addComponent(chart, "top:12.0%;left:0.0%;");
+		ausgabenLayout.addComponent(chart, koordinaten.getChart());
 		
 	
 	}
@@ -259,7 +258,7 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 
 		chart = setChartBarMulti(kategorien, einnahmen, "Einnahmen", ausgaben, "Ausgaben");
 
-		gesamtLayout.addComponent(chart, "top:12.0%;left:0.0%;");
+		gesamtLayout.addComponent(chart, koordinaten.getChart());
 
 	}
 
