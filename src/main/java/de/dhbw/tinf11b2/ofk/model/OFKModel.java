@@ -74,6 +74,7 @@ public class OFKModel {
 			e.printStackTrace();
 			return false;
 		}
+		setCosts(incomeDAO.getAll());
 		return true;
 	}
 
@@ -111,6 +112,8 @@ public class OFKModel {
 		return result;
 	}
 	
+	
+	
 	public List<Costs> getCostsByAccount(Account account) {
 		List<Costs> list = costsDAO.getCostsByAccount(account);
 		List<Costs> result = new ArrayList<Costs>();
@@ -133,6 +136,7 @@ public class OFKModel {
 
 		return result;
 	}
+	
 
 	public Double[] getIncomeValues() {
 		Double[] result = new Double[categories.size()];

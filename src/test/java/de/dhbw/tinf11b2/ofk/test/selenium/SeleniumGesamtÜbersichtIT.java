@@ -19,46 +19,56 @@ import de.dhbw.tinf11b2.ofk.view.Startseite;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumEinnahmenZeitübersichtTest {
+public class SeleniumGesamtÜbersichtIT {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
-	@Autowired
-	private OFKPresenter presenter;
 
 	@Before
 	public void setUp() throws Exception {
-		presenter.setView(new Startseite());
 		driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/ofk-core";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
-	public void testSeleniumEinnahmenZeitBersicht() throws Exception {
+	public void testSeleniumGesamtBersicht() throws Exception {
 		driver.get(baseUrl + "/ofk-core");
-		presenter.setView(new Startseite());
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (driver.findElement(By.cssSelector("span.v-button-wrap"))
-						.isDisplayed())
+				if (isElementPresent(By.cssSelector("span.v-button-wrap")))
 					break;
 			} catch (Exception e) {
 			}
 			Thread.sleep(1000);
 		}
 
-		driver.findElement(By.cssSelector("span.v-button-wrap")).click();
+		driver.findElement(
+				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div/div/div[3]/div"))
+				.click();
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (driver.findElement(
-						By.cssSelector("div.v-filterselect-button"))
-						.isDisplayed())
+				if (isElementPresent(By
+						.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div[2]/div/div/div/div/div")))
+					break;
+			} catch (Exception e) {
+			}
+			Thread.sleep(1000);
+		}
+
+		driver.findElement(
+				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div/table/tbody/tr/td[2]/div/div/div"))
+				.click();
+		for (int second = 0;; second++) {
+			if (second >= 60)
+				fail("timeout");
+			try {
+				if (isElementPresent(By.cssSelector("span.v-button-caption")))
 					break;
 			} catch (Exception e) {
 			}
@@ -70,9 +80,8 @@ public class SeleniumEinnahmenZeitübersichtTest {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (driver.findElement(
-						By.cssSelector("g.highcharts-tracker > g > rect"))
-						.isDisplayed())
+				if (isElementPresent(By
+						.cssSelector("g.highcharts-tracker > g > rect")))
 					break;
 			} catch (Exception e) {
 			}

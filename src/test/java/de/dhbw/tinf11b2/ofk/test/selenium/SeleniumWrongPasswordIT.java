@@ -19,7 +19,7 @@ import de.dhbw.tinf11b2.ofk.presenter.OFKUI;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumWrongPasswordTest {
+public class SeleniumWrongPasswordIT {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;

@@ -18,14 +18,13 @@ import de.dhbw.tinf11b2.ofk.view.OFKView;
 public class OFKUI extends UI   {
 	
 	private OFKPresenter presenter;
-	private OFKView startView;
 	
 	@Override
 	protected void init(VaadinRequest request) {
 		
 		VerticalLayout layout = new VerticalLayout();
 		layout.setMargin(true);
-		presenter.init(this,startView);
+		presenter.init(this);
 
 	}
 	public OFKPresenter getPresenter() {
@@ -34,11 +33,5 @@ public class OFKUI extends UI   {
 
 	public void setPresenter(OFKPresenter presenter) {
 		this.presenter = presenter;
-	}
-	public OFKView getStartView() {
-		return startView;
-	}
-	public void setStartView(OFKView startView) {
-		this.startView = startView;
 	}
 }
