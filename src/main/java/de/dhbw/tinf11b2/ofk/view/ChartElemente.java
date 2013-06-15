@@ -56,7 +56,7 @@ public class ChartElemente {
 		// Modify the default configuration a bit
 		Configuration conf = chart.getConfiguration();
 		conf.setTitle("In dieser Kategorie bist du:");
-		conf.setSubTitle("Gesamtübersicht Zeitraum");
+		conf.setSubTitle("Gesamtübersicht");
 		conf.getLegend().setEnabled(true); // Disable legend
 		// The data
 
@@ -88,7 +88,8 @@ public class ChartElemente {
 
 		Configuration conf = chart.getConfiguration();
 
-		conf.setTitle("Du bist in dieser Kategorie:" + name);
+		conf.setTitle("Du bist in dieser Kategorie:");
+		conf.setSubTitle(name);
 
 		PlotOptionsPie plotOptions = new PlotOptionsPie();
 		plotOptions.setCursor(Cursor.POINTER);
@@ -97,7 +98,8 @@ public class ChartElemente {
 		dataLabels.setColor(new SolidColor(0, 0, 0));
 		dataLabels.setConnectorColor(new SolidColor(0, 0, 0));
 		dataLabels
-				.setFormatter("''+ this.point.name +': '+ this.percentage +' %'");
+				.setFormatter("this.point.name +': '+ this.y +' €'" +
+						"+ ' (' +Math.floor(this.percentage)+'%)'");
 		plotOptions.setDataLabels(dataLabels);
 		conf.setPlotOptions(plotOptions);
 
