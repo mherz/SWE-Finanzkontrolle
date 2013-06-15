@@ -19,13 +19,13 @@ import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 public class OFKPresenter implements OFKViewListener, Serializable {
 	private static final long serialVersionUID = 1L;
 
-	private OFKView view;
+	private OFKView view = new LoginSeite();
 	private OFKModel model;
 	private OFKUI ui;
 
-	public void init(OFKUI ui, OFKView startView) {
+	public void init(OFKUI ui) {
+
 		this.ui = ui;
-		this.view = startView;
 		view.addListener(this);
 		ui.setContent(view);
 	}

@@ -46,15 +46,14 @@
 		scope="session">
 		<aop:scoped-proxy />
 		<property name="presenter" ref="presenter"></property>
-		<property name="startView" ref="startView"></property>
 	</bean>
+	
 	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter"
 		scope="session">
 		<property name="model" ref="model"></property>
 
 	</bean>
 
-	<bean id="startView" class="de.dhbw.tinf11b2.ofk.view.LoginSeite" />
 
 
 	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">

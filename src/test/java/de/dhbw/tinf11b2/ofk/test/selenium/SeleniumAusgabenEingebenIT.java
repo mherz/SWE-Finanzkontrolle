@@ -19,7 +19,7 @@ import de.dhbw.tinf11b2.ofk.view.Startseite;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumAusgabenEingebenTest {
+public class SeleniumAusgabenEingebenIT {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;

@@ -19,7 +19,7 @@ import de.dhbw.tinf11b2.ofk.view.Startseite;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumGesamtÜbersichtTest {
+public class SeleniumAusgabenZeitübersichtIT {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
@@ -33,7 +33,7 @@ public class SeleniumGesamtÜbersichtTest {
 	}
 
 	@Test
-	public void testSeleniumGesamtBersicht() throws Exception {
+	public void testSeleniumAusgabenZeitBersicht() throws Exception {
 		driver.get(baseUrl + "/ofk-core");
 		for (int second = 0;; second++) {
 			if (second >= 60)
@@ -62,34 +62,21 @@ public class SeleniumGesamtÜbersichtTest {
 		}
 
 		driver.findElement(
-				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div/table/tbody/tr/td[2]/div/div/div"))
+				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div/table/tbody/tr/td[3]/div/div/div"))
 				.click();
-		for (int second = 0;; second++) {
-			if (second >= 60)
-				fail("timeout");
-			try {
-				if (isElementPresent(By.cssSelector("span.v-button-caption")))
-					break;
-			} catch (Exception e) {
-			}
-			Thread.sleep(1000);
-		}
-
 		driver.findElement(By.cssSelector("span.v-button-caption")).click();
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (isElementPresent(By
-						.cssSelector("g.highcharts-tracker > g > rect")))
+				if (isElementPresent(By.cssSelector("svg > rect")))
 					break;
 			} catch (Exception e) {
 			}
 			Thread.sleep(1000);
 		}
 
-		assertTrue(isElementPresent(By
-				.cssSelector("g.highcharts-tracker > g > rect")));
+		assertTrue(isElementPresent(By.cssSelector("svg > rect")));
 	}
 
 	@After

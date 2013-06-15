@@ -19,7 +19,7 @@ import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumLoginTest {
+public class SeleniumLoginIT {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;

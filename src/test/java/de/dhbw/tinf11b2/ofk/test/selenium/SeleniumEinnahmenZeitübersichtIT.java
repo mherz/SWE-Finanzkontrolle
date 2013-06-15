@@ -19,71 +19,60 @@ import de.dhbw.tinf11b2.ofk.view.Startseite;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumEinnahmenGesamtÜbersichtTest {
+public class SeleniumEinnahmenZeitübersichtIT {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
+	@Autowired
+	private OFKPresenter presenter;
 
 	@Before
 	public void setUp() throws Exception {
+		presenter.setView(new Startseite());
 		driver = new FirefoxDriver();
 		baseUrl = "http://localhost:8080/ofk-core";
 		driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
 	}
 
 	@Test
-	public void testSeleniumEinnahmenGesamtBersicht() throws Exception {
+	public void testSeleniumEinnahmenZeitBersicht() throws Exception {
 		driver.get(baseUrl + "/ofk-core");
+		presenter.setView(new Startseite());
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (isElementPresent(By.cssSelector("span.v-button-wrap")))
+				if (driver.findElement(By.cssSelector("span.v-button-wrap"))
+						.isDisplayed())
 					break;
 			} catch (Exception e) {
 			}
 			Thread.sleep(1000);
 		}
 
-		driver.findElement(
-				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div/div/div[3]/div"))
-				.click();
+		driver.findElement(By.cssSelector("span.v-button-wrap")).click();
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (isElementPresent(By
-						.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div[2]/div/div/div/div/div")))
+				if (driver.findElement(
+						By.cssSelector("div.v-filterselect-button"))
+						.isDisplayed())
 					break;
 			} catch (Exception e) {
 			}
 			Thread.sleep(1000);
 		}
 
-		driver.findElement(By.cssSelector("div.v-filterselect-button")).click();
-		for (int second = 0;; second++) {
-			if (second >= 60)
-				fail("timeout");
-			try {
-				if (isElementPresent(By
-						.cssSelector("td.gwt-MenuItem.gwt-MenuItem-selected > span")))
-					break;
-			} catch (Exception e) {
-			}
-			Thread.sleep(1000);
-		}
-
-		driver.findElement(
-				By.xpath("//div[@id='VAADIN_COMBOBOX_OPTIONLIST']/div/div[2]/table/tbody/tr[2]/td"))
-				.click();
 		driver.findElement(By.cssSelector("span.v-button-caption")).click();
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (isElementPresent(By
-						.cssSelector("g.highcharts-tracker > g > rect")))
+				if (driver.findElement(
+						By.cssSelector("g.highcharts-tracker > g > rect"))
+						.isDisplayed())
 					break;
 			} catch (Exception e) {
 			}
