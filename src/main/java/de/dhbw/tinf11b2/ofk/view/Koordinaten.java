@@ -12,7 +12,7 @@ public class Koordinaten {
 	}
 
 	public String getLabel() {
-		String labelX = "top:5.0%;left:45.0%;";
+		String labelX = "top:3.0%;left:45.0%;";
 		test(labelX);
 		return labelX;
 	}

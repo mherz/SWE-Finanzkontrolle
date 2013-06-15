@@ -97,7 +97,7 @@ public class Startseite extends CustomComponent implements OFKView, ClickListene
 		mainLayout.addComponent(logout, koordinaten.getZurueck());
 
 		// titelLabel
-		titelLabel = elemente.labelGen();
+		titelLabel = elemente.beschrGen();
 		titelLabel.setValue("Startseite");
 		mainLayout.addComponent(titelLabel, koordinaten.getLabel());
 
@@ -118,7 +118,7 @@ public class Startseite extends CustomComponent implements OFKView, ClickListene
 		startLayout.setSpacing(true);
 		startLayout.setColumns(3);
 		startLayout.setRows(3);
-		startLayout.setStyleName("test");
+//		startLayout.setStyleName("test");
 
 		// uebersichtSeite
 		uebersichtSeite = new Button("Übersicht",this);

@@ -2,7 +2,9 @@ package de.dhbw.tinf11b2.ofk.presenter;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
@@ -21,7 +23,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	private OFKModel model;
 	private OFKUI ui;
 
-	public void init(OFKUI ui,OFKView startView) {
+	public void init(OFKUI ui, OFKView startView) {
 		this.ui = ui;
 		this.view = startView;
 		view.addListener(this);
@@ -166,25 +168,32 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			}
 
 		}
+
 		if (operation.contentEquals("WechselA")) {
 			System.out.println("Ich bin in dem wechsel");
+			// System.out.println(model.getCostValuesDate()[0]);
 
 			((UeberblickSeite) view).wechselDichA(model.getCategoryNames(),
-					model.getCostValues());
+					model.getCostValues(),
+					monatsNamen(model.getCostValuesDate()),
+					monatsWerte(model.getCostValuesDate()));
 		}
 
 		if (operation.contentEquals("WechselG")) {
 			System.out.println("Ich bin in dem wechsel");
 
 			((UeberblickSeite) view).wechselDichG(model.getCategoryNames(),
-					model.getIncomeValues(),model.getCostValues());
+					model.getIncomeValues(), model.getCostValues());
 		}
 
 		if (operation.contentEquals("WechselE")) {
 			System.out.println("Ich bin in dem wechsel E");
-			System.out.println(model.getCategories()+" "+ model.getIncomeValues().length);
+			System.out.println(model.getCategories() + " "
+					+ model.getIncomeValues().length);
 			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
-					model.getIncomeValues());
+					model.getIncomeValues(),
+					monatsNamen(model.getIncomeValuesDate()),
+					monatsWerte(model.getIncomeValuesDate()));
 		}
 		if (operation.contentEquals("Zurück zum Login")) {
 			view = new LoginSeite();
@@ -232,16 +241,15 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			else {
 				try {
 					Double doubleTest = Double.parseDouble(geldWerte[i]);
-					if (doubleTest > 0){
-						
-					}
-					else {
+					if (doubleTest > 0) {
+
+					} else {
 						fehlerzeile = i + 1;
 						datenListe.add(7);
 					}
 
 					datenListe.add(i);
-// überprüfung auf falscheingaben
+					// überprüfung auf falscheingaben
 				} catch (NumberFormatException e) {
 					fehler.add(i + 1);
 					fehlerzeile = i + 1;
@@ -252,13 +260,14 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 		}
 		// setzen der fehler notification oder übergabewerte
-		if (datenListe.contains(5) | datenListe.contains(6)|datenListe.contains(7)) {
+		if (datenListe.contains(5) | datenListe.contains(6)
+				| datenListe.contains(7)) {
 			codes = new int[1];
 			codes[0] = 6;
 			if (datenListe.contains(5)) {
-				((EingabeSeite) view).warne(fehlerzeile," ");
+				((EingabeSeite) view).warne(fehlerzeile, " ");
 			} else if (datenListe.contains(7)) {
-				((EingabeSeite) view).warne(fehlerzeile," positive ");
+				((EingabeSeite) view).warne(fehlerzeile, " positive ");
 			} else {
 				((EingabeSeite) view).eingabeFehler(fehlerzeile);
 			}
@@ -275,9 +284,40 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		return codes;
 	}
 
+	private Double[] monatsWerte(HashMap<Integer, Double> valuesDate) {
+
+		HashMap<Integer, Double> costValuesDate = valuesDate;
+		Double[] monatsWerte = new Double[costValuesDate.size()];
+		int i = 0;
+
+		for (Entry<Integer, Double> e : costValuesDate.entrySet()) {
+			monatsWerte[i] = e.getValue();
+			i++;
+		}
+
+		return monatsWerte;
+	}
+
+	private String[] monatsNamen(HashMap<Integer, Double> namesDate) {
+
+		HashMap<Integer, Double> costValuesDate = namesDate;
+		String[] monatsNamen = new String[costValuesDate.size()];
+		int i = 0;
+		String[] monate = { "Januar", "Februar", "März", "April", "Mai",
+				"Juni", "Juli", "August", "September", "Oktober", "November",
+				"Dezember" };
+		for (Entry<Integer, Double> e : costValuesDate.entrySet()) {
+			monatsNamen[i] = monate[e.getKey()];
+
+			i++;
+		}
+
+		return monatsNamen;
+	}
+
 	public void setView(OFKView view) {
 		ui.setContent(view);
-		
+
 	}
 
 	public OFKUI getUi() {

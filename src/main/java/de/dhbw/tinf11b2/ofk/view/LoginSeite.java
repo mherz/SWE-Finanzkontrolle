@@ -84,6 +84,7 @@ public class LoginSeite extends CustomComponent implements OFKView, ClickListene
 		registrierButton.setImmediate(false);
 		registrierButton.setWidth("-1px");
 		registrierButton.setHeight("-1px");
+		registrierButton.setEnabled(false);
 		mainLayout.addComponent(registrierButton, "top:92.0%;left:85.0%;");
 		
 		return mainLayout;

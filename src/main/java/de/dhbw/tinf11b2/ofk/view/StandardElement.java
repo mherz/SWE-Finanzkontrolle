@@ -3,6 +3,7 @@ package de.dhbw.tinf11b2.ofk.view;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.vaadin.ui.Button;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
@@ -23,6 +24,7 @@ public class StandardElement extends CustomComponent implements OFKView,
 	public StandardElement() {
 
 	}
+	
 
 	public Button zurueckGen() {
 		Button zurueck = new Button("Zurück");
@@ -38,6 +40,7 @@ public class StandardElement extends CustomComponent implements OFKView,
 		beschreibungslabel.setImmediate(false);
 		beschreibungslabel.setWidth("-1px");
 		beschreibungslabel.setHeight("-1px");
+		beschreibungslabel.setStyleName("ueberschrift");
 		return beschreibungslabel;
 	}
 	

@@ -1,8 +1,10 @@
 package de.dhbw.tinf11b2.ofk.model;
 
 import java.rmi.ConnectException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,9 +53,9 @@ public class OFKModel {
 		inc.setValue(value);
 		inc.setDescription(description);
 		inc.setTimestamp(new Date());
-		try{
-		incomeDAO.create(inc);
-		} catch(Exception e){
+		try {
+			incomeDAO.create(inc);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -62,15 +64,15 @@ public class OFKModel {
 	}
 
 	public boolean addCosts(Category category, double value, String description) {
-		
+
 		Costs costs = new Costs();
 		costs.setCategory(category);
 		costs.setValue(value);
 		costs.setDescription(description);
 		costs.setTimestamp(new Date());
-		try{
-		costsDAO.create(costs);
-		} catch(Exception e){
+		try {
+			costsDAO.create(costs);
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -87,7 +89,7 @@ public class OFKModel {
 	}
 
 	public List<Category> getCategoriesByAccount(Account account) {
-		
+
 		return categoryDAO.getAccCategories(account);
 	}
 
@@ -100,28 +102,30 @@ public class OFKModel {
 	public List<Income> getIncomeByAccount(Account account) {
 		List<Income> list = incomeDAO.getIncomeByAccount(account);
 		List<Income> result = new ArrayList<Income>();
-		
-		for(int i = 0;i<categories.size();i++){
-			for(int j = 0;j<list.size();j++){
-				if(list.get(j).getCategory().getCatId()==categories.get(i).getCatId())
-				result.add(list.get(j));
+
+		for (int i = 0; i < categories.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if (list.get(j).getCategory().getCatId() == categories.get(i)
+						.getCatId())
+					result.add(list.get(j));
 			}
 		}
-		
+
 		return result;
 	}
-	
+
 	public List<Costs> getCostsByAccount(Account account) {
 		List<Costs> list = costsDAO.getCostsByAccount(account);
 		List<Costs> result = new ArrayList<Costs>();
-		
-		for(int i = 0;i<categories.size();i++){
-			for(int j = 0;j<list.size();j++){
-				if(list.get(j).getCategory().getCatId()==categories.get(i).getCatId())
-				result.add(list.get(j));
+
+		for (int i = 0; i < categories.size(); i++) {
+			for (int j = 0; j < list.size(); j++) {
+				if (list.get(j).getCategory().getCatId() == categories.get(i)
+						.getCatId())
+					result.add(list.get(j));
 			}
 		}
-		
+
 		return result;
 	}
 
@@ -134,6 +138,98 @@ public class OFKModel {
 		return result;
 	}
 
+//	public String[] getDateNamesCosts() {
+//		Timestamp[] date = new Timestamp[costs.size()];
+//		ArrayList<String> monate = new ArrayList<String>();
+//
+//		for (int i = 0; i < date.length; i++) {
+//
+//			date[i] = (Timestamp) costs.get(i).getTimestamp();
+//			String help = Integer.toString(date[i].getMonth());
+//			if (!monate.contains(help)) {
+//				monate.add(help);
+//			}
+//
+//		}
+//		String[] result = new String[monate.size()];
+//		monate.toArray(result);
+//
+//		return result;
+//	}
+//
+//	public String[] getDateNamesIncome() {
+//		Timestamp[] date = new Timestamp[income.size()];
+//
+//		ArrayList<String> monate = new ArrayList<String>();
+//
+//		for (int i = 0; i < date.length; i++) {
+//
+//			date[i] = (Timestamp) costs.get(i).getTimestamp();
+//			String help = Integer.toString(date[i].getMonth());
+//			if (!monate.contains(help)) {
+//				monate.add(help);
+//			}
+//
+//		}
+//		String[] result = new String[monate.size()];
+//		monate.toArray(result);
+//
+//		return result;
+//	}
+
+	public HashMap<Integer,Double> getCostValuesDate() {
+//		Double[] result = new Double[getDateNamesCosts().length];
+//		Costs help = null;
+//		for (int j = 0; j < getDateNamesCosts().length; j++) {
+//			result[j] = 0D;
+//			for (int i = 0; i < costs.size(); i++) {
+//				help = costs.get(i);
+//				if (getDateNamesCosts()[j].equals(Integer.toString(costs.get(i)
+//						.getTimestamp().getDate())))
+//					result[j] = result[j] + help.getValue();
+//			}
+//		}
+//		
+		HashMap<Integer,Double> result = new  HashMap<Integer,Double>(); // Map Monat => Summe
+		for (int i = 0; i < costs.size(); i++) {
+			Costs help = costs.get(i); //
+			int monat = help.getTimestamp().getMonth();
+			if (result.containsValue(monat)) {
+				result.put(monat, result.get(monat) + help.getValue());
+			} else {
+				result.put(monat, help.getValue());
+			}
+		}
+		return result;
+	}
+
+	 public HashMap<Integer,Double> getIncomeValuesDate() { // Statt Timestamp Gregorian Calendar
+//		Double[] result = new Double[getDateNamesIncome().length];
+//		Income help = null;
+//		for (int j = 0; j < getDateNamesIncome().length; j++) {
+//			result[j] = 0D;
+//			for (int i = 0; i < income.size(); i++) {
+//				help = income.get(i);
+//				if (getDateNamesIncome()[j].equals(Integer.toString(income.get(i)
+//						.getTimestamp().getDate())))
+//					System.out.println(result[j]);
+//					result[j] = result[j] + help.getValue();
+//			}
+//		}
+		HashMap<Integer,Double> result = new  HashMap<Integer,Double>(); // Map Monat => Summe
+		for (int i = 0; i < income.size(); i++) {
+			Income help = income.get(i); //
+			int monat = help.getTimestamp().getMonth();
+			if (result.containsValue(monat)) {
+				result.put(monat, result.get(monat) + help.getValue());
+			} else {
+				result.put(monat, help.getValue());
+			}
+		}
+		return result;
+	}
+
+	
 	public Double[] getIncomeValues() {
 		Double[] result = new Double[categories.size()];
 		Income help = null;
@@ -141,12 +237,14 @@ public class OFKModel {
 			result[j] = 0D;
 			for (int i = 0; i < income.size(); i++) {
 				help = income.get(i);
-				if (help.getCategory().getCatId()==categories.get(j).getCatId())
+				if (help.getCategory().getCatId() == categories.get(j)
+						.getCatId())
 					result[j] = result[j] + help.getValue();
 			}
 		}
 		return result;
 	}
+
 	public Double[] getCostValues() {
 		Double[] result = new Double[categories.size()];
 		Costs help = null;
@@ -154,14 +252,15 @@ public class OFKModel {
 			result[j] = 0D;
 			for (int i = 0; i < costs.size(); i++) {
 				help = costs.get(i);
-				if (help.getCategory().getCatId()==categories.get(j).getCatId())
+				if (help.getCategory().getCatId() == categories.get(j)
+						.getCatId())
 					result[j] = result[j] + help.getValue();
 			}
 		}
 		return result;
 	}
-	
-	public void addUser(String email, String name, String password){
+
+	public void addUser(String email, String name, String password) {
 		User user = new User();
 		user.setEmail(email);
 		user.setName(name);
