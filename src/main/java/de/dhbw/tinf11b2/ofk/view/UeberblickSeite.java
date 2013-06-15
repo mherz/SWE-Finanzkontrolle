@@ -211,9 +211,9 @@ public class UeberblickSeite extends CustomComponent implements OFKView,
 
 		
 		if (chartSelectE.getValue().equals(gesamt)) {
-			chart = charts.setChartPie(strings, doubles, "Ausgaben "+gesamt);
+			chart = charts.setChartPie(strings, doubles, "Einnahmen "+gesamt);
 		} else {
-			chart = charts.barChartGen(strings2, doubles2, "Ausgaben "+zeit);
+			chart = charts.barChartGen(strings2, doubles2, "Einnahmen "+zeit);
 		}
 		
 		if (chart != null) 

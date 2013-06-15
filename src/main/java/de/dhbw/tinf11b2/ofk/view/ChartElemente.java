@@ -45,6 +45,7 @@ public class ChartElemente {
 		yaxis.getLabels().setFormatter(
 				"function() {return Math.floor(this.value) + \'€\';}");
 		yaxis.getLabels().setStep(2);
+		conf.getTooltip().setValueSuffix("€");
 		conf.addyAxis(yaxis);
 		return chart;
 	}
@@ -77,6 +78,7 @@ public class ChartElemente {
 		yaxis.getLabels().setFormatter(
 				"function() {return Math.floor(this.value) + \'€\';}");
 		yaxis.getLabels().setStep(2);
+		conf.getTooltip().setValueSuffix("€");
 		conf.addyAxis(yaxis);
 		return chart;
 	}
@@ -106,9 +108,11 @@ public class ChartElemente {
 		DataSeries series = new DataSeries();
 		for (int i = 0; i < kategorien.length; i++) {
 			series.add(new DataSeriesItem(kategorien[i], werte[i]));
+			series.setName(name);
 		}
-
+		conf.getTooltip().setValueSuffix("€");
 		conf.setSeries(series);
+
 
 		chart.drawChart(conf);
 
