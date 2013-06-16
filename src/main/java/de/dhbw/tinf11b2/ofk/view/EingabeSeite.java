@@ -214,6 +214,15 @@ public class EingabeSeite extends CustomComponent implements OFKView,
 		speicherNotification.setStyleName("negativ");
 		speicherNotification.show(Page.getCurrent());
 	}
+	@SuppressWarnings("deprecation")
+	public void eingabeLeer() {
+
+		speicherNotification = new Notification("Keine Daten eingegeben",
+				"<br/> Bitte Werte eingeben, die Eingabemaske ist Leer",Notification.TYPE_WARNING_MESSAGE,true
+				);
+		speicherNotification.setStyleName("negativ");
+		speicherNotification.show(Page.getCurrent());
+	}
 
 	@Override
 	public void buttonClick(ClickEvent event) {

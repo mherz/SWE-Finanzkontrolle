@@ -3,11 +3,9 @@ package de.dhbw.tinf11b2.ofk.model.dao;
 import java.io.Serializable;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import de.dhbw.tinf11b2.ofk.model.pojo.User;
 
-public class UserDAO extends AbstractHibernateDAO implements Serializable {
+public class UserDAO extends AbstractHibernateDAO<User> implements Serializable {
 
 	public UserDAO() {
 		super(User.class);

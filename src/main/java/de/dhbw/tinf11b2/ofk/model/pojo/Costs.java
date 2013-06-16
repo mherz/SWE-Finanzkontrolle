@@ -16,9 +16,9 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Costs", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "Costs_Id")})
-public class Costs implements Serializable{
+public class Costs extends Booking implements Serializable{
+	private static final long serialVersionUID = 1L;
 
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name="Costs_Id",unique = true, nullable = false)

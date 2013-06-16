@@ -1,14 +1,15 @@
 package de.dhbw.tinf11b2.ofk.model.dao;
  
-import com.google.common.base.Preconditions;
 import java.io.Serializable;
-import java.net.ConnectException;
 import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.google.common.base.Preconditions;
  
 @Repository
 @Transactional
@@ -22,13 +23,15 @@ public abstract class AbstractHibernateDAO< T extends Serializable> {
         this.entity = entityToSet;
     }
  
-    public T getById(final Long id) {
+    @SuppressWarnings("unchecked")
+	public T getById(final Long id) {
         Preconditions.checkArgument(id != null);
         return (T) this.getCurrentSession().get(this.entity, id);
     }
     
  
-    public List< T> getAll() {
+    @SuppressWarnings("unchecked")
+	public List< T> getAll() {
         return this.getCurrentSession().createQuery("from " + this.entity.getName()).list();
     }
  

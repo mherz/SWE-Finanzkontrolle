@@ -17,10 +17,11 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Income", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "Income_Id")})
-public class Income implements Serializable{
-	
-	public Income(){
-		
+public class Income extends Booking implements Serializable{
+	private static final long serialVersionUID = 1L;
+
+	public Income() {
+
 	}
 	
 	public Income(double value, String description, Date timestamp,Category category){

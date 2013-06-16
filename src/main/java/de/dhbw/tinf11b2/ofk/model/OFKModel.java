@@ -1,13 +1,9 @@
 package de.dhbw.tinf11b2.ofk.model;
 
-import java.rmi.ConnectException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 import de.dhbw.tinf11b2.ofk.model.dao.AccountDAO;
 import de.dhbw.tinf11b2.ofk.model.dao.CategoryDAO;
@@ -15,6 +11,7 @@ import de.dhbw.tinf11b2.ofk.model.dao.CostsDAO;
 import de.dhbw.tinf11b2.ofk.model.dao.IncomeDAO;
 import de.dhbw.tinf11b2.ofk.model.dao.UserDAO;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
+import de.dhbw.tinf11b2.ofk.model.pojo.Booking;
 import de.dhbw.tinf11b2.ofk.model.pojo.Category;
 import de.dhbw.tinf11b2.ofk.model.pojo.Costs;
 import de.dhbw.tinf11b2.ofk.model.pojo.Income;
@@ -76,7 +73,7 @@ public class OFKModel {
 			e.printStackTrace();
 			return false;
 		}
-		setCosts(incomeDAO.getAll());
+		setCosts(costsDAO.getAll()); // Model-Fehler gefixt
 		return true;
 	}
 
@@ -94,11 +91,6 @@ public class OFKModel {
 		return categoryDAO.getAccCategories(account);
 	}
 
-	public List<Income> getIncomeByCategory(Category category) {
-		List<Income> list = incomeDAO.getIncomeByCategory(category);
-
-		return list;
-	}
 
 	public List<Income> getIncomeByAccount(Account account) {
 		List<Income> list = incomeDAO.getIncomeByAccount(account);
@@ -180,56 +172,34 @@ public class OFKModel {
 //		return result;
 //	}
 
-	public HashMap<Integer,Double> getCostValuesDate() {
-//		Double[] result = new Double[getDateNamesCosts().length];
-//		Costs help = null;
-//		for (int j = 0; j < getDateNamesCosts().length; j++) {
-//			result[j] = 0D;
-//			for (int i = 0; i < costs.size(); i++) {
-//				help = costs.get(i);
-//				if (getDateNamesCosts()[j].equals(Integer.toString(costs.get(i)
-//						.getTimestamp().getDate())))
-//					result[j] = result[j] + help.getValue();
-//			}
-//		}
-//		
+	/** Statt Timestamp Gregorian Calendar
+	 * @param booking
+	 * @return
+	 */
+	private HashMap<Integer,Double> getValuesDate(List<? extends  Booking> booking) {
 		HashMap<Integer,Double> result = new  HashMap<Integer,Double>(); // Map Monat => Summe
-		for (int i = 0; i < costs.size(); i++) {
-			Costs help = costs.get(i); //
+		for (int i = 0; i < booking.size(); i++) {
+			Booking help = booking.get(i); //
 			int monat = help.getTimestamp().getMonth();
-			if (result.containsValue(monat)) {
-				result.put(monat, result.get(monat) + help.getValue());
-			} else {
-				result.put(monat, help.getValue());
-			}
+			
+			final boolean schonDa = result.containsKey(monat);
+			System.out.println("getCostValuesDate monat="+monat+" value="+help.getValue()+" schonDa="+schonDa);
+			result.put(monat, (schonDa)
+                              ? result.get(monat) + help.getValue()
+                              : help.getValue());
+			System.out.println("getCostValuesDate monat="+monat+" value="+help.getValue()+" result="+result.get(monat));
 		}
 		return result;
 	}
 
-	 public HashMap<Integer,Double> getIncomeValuesDate() { // Statt Timestamp Gregorian Calendar
-//		Double[] result = new Double[getDateNamesIncome().length];
-//		Income help = null;
-//		for (int j = 0; j < getDateNamesIncome().length; j++) {
-//			result[j] = 0D;
-//			for (int i = 0; i < income.size(); i++) {
-//				help = income.get(i);
-//				if (getDateNamesIncome()[j].equals(Integer.toString(income.get(i)
-//						.getTimestamp().getDate())))
-//					System.out.println(result[j]);
-//					result[j] = result[j] + help.getValue();
-//			}
-//		}
-		HashMap<Integer,Double> result = new  HashMap<Integer,Double>(); // Map Monat => Summe
-		for (int i = 0; i < income.size(); i++) {
-			Income help = income.get(i); //
-			int monat = help.getTimestamp().getMonth();
-			if (result.containsValue(monat)) {
-				result.put(monat, result.get(monat) + help.getValue());
-			} else {
-				result.put(monat, help.getValue());
-			}
-		}
-		return result;
+	public HashMap<Integer, Double> getCostValuesDate() {
+
+		return getValuesDate(costs);
+	}
+
+	public HashMap<Integer, Double> getIncomeValuesDate() {
+
+		return getValuesDate(income);
 	}
 
 	

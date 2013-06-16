@@ -24,7 +24,6 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	private OFKUI ui;
 
 	public void init(OFKUI ui) {
-
 		this.ui = ui;
 		view.addListener(this);
 		ui.setContent(view);
@@ -236,14 +235,10 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 					i = 7;
 				}
 
-			}
-
-			else {
+			} else {
 				try {
 					Double doubleTest = Double.parseDouble(geldWerte[i]);
-					if (doubleTest > 0) {
-
-					} else {
+					if (doubleTest < 0) {
 						fehlerzeile = i + 1;
 						datenListe.add(7);
 					}
@@ -255,19 +250,22 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 					fehlerzeile = i + 1;
 					datenListe.add(5);
 				}
-
 			}
-
+		}
+		if (datenListe.size() == 0) {
+			datenListe.add(10);
 		}
 		// setzen der fehler notification oder übergabewerte
 		if (datenListe.contains(5) | datenListe.contains(6)
-				| datenListe.contains(7)) {
+				| datenListe.contains(7)|datenListe.contains(10)) {
 			codes = new int[1];
 			codes[0] = 6;
 			if (datenListe.contains(5)) {
 				((EingabeSeite) view).warne(fehlerzeile, " ");
 			} else if (datenListe.contains(7)) {
 				((EingabeSeite) view).warne(fehlerzeile, " positive ");
+			} else if (datenListe.contains(10)) {
+				((EingabeSeite) view).eingabeLeer();
 			} else {
 				((EingabeSeite) view).eingabeFehler(fehlerzeile);
 			}
@@ -278,9 +276,8 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 				codes[i] = daten;
 				i++;
 			}
-
 		}
-
+		
 		return codes;
 	}
 
@@ -308,7 +305,6 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 				"Dezember" };
 		for (Entry<Integer, Double> e : costValuesDate.entrySet()) {
 			monatsNamen[i] = monate[e.getKey()];
-
 			i++;
 		}
 
@@ -317,7 +313,6 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 	public void setView(OFKView view) {
 		ui.setContent(view);
-
 	}
 
 	public OFKUI getUi() {
