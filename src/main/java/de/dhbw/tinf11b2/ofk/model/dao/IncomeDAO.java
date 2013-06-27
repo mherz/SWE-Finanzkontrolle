@@ -15,12 +15,13 @@ public class IncomeDAO extends AbstractHibernateDAO<Income> implements Serializa
 	
 	
 	public List<Income> getIncomeByAccount(Account account){
-		
-		return this.sessionFactory.getCurrentSession().createQuery("from Income").list();
-//		return this.sessionFactory.getCurrentSession()
-//				.createQuery("from Income as inc join Category.Category_Id as cat" +
-//						" where cat.Account_Id=:accId")
-//				.setParameter("accId", account.getAccountId())
-//				.list();
+		List<Income> result = this.sessionFactory.getCurrentSession()
+				.createQuery("select I.* from Income as I,Category as C,Account as A " +
+						"where I.Category_Id = C.Category_Id" +
+						"and C.Account_Id = A.Account_Id")
+				.setParameter("accId", account.getAccountId())
+				.list();
+//		return this.sessionFactory.getCurrentSession().createQuery("from Income").list();
+		return result;
 	}
 }

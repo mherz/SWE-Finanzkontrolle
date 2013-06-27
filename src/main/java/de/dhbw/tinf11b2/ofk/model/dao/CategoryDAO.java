@@ -15,7 +15,10 @@ public class CategoryDAO extends AbstractHibernateDAO<Category> implements Seria
 	
 	public List<Category> getAccCategories(Account account){
 		int accId = account.getAccountId();
-		List<Category> result = this.sessionFactory.getCurrentSession().createQuery("from Category where Account_Id=:accId").setParameter("accId", accId).list();
+		List<Category> result = this.sessionFactory
+				.getCurrentSession()
+				.createQuery("from Category where Account_Id=:accId")
+				.setParameter("accId", accId).list();
 		return result;
 		
 	}
