@@ -18,7 +18,8 @@ import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
 public class OFKPresenter implements OFKViewListener, Serializable {
 	private static final long serialVersionUID = 1L;
-
+	private de.dhbw.tinf11b2.ofk.view.Koordinaten element = new de.dhbw.tinf11b2.ofk.view.Koordinaten();
+	private String blank = element.empty();
 	private OFKView view = new LoginSeite();
 	private OFKModel model;
 	private OFKUI ui;
@@ -223,13 +224,13 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 		// überprüfung auf leereingaben
 		for (int i = 0; i < 4; i++) {
-			if (geldWerte[i].equals("blanck")
-					|| kategorieWerte[i].equals("blanck")
-					|| kontenWerte[i].equals("blanck")) {
+			if (geldWerte[i].equals(blank)
+					|| kategorieWerte[i].equals(blank)
+					|| kontenWerte[i].equals(blank)) {
 
-				if (!geldWerte[i].equals("blanck")
-						|| !kategorieWerte[i].equals("blanck")
-						|| !kontenWerte[i].equals("blanck")) {
+				if (!geldWerte[i].equals(blank)
+						|| !kategorieWerte[i].equals(blank)
+						|| !kontenWerte[i].equals(blank)) {
 					fehlerzeile = i + 1;
 					datenListe.add(6);
 					i = 7;

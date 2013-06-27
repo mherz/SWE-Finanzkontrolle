@@ -10,6 +10,10 @@ public class Koordinaten {
 		test(zurueckX);
 		return zurueckX;
 	}
+	
+	public String empty(){
+		return "blank";
+	}
 
 	public String getLabel() {
 		String labelX = "top:3.0%;left:45.0%;";
@@ -31,7 +35,7 @@ public class Koordinaten {
 	}
 	
 	private void test(String test){
-		System.out.println(test);
+//		System.out.println(test);
 	}
 
 }

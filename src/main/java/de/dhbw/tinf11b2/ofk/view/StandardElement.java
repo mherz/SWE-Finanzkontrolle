@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import com.vaadin.ui.AbsoluteLayout;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.ComboBox;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.Button.ClickEvent;
@@ -24,7 +26,20 @@ public class StandardElement extends CustomComponent implements OFKView,
 	public StandardElement() {
 
 	}
-	
+	public AbsoluteLayout absoluteGen(){
+		AbsoluteLayout mainLayout = new AbsoluteLayout();
+		mainLayout.setImmediate(false);
+		mainLayout.setWidth("100%");
+		mainLayout.setHeight("100%");
+		return mainLayout;
+	}
+	public ComboBox comboGen(){
+		ComboBox erstellung = new ComboBox();
+		erstellung.setImmediate(false);
+		erstellung.setWidth("-1px");
+		erstellung.setHeight("-1px");
+		return erstellung;
+	}
 
 	public Button zurueckGen() {
 		Button zurueck = new Button("Zurück");
@@ -50,6 +65,13 @@ public class StandardElement extends CustomComponent implements OFKView,
 		normaleslabel.setWidth("-1px");
 		normaleslabel.setHeight("-1px");
 		return normaleslabel;
+	}
+	public Button buttonGen() {
+		Button leer = new Button();
+		leer.setImmediate(true);
+		leer.setWidth("-1px");
+		leer.setHeight("-1px");
+		return leer;
 	}
 	
 	public TextField textGen(){
