@@ -19,6 +19,13 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "Category", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "Category_Id")})
 public class Category implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+
+
 	public Category(){
 		
 	}

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import de.dhbw.tinf11b2.ofk.model.ActiveUserModel;
+import de.dhbw.tinf11b2.ofk.model.CreateModel;
 import de.dhbw.tinf11b2.ofk.model.OFKModel;
 import de.dhbw.tinf11b2.ofk.model.pojo.Account;
 
@@ -21,6 +23,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	private de.dhbw.tinf11b2.ofk.view.Koordinaten element = new de.dhbw.tinf11b2.ofk.view.Koordinaten();
 	private String blank = element.empty();
 	private OFKView view = new LoginSeite();
+	private ActiveUserModel activeUser;
 	private OFKModel model;
 	private OFKUI ui;
 
@@ -39,9 +42,9 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	private void generateEinnahmen() {
 		view = new EingabeSeite("Einnahmen", true);
 		view.addListener(this);
-		List<Account> accList = model.getAccounts();
+		List<Account> accList = activeUser.getAccounts();
 
-		String[] kategorien = model.getCategoryNames();
+		String[] kategorien = activeUser.getCategoryNames();
 		String[] konten = new String[accList.size()];
 		int i = 0;
 		for (Account acc : accList) {
@@ -50,16 +53,15 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		}
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
 		ui.setContent(view);
-		ui.setContent(view);
 	}
 
 	private void generateAusgaben() {
 
 		view = new EingabeSeite("Ausgaben", false);
 		view.addListener(this);
-		List<Account> accList = model.getAccounts();
+		List<Account> accList = activeUser.getAccounts();
 
-		String[] kategorien = model.getCategoryNames();
+		String[] kategorien = activeUser.getCategoryNames();
 		String[] konten = new String[accList.size()];
 		int i = 0;
 		for (Account acc : accList) {
@@ -75,7 +77,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	public void buttonClick(String operation) {
 		if (operation.contentEquals("Login")) {
 			int returnValue;
-			returnValue = model.authenticate(((LoginSeite) view).getUsername(),
+			returnValue = activeUser.authenticate(((LoginSeite) view).getUsername(),
 					((LoginSeite) view).getPassword());
 			if (returnValue == 1) {
 				view = new Startseite();
@@ -93,7 +95,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 			}
 		}
 		if (operation.contentEquals("Ausloggen")) {
-			model.logout();
+			activeUser.logout();
 			view = new LoginSeite();
 			view.addListener(this);
 			ui.setContent(view);
@@ -134,7 +136,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 				if (daten[0] <= 4) {
 					for (int i = 0; i < daten.length; i++) {
 
-						model.addCosts(model
+						((CreateModel)model).addCosts(activeUser
 								.getCategoryByName(kategorieWerte[daten[i]]),
 								Double.parseDouble(geldWerte[daten[i]]),
 								kontenWerte[daten[i]]);
@@ -155,8 +157,8 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 				if (daten[0] <= 4) {
 					for (int i = 0; i < daten.length; i++) {
 						int wert = daten[i];
-						model.addIncome(
-								model.getCategoryByName(kategorieWerte[wert]),
+						((CreateModel)model).addIncome(
+								activeUser.getCategoryByName(kategorieWerte[wert]),
 								Double.parseDouble(geldWerte[wert]),
 								kontenWerte[wert]);
 					}
@@ -170,30 +172,25 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		}
 
 		if (operation.contentEquals("WechselA")) {
-			System.out.println("Ich bin in dem wechsel");
-			// System.out.println(model.getCostValuesDate()[0]);
 
-			((UeberblickSeite) view).wechselDichA(model.getCategoryNames(),
-					model.getCostValues(),
-					monatsNamen(model.getCostValuesDate()),
-					monatsWerte(model.getCostValuesDate()));
+			((UeberblickSeite) view).wechselDichA(activeUser.getCategoryNames(),
+					activeUser.getCostValues(),
+					monatsNamen(activeUser.getCostValuesDate()),
+					monatsWerte(activeUser.getCostValuesDate()));
 		}
 
 		if (operation.contentEquals("WechselG")) {
 			System.out.println("Ich bin in dem wechsel");
 
-			((UeberblickSeite) view).wechselDichG(model.getCategoryNames(),
-					model.getIncomeValues(), model.getCostValues());
+			((UeberblickSeite) view).wechselDichG(activeUser.getCategoryNames(),
+					activeUser.getIncomeValues(), activeUser.getCostValues());
 		}
 
 		if (operation.contentEquals("WechselE")) {
-			System.out.println("Ich bin in dem wechsel E");
-			System.out.println(model.getCategories() + " "
-					+ model.getIncomeValues().length);
-			((UeberblickSeite) view).wechselDichE(model.getCategoryNames(),
-					model.getIncomeValues(),
-					monatsNamen(model.getIncomeValuesDate()),
-					monatsWerte(model.getIncomeValuesDate()));
+			((UeberblickSeite) view).wechselDichE(activeUser.getCategoryNames(),
+					activeUser.getIncomeValues(),
+					monatsNamen(activeUser.getIncomeValuesDate()),
+					monatsWerte(activeUser.getIncomeValuesDate()));
 		}
 		if (operation.contentEquals("Zurück zum Login")) {
 			view = new LoginSeite();

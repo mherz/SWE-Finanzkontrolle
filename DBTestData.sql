@@ -1,0 +1,18 @@
+INSERT INTO User VALUES(1,'test@testuser.de','test','test');
+INSERT INTO Account VALUES(1,'test',0,1);
+INSERT INTO Category VALUES(1,'default',1);
+INSERT INTO Category VALUES(2,'Auto',1);
+INSERT INTO Category VALUES(3,'ÖPNV',1);
+INSERT INTO Income VALUES(1,'default','2013-05-14 12:30:39',500,1);
+INSERT INTO Income VALUES(2,'default','2013-06-14 12:30:39',1000,1);
+INSERT INTO Income VALUES(3,'default','2013-04-14 12:30:39',750,2);
+INSERT INTO Income VALUES(4,'default','2013-05-18 12:30:39',600,2);
+INSERT INTO Income VALUES(5,'default','2013-04-14 12:30:39',750,3);
+INSERT INTO Income VALUES(6,'default','2013-05-18 12:30:39',600,3);
+INSERT INTO Costs VALUES(1,'default','2013-05-18 12:30:39',300,1);
+INSERT INTO Costs VALUES(2,'default','2013-04-14 12:30:39',400,1);
+INSERT INTO Costs VALUES(3,'default','2013-06-14 12:30:39',150,2);
+INSERT INTO Costs VALUES(4,'default','2013-05-15 12:30:39',250,2);
+INSERT INTO Costs VALUES(5,'default','2013-04-14 12:30:39',750,3);
+INSERT INTO Costs VALUES(6,'default','2013-05-18 12:30:39',600,3);
+

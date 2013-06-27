@@ -29,7 +29,7 @@ public class SeleniumUserDontExistIT {
 
   @Before
   public void setUp() throws Exception {
-	  OFKUI.setStartView(new LoginSeite());
+
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8080/ofk-core";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

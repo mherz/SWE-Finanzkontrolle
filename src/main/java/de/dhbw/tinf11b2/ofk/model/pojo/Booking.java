@@ -2,9 +2,15 @@ package de.dhbw.tinf11b2.ofk.model.pojo;
 
 import java.util.Date;
 
-public abstract class Booking {
+public  interface Booking {
 	
-	public abstract Date getTimestamp();
-	public abstract Category getCategory();
-	public abstract double getValue();
+	public Date getTimestamp();
+	public Category getCategory();
+	public double getValue();
+	public void setCategory(Category category);
+	public void setValue(double Value);
+	public void setDescription(String descrition);
+	public void setTimestamp(Date timestamp);
+	
+	
 }

@@ -5,8 +5,6 @@ import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
-import de.dhbw.tinf11b2.ofk.view.OFKView;
-
 
 
 /**

@@ -17,7 +17,7 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "Income", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "Income_Id")})
-public class Income extends Booking implements Serializable{
+public class Income implements Serializable,Booking{
 	private static final long serialVersionUID = 1L;
 
 	public Income() {
