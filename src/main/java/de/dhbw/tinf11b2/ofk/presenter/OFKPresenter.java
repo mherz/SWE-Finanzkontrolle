@@ -52,7 +52,6 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		}
 		((EingabeSeite) view).feldErstellung(konten, kategorien);
 		ui.setContent(view);
-		ui.setContent(view);
 	}
 
 	private void generateAusgaben() {

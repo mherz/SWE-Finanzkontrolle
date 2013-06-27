@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
@@ -17,6 +16,12 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "Account", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "Account_Id")})
 public class Account implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 
 	public Account(){
 		

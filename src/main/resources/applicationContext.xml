@@ -47,7 +47,7 @@
 		<aop:scoped-proxy />
 		<property name="presenter" ref="presenter"></property>
 	</bean>
-	
+
 	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter"
 		scope="session">
 		<property name="model" ref="model"></property>
@@ -56,7 +56,7 @@
 
 
 
-	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.OFKModel">
+	<bean id="activeUser" class="de.dhbw.tinf11b2.ofk.model.ActiveUserModel">
 		<aop:scoped-proxy />
 		<property name="userDAO" ref="userDAO"></property>
 		<property name="accountDAO" ref="accountDAO"></property>
@@ -65,8 +65,14 @@
 		<property name="costsDAO" ref="costsDAO"></property>
 	</bean>
 
+	<bean id="model" class="de.dhbw.tinf11b2.ofk.model.CreateModel">
+		<property name="userDAO" ref="userDAO"></property>
+		<property name="incomeDAO" ref="incomeDAO"></property>
+		<property name="costsDAO" ref="costsDAO"></property>
+	</bean>
 
-	<!--  Note the usage of abstract="true" and parent="AbstractHibernateDAO"-->
+
+	<!-- Note the usage of abstract="true" and parent="AbstractHibernateDAO" -->
 	<!-- in the implementations -->
 	<bean id="abstractHibernateDAO" abstract="true"
 		class="de.dhbw.tinf11b2.ofk.model.dao.AbstractHibernateDAO">

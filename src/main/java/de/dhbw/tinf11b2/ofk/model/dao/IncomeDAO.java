@@ -13,7 +13,7 @@ public class IncomeDAO extends AbstractHibernateDAO<Income> implements Serializa
 		super(Income.class);
 	}
 	
-	
+	@SuppressWarnings("unchecked")
 	public List<Income> getIncomeByAccount(Account account){
 		List<Income> result = this.sessionFactory.getCurrentSession()
 				.createQuery("select I.* from Income as I,Category as C,Account as A " +
