@@ -10,12 +10,22 @@ import de.dhbw.tinf11b2.ofk.model.pojo.Costs;
 import de.dhbw.tinf11b2.ofk.model.pojo.Income;
 import de.dhbw.tinf11b2.ofk.model.pojo.User;
 
+/**
+ * @author felix
+ *
+ */
 public class CreateModel implements OFKModel {
 
 	private IncomeDAO incomeDAO;
 	private CostsDAO costsDAO;
 	private UserDAO userDAO;
 
+	/**
+	 * @param category
+	 * @param value
+	 * @param description
+	 * @return
+	 */
 	public boolean addIncome(Category category, double value, String description) {
 
 		Income inc = new Income();
@@ -32,6 +42,12 @@ public class CreateModel implements OFKModel {
 		return true;
 	}
 
+	/**
+	 * @param category
+	 * @param value
+	 * @param description
+	 * @return
+	 */
 	public boolean addCosts(Category category, double value, String description) {
 
 		Costs costs = new Costs();
@@ -48,6 +64,11 @@ public class CreateModel implements OFKModel {
 		return true;
 	}
 
+	/**
+	 * @param email
+	 * @param name
+	 * @param password
+	 */
 	public void addUser(String email, String name, String password) {
 		User user = new User();
 		user.setEmail(email);

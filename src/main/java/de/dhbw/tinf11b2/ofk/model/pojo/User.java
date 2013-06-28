@@ -12,6 +12,10 @@ import javax.persistence.UniqueConstraint;
 
 
 
+/**
+ * @author felix
+ *
+ */
 @SuppressWarnings("serial")
 @Entity
 @Table(name = "User", uniqueConstraints = {
@@ -19,10 +23,18 @@ import javax.persistence.UniqueConstraint;
 		@UniqueConstraint(columnNames = "User_Name") })
 public class User implements Serializable{
 
+	/**
+	 * 
+	 */
 	public User(){
 		
 	}
 	
+	/**
+	 * @param name
+	 * @param email
+	 * @param password
+	 */
 	public User(String name, String email, String password)
 	{
 		this.name = name;
@@ -41,27 +53,51 @@ public class User implements Serializable{
 	private String password;
 	
 	
+	/**
+	 * @return
+	 */
 	public int getUserId() {
 		return userId;
 	}
+	/**
+	 * @param userId
+	 */
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * @return
+	 */
 	public String getEmail() {
 		return email;
 	}
+	/**
+	 * @param email
+	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	/**
+	 * @return
+	 */
 	public String getPassword() {
 		return password;
 	}
+	/**
+	 * @param password
+	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}

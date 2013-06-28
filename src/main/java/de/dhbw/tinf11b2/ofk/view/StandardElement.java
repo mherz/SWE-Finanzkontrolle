@@ -15,6 +15,22 @@ import com.vaadin.ui.TextField;
 
 import de.dhbw.tinf11b2.ofk.presenter.OFKViewListener;
 
+/**
+ * @author felix
+ *
+ */
+/**
+ * @author felix
+ *
+ */
+/**
+ * @author felix
+ *
+ */
+/**
+ * @author felix
+ *
+ */
 public class StandardElement extends CustomComponent implements OFKView,
 		ClickListener {
 	/**
@@ -23,9 +39,15 @@ public class StandardElement extends CustomComponent implements OFKView,
 	private static final long serialVersionUID = 1L;
 	private List<OFKViewListener> listeners = new ArrayList<OFKViewListener>();
 
+	/**
+	 * 
+	 */
 	public StandardElement() {
 
 	}
+	/**
+	 * @return
+	 */
 	public AbsoluteLayout absoluteGen(){
 		AbsoluteLayout mainLayout = new AbsoluteLayout();
 		mainLayout.setImmediate(false);
@@ -33,6 +55,9 @@ public class StandardElement extends CustomComponent implements OFKView,
 		mainLayout.setHeight("100%");
 		return mainLayout;
 	}
+	/**
+	 * @return
+	 */
 	public ComboBox comboGen(){
 		ComboBox erstellung = new ComboBox();
 		erstellung.setImmediate(false);
@@ -41,6 +66,9 @@ public class StandardElement extends CustomComponent implements OFKView,
 		return erstellung;
 	}
 
+	/**
+	 * @return
+	 */
 	public Button zurueckGen() {
 		Button zurueck = new Button("Zurück");
 		zurueck.setImmediate(true);
@@ -50,6 +78,9 @@ public class StandardElement extends CustomComponent implements OFKView,
 	}
 	
 
+	/**
+	 * @return
+	 */
 	public Label beschrGen() {
 		Label beschreibungslabel = new Label();
 		beschreibungslabel.setImmediate(false);
@@ -59,6 +90,9 @@ public class StandardElement extends CustomComponent implements OFKView,
 		return beschreibungslabel;
 	}
 	
+	/**
+	 * @return
+	 */
 	public Label labelGen(){
 		Label normaleslabel = new Label();
 		normaleslabel.setImmediate(false);
@@ -66,6 +100,9 @@ public class StandardElement extends CustomComponent implements OFKView,
 		normaleslabel.setHeight("-1px");
 		return normaleslabel;
 	}
+	/**
+	 * @return
+	 */
 	public Button buttonGen() {
 		Button leer = new Button();
 		leer.setImmediate(true);
@@ -74,6 +111,9 @@ public class StandardElement extends CustomComponent implements OFKView,
 		return leer;
 	}
 	
+	/**
+	 * @return
+	 */
 	public TextField textGen(){
 		TextField textFeld= new TextField();
 		textFeld.setImmediate(false);
@@ -83,12 +123,18 @@ public class StandardElement extends CustomComponent implements OFKView,
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see de.dhbw.tinf11b2.ofk.view.OFKView#addListener(de.dhbw.tinf11b2.ofk.presenter.OFKViewListener)
+	 */
 	@Override
 	public void addListener(OFKViewListener listener) {
 		listeners.add(listener);
 		System.out.println("Bin geklickt2");
 
 	}
+	/* (non-Javadoc)
+	 * @see com.vaadin.ui.Button.ClickListener#buttonClick(com.vaadin.ui.Button.ClickEvent)
+	 */
 	@Override
 	public void buttonClick(ClickEvent event) {
 		System.out.println("Bin geklickt3");

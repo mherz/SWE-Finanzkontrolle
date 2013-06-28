@@ -18,6 +18,10 @@ import de.dhbw.tinf11b2.ofk.view.RegisterSeite;
 import de.dhbw.tinf11b2.ofk.view.Startseite;
 import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
+/**
+ * @author felix
+ *
+ */
 public class OFKPresenter implements OFKViewListener, Serializable {
 	private static final long serialVersionUID = 1L;
 	private de.dhbw.tinf11b2.ofk.view.Koordinaten element = new de.dhbw.tinf11b2.ofk.view.Koordinaten();
@@ -27,18 +31,27 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	private OFKModel model;
 	private OFKUI ui;
 
+	/**
+	 * @param ui
+	 */
 	public void init(OFKUI ui) {
 		this.ui = ui;
 		view.addListener(this);
 		ui.setContent(view);
 	}
 
+	/**
+	 * 
+	 */
 	public void pageChangeback() {
 		view = new Startseite();
 		view.addListener(this);
 		ui.setContent(view);
 	}
 
+	/**
+	 * 
+	 */
 	private void generateEinnahmen() {
 		view = new EingabeSeite("Einnahmen", true);
 		view.addListener(this);
@@ -55,6 +68,9 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		ui.setContent(view);
 	}
 
+	/**
+	 * 
+	 */
 	private void generateAusgaben() {
 
 		view = new EingabeSeite("Ausgaben", false);
@@ -73,6 +89,9 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		ui.setContent(view);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.dhbw.tinf11b2.ofk.presenter.OFKViewListener#buttonClick(java.lang.String)
+	 */
 	@Override
 	public void buttonClick(String operation) {
 		if (operation.contentEquals("Login")) {
@@ -200,14 +219,23 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 	}
 
+	/**
+	 * @return
+	 */
 	public OFKModel getModel() {
 		return model;
 	}
 
+	/**
+	 * @param model
+	 */
 	public void setModel(OFKModel model) {
 		this.model = model;
 	}
 
+	/**
+	 * @return
+	 */
 	private int[] datenCodes() {
 
 		String[] geldWerte = ((EingabeSeite) view).getGeldFieldValue();
@@ -279,6 +307,10 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		return codes;
 	}
 
+	/**
+	 * @param valuesDate
+	 * @return
+	 */
 	private Double[] monatsWerte(HashMap<Integer, Double> valuesDate) {
 
 		HashMap<Integer, Double> costValuesDate = valuesDate;
@@ -293,6 +325,10 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		return monatsWerte;
 	}
 
+	/**
+	 * @param namesDate
+	 * @return
+	 */
 	private String[] monatsNamen(HashMap<Integer, Double> namesDate) {
 
 		HashMap<Integer, Double> costValuesDate = namesDate;
@@ -309,14 +345,23 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		return monatsNamen;
 	}
 
+	/**
+	 * @param view
+	 */
 	public void setView(OFKView view) {
 		ui.setContent(view);
 	}
 
+	/**
+	 * @return
+	 */
 	public OFKUI getUi() {
 		return ui;
 	}
 
+	/**
+	 * @param ui
+	 */
 	public void setUi(OFKUI ui) {
 		this.ui = ui;
 	}

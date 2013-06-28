@@ -2,6 +2,10 @@ package de.dhbw.tinf11b2.ofk.model.pojo;
 
 import java.util.Date;
 
+/**
+ * @author felix
+ *
+ */
 public  interface Booking {
 	
 	public Date getTimestamp();

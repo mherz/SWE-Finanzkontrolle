@@ -4,6 +4,10 @@ import com.vaadin.ui.Component;
 
 import de.dhbw.tinf11b2.ofk.presenter.OFKViewListener;
 
+/**
+ * @author felix
+ *
+ */
 public interface OFKView extends Component{
 	
 	

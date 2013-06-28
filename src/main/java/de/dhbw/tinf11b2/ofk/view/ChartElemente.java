@@ -13,12 +13,25 @@ import com.vaadin.addon.charts.model.XAxis;
 import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.addon.charts.model.style.SolidColor;
 
+/**
+ * @author felix
+ *
+ */
 public class ChartElemente {
 	
+	/**
+	 * 
+	 */
 	public ChartElemente(){
 		
 	}
 	
+	/**
+	 * @param kategorien
+	 * @param werte
+	 * @param name
+	 * @return
+	 */
 	public Chart barChartGen(String[] kategorien, Double[] werte, String name) {
 		Chart chart = chartHeadBar();
 		// Modify the default configuration a bit
@@ -50,6 +63,14 @@ public class ChartElemente {
 		return chart;
 	}
 
+	/**
+	 * @param datum
+	 * @param werte
+	 * @param kategorienName
+	 * @param werte2
+	 * @param kategorienName2
+	 * @return
+	 */
 	public Chart setChartBarMulti(String[] datum, Double[] werte,
 			String kategorienName, Double[] werte2, String kategorienName2) {
 
@@ -83,6 +104,12 @@ public class ChartElemente {
 		return chart;
 	}
 
+	/**
+	 * @param kategorien
+	 * @param werte
+	 * @param name
+	 * @return
+	 */
 	public Chart setChartPie(String[] kategorien, Double[] werte, String name) {
 		Chart chart = new Chart(ChartType.PIE);
 		chart.setWidth("90%");
@@ -120,6 +147,9 @@ public class ChartElemente {
 
 	}
 
+	/**
+	 * @return
+	 */
 	private Chart chartHeadBar() {
 		Chart chart = new Chart(ChartType.BAR);
 		chart.setWidth("90%");

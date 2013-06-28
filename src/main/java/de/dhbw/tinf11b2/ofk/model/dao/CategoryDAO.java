@@ -7,12 +7,23 @@ import de.dhbw.tinf11b2.ofk.model.pojo.Account;
 import de.dhbw.tinf11b2.ofk.model.pojo.Category;
 
 
+/**
+ * @author felix
+ *
+ */
 public class CategoryDAO extends AbstractHibernateDAO<Category> implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 
+	 */
 	public CategoryDAO (){
 		super(Category.class);
 	}
+	/**
+	 * @param account
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	public List<Category> getAccCategories(Account account){
 		int accId = account.getAccountId();

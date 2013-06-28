@@ -16,6 +16,10 @@ import de.dhbw.tinf11b2.ofk.model.pojo.Costs;
 import de.dhbw.tinf11b2.ofk.model.pojo.Income;
 import de.dhbw.tinf11b2.ofk.model.pojo.User;
 
+/**
+ * @author felix
+ *
+ */
 public class ActiveUserModel implements OFKModel{
 
 	private User user;
@@ -30,6 +34,11 @@ public class ActiveUserModel implements OFKModel{
 	private IncomeDAO incomeDAO;
 	private CostsDAO costsDAO;
 
+	/**
+	 * @param username
+	 * @param password
+	 * @return
+	 */
 	public int authenticate(String username, String password) {
 		user = (User) userDAO.getUserByName(username);
 		if (user != null)
@@ -42,6 +51,10 @@ public class ActiveUserModel implements OFKModel{
 			return -1;
 	}
 
+	/**
+	 * @param catName
+	 * @return
+	 */
 	public Category getCategoryByName(String catName) {
 		for (Category iterator : categories) {
 			if (iterator.getName().contentEquals(catName))
@@ -51,12 +64,20 @@ public class ActiveUserModel implements OFKModel{
 		return null;
 	}
 
+	/**
+	 * @param account
+	 * @return
+	 */
 	public List<Category> getCategoriesByAccount(Account account) {
 
 		return categoryDAO.getAccCategories(account);
 	}
 
 
+	/**
+	 * @param account
+	 * @return
+	 */
 	public List<Income> getIncomeByAccount(Account account) {
 		List<Income> list = incomeDAO.getIncomeByAccount(account);
 		List<Income> result = new ArrayList<Income>();
@@ -72,6 +93,10 @@ public class ActiveUserModel implements OFKModel{
 	}
 
 	
+	/**
+	 * @param account
+	 * @return
+	 */
 	public List<Costs> getCostsByAccount(Account account) {
 		List<Costs> list = costsDAO.getCostsByAccount(account);
 		List<Costs> result = new ArrayList<Costs>();
@@ -87,6 +112,9 @@ public class ActiveUserModel implements OFKModel{
 		return result;
 	}
 
+	/**
+	 * @return
+	 */
 	public String[] getCategoryNames() {
 		String[] result = new String[categories.size()];
 		for (int i = 0; i < categories.size(); i++) {
@@ -119,16 +147,26 @@ public class ActiveUserModel implements OFKModel{
 		return result;
 	}
 
+	/**
+	 * @return
+	 */
 	public HashMap<Integer, Double> getCostValuesDate() {
 
 		return getValuesDate(costs);
 	}
 
+	/**
+	 * @return
+	 */
 	public HashMap<Integer, Double> getIncomeValuesDate() {
 
 		return getValuesDate(income);
 	}
 
+	/**
+	 * @param booking
+	 * @return
+	 */
 	public Double[] getValues(List<? extends Booking> booking){
 		Double[] result = new Double[categories.size()];
 		Booking help = null;
@@ -143,45 +181,78 @@ public class ActiveUserModel implements OFKModel{
 		}
 		return result;
 	}
+	/**
+	 * @return
+	 */
 	public Double[] getIncomeValues() {
 		return getValues(income);
 	}
 
+	/**
+	 * @return
+	 */
 	public Double[] getCostValues() {
 		return getValues(costs);
 	}
+	/**
+	 * @return
+	 */
 	public List<Account> getAccounts() {
 		return accountDAO.getAccounts();
 	}
 
+	/**
+	 * @return
+	 */
 	public User getUser() {
 		return user;
 	}
 
+	/**
+	 * @param user
+	 */
 	public void setUser(User user) {
 		this.user = user;
 	}
 
+	/**
+	 * @return
+	 */
 	public UserDAO getUserDAO() {
 		return userDAO;
 	}
 
+	/**
+	 * @param userDAO
+	 */
 	public void setUserDAO(UserDAO userDAO) {
 		this.userDAO = userDAO;
 	}
 
+	/**
+	 * @return
+	 */
 	public AccountDAO getAccountDAO() {
 		return accountDAO;
 	}
 
+	/**
+	 * @param accountDAO
+	 */
 	public void setAccountDAO(AccountDAO accountDAO) {
 		this.accountDAO = accountDAO;
 	}
 
+	/**
+	 * @return
+	 */
 	public Account getAccount() {
 		return account;
 	}
 
+	/**
+	 * @param account
+	 */
 	public void setAccount(Account account) {
 		this.account = account;
 		categories = getCategoriesByAccount(account);
@@ -189,46 +260,79 @@ public class ActiveUserModel implements OFKModel{
 		costs = getCostsByAccount(account);
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Category> getCategories() {
 		return categories;
 	}
 
+	/**
+	 * @param categories
+	 */
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
 
+	/**
+	 * @return
+	 */
 	public CategoryDAO getCategoryDAO() {
 		return categoryDAO;
 	}
 
+	/**
+	 * @param categoryDAO
+	 */
 	public void setCategoryDAO(CategoryDAO categoryDAO) {
 		this.categoryDAO = categoryDAO;
 	}
 
+	/**
+	 * @return
+	 */
 	public IncomeDAO getIncomeDAO() {
 		return incomeDAO;
 	}
 
+	/**
+	 * @param incomeDAO
+	 */
 	public void setIncomeDAO(IncomeDAO incomeDAO) {
 		this.incomeDAO = incomeDAO;
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Income> getIncome() {
 		return income;
 	}
 
+	/**
+	 * @param income
+	 */
 	public void setIncome(List<Income> income) {
 		this.income = income;
 	}
 
+	/**
+	 * @return
+	 */
 	public CostsDAO getCostsDAO() {
 		return costsDAO;
 	}
 
+	/**
+	 * @param costsDAO
+	 */
 	public void setCostsDAO(CostsDAO costsDAO) {
 		this.costsDAO = costsDAO;
 	}
 
+	/**
+	 * 
+	 */
 	public void logout() {
 		user = null;
 		account = null;
@@ -236,10 +340,16 @@ public class ActiveUserModel implements OFKModel{
 		income = null;
 	}
 
+	/**
+	 * @return
+	 */
 	public List<Costs> getCosts() {
 		return costs;
 	}
 
+	/**
+	 * @param costs
+	 */
 	public void setCosts(List<Costs> costs) {
 		this.costs = costs;
 	}

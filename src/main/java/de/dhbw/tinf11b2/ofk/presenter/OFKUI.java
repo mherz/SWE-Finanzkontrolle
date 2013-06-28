@@ -17,6 +17,9 @@ public class OFKUI extends UI   {
 	
 	private OFKPresenter presenter;
 	
+	/* (non-Javadoc)
+	 * @see com.vaadin.ui.UI#init(com.vaadin.server.VaadinRequest)
+	 */
 	@Override
 	protected void init(VaadinRequest request) {
 		
@@ -25,10 +28,16 @@ public class OFKUI extends UI   {
 		presenter.init(this);
 
 	}
+	/**
+	 * @return
+	 */
 	public OFKPresenter getPresenter() {
 		return presenter;
 	}
 
+	/**
+	 * @param presenter
+	 */
 	public void setPresenter(OFKPresenter presenter) {
 		this.presenter = presenter;
 	}

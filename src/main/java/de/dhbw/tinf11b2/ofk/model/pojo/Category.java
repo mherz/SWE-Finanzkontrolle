@@ -15,6 +15,10 @@ import javax.persistence.UniqueConstraint;
 
 
 
+/**
+ * @author felix
+ *
+ */
 @Entity
 @Table(name = "Category", uniqueConstraints = {
 		@UniqueConstraint(columnNames = "Category_Id")})
@@ -26,10 +30,17 @@ public class Category implements Serializable{
 
 
 
+	/**
+	 * 
+	 */
 	public Category(){
 		
 	}
 	
+	/**
+	 * @param name
+	 * @param account
+	 */
 	public Category(String name, Account account){
 		this.name = name;
 		this.account = account;
@@ -46,18 +57,33 @@ public class Category implements Serializable{
 	
 	
 	
+	/**
+	 * @return
+	 */
 	public int getCatId() {
 		return catId;
 	}
+	/**
+	 * @param catId
+	 */
 	public void setCatId(int catId) {
 		this.catId = catId;
 	}
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	/**
+	 * @return
+	 */
 	public Account getAccount() {
 		return account;
 	}
