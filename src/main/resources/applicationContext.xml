@@ -50,6 +50,7 @@
 
 	<bean id="presenter" class="de.dhbw.tinf11b2.ofk.presenter.OFKPresenter"
 		scope="session">
+		<property name="activeUser" ref="activeUser"></property>
 		<property name="model" ref="model"></property>
 
 	</bean>

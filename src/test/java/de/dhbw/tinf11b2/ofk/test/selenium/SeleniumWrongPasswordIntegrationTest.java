@@ -14,17 +14,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.dhbw.tinf11b2.ofk.presenter.OFKPresenter;
-import de.dhbw.tinf11b2.ofk.view.Startseite;
+import de.dhbw.tinf11b2.ofk.view.LoginSeite;
+import de.dhbw.tinf11b2.ofk.presenter.OFKUI;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumAusgabenZeitübersichtIT {
+public class SeleniumWrongPasswordIntegrationTest {
 	private WebDriver driver;
 	private String baseUrl;
 	private boolean acceptNextAlert = true;
 	private StringBuffer verificationErrors = new StringBuffer();
-
+	
 	@Before
 	public void setUp() throws Exception {
 		driver = new FirefoxDriver();
@@ -33,50 +31,32 @@ public class SeleniumAusgabenZeitübersichtIT {
 	}
 
 	@Test
-	public void testSeleniumAusgabenZeitBersicht() throws Exception {
+	public void testSeleniumWrongPassword() throws Exception {
 		driver.get(baseUrl + "/ofk-core");
 		for (int second = 0;; second++) {
 			if (second >= 60)
 				fail("timeout");
 			try {
-				if (isElementPresent(By.cssSelector("span.v-button-wrap")))
+				if (driver.findElement(By.xpath("//input[@type='text']"))
+						.isDisplayed())
 					break;
 			} catch (Exception e) {
 			}
 			Thread.sleep(1000);
 		}
 
-		driver.findElement(
-				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div/div/div[3]/div"))
-				.click();
-		for (int second = 0;; second++) {
-			if (second >= 60)
-				fail("timeout");
-			try {
-				if (isElementPresent(By
-						.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div[2]/div/div/div/div/div")))
-					break;
-			} catch (Exception e) {
-			}
-			Thread.sleep(1000);
-		}
-
-		driver.findElement(
-				By.xpath("//div[@id='ofkcore-1544256749']/div/div[2]/div/div/div/div[2]/div/div/table/tbody/tr/td[3]/div/div/div"))
-				.click();
+		driver.findElement(By.xpath("//input[@type='text']")).clear();
+		driver.findElement(By.xpath("//input[@type='text']")).sendKeys("test");
+		driver.findElement(By.xpath("//input[@type='password']")).clear();
+		driver.findElement(By.xpath("//input[@type='password']")).sendKeys(
+				"blubb");
 		driver.findElement(By.cssSelector("span.v-button-caption")).click();
-		for (int second = 0;; second++) {
-			if (second >= 60)
-				fail("timeout");
-			try {
-				if (isElementPresent(By.cssSelector("svg > rect")))
-					break;
-			} catch (Exception e) {
-			}
-			Thread.sleep(1000);
-		}
-
-		assertTrue(isElementPresent(By.cssSelector("svg > rect")));
+		// Warning: assertTextPresent may require manual changes
+		assertTrue(driver
+				.findElement(By.cssSelector("BODY"))
+				.getText()
+				.matches(
+						"^[\\s\\S]*Bitte geben Sie ihr Passwort erneut ein[\\s\\S]*$"));
 	}
 
 	@After

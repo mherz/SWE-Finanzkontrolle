@@ -10,7 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
+@ContextConfiguration(locations = { "classpath:/cucumber.xml" })
 public class LoginTest {
 
 	@Autowired

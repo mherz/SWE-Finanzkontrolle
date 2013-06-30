@@ -17,7 +17,10 @@ import de.dhbw.tinf11b2.ofk.model.pojo.Income;
 import de.dhbw.tinf11b2.ofk.model.pojo.User;
 
 /**
- * @author felix
+ * @author markus
+ * 
+ * Class which contains logic and attributes for active users.
+ *  
  *
  */
 public class ActiveUserModel implements OFKModel{
@@ -37,7 +40,11 @@ public class ActiveUserModel implements OFKModel{
 	/**
 	 * @param username
 	 * @param password
-	 * @return
+	 * Method to authenticate login credentials of a user.
+	 * After a succesfull login the users Data will be loaded.
+	 * @return 1 if password and user is correct
+	 *  0 if password and/or user is incorrect
+	 * -1 if an user is logged in in current session
 	 */
 	public int authenticate(String username, String password) {
 		user = (User) userDAO.getUserByName(username);
@@ -53,7 +60,9 @@ public class ActiveUserModel implements OFKModel{
 
 	/**
 	 * @param catName
-	 * @return
+	 * Method to get a single Category by its name
+	 * @return category with the given name
+	 * @return null if a category with that name couldnt been found
 	 */
 	public Category getCategoryByName(String catName) {
 		for (Category iterator : categories) {
@@ -66,17 +75,19 @@ public class ActiveUserModel implements OFKModel{
 
 	/**
 	 * @param account
-	 * @return
+	 * Method to get all existing categories for the given account
+	 * @return a list of all categories for the given account
 	 */
 	public List<Category> getCategoriesByAccount(Account account) {
-
 		return categoryDAO.getAccCategories(account);
 	}
+	
 
 
 	/**
 	 * @param account
-	 * @return
+	 * Method to get all existing income objects for the given account
+	 * @return a list with all income objects for the given account
 	 */
 	public List<Income> getIncomeByAccount(Account account) {
 		List<Income> list = incomeDAO.getIncomeByAccount(account);
@@ -95,7 +106,8 @@ public class ActiveUserModel implements OFKModel{
 	
 	/**
 	 * @param account
-	 * @return
+	 * Method to get all existing costs objects for the given account
+	 * @return a list with all costs objects for the given account
 	 */
 	public List<Costs> getCostsByAccount(Account account) {
 		List<Costs> list = costsDAO.getCostsByAccount(account);
@@ -113,7 +125,9 @@ public class ActiveUserModel implements OFKModel{
 	}
 
 	/**
-	 * @return
+	 * Method generates a String array with all category names
+	 * of the active account
+	 * @return a String array 
 	 */
 	public String[] getCategoryNames() {
 		String[] result = new String[categories.size()];
@@ -126,8 +140,10 @@ public class ActiveUserModel implements OFKModel{
 	
 
 
-	/** Statt Timestamp Gregorian Calendar
+	/** 
 	 * @param booking
+	 * Method generates a HashMap with summarized value of booking objects
+	 * for several months
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
@@ -148,6 +164,9 @@ public class ActiveUserModel implements OFKModel{
 	}
 
 	/**
+	 * @param booking
+	 * Method generates a HashMap with summarized value of cost objects
+	 * for several months
 	 * @return
 	 */
 	public HashMap<Integer, Double> getCostValuesDate() {
@@ -156,6 +175,9 @@ public class ActiveUserModel implements OFKModel{
 	}
 
 	/**
+	 * @param booking
+	 * Method generates a HashMap with summarized value of incom objects
+	 * for several months
 	 * @return
 	 */
 	public HashMap<Integer, Double> getIncomeValuesDate() {
@@ -164,8 +186,9 @@ public class ActiveUserModel implements OFKModel{
 	}
 
 	/**
-	 * @param booking
-	 * @return
+	 * @param booking contains a list with the objects where the values should be extracted
+	 * Method to get values of a given list from type booking
+	 * @return result an array of Double with the values
 	 */
 	public Double[] getValues(List<? extends Booking> booking){
 		Double[] result = new Double[categories.size()];
@@ -331,7 +354,7 @@ public class ActiveUserModel implements OFKModel{
 	}
 
 	/**
-	 * 
+	 * Method to logout a user and reset the attributes
 	 */
 	public void logout() {
 		user = null;
@@ -339,7 +362,6 @@ public class ActiveUserModel implements OFKModel{
 		categories = null;
 		income = null;
 	}
-
 	/**
 	 * @return
 	 */

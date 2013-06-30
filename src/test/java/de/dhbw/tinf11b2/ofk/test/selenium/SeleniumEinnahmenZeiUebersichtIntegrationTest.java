@@ -1,31 +1,16 @@
 package de.dhbw.tinf11b2.ofk.test.selenium;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
-import org.junit.runner.RunWith;
-
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.dhbw.tinf11b2.ofk.presenter.OFKUI;
-import de.dhbw.tinf11b2.ofk.view.LoginSeite;
-
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumLoginIT {
+public class SeleniumEinnahmenZeiUebersichtIntegrationTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  @Autowired
-  private OFKUI OFKUI;
 
   @Before
   public void setUp() throws Exception {
@@ -35,25 +20,45 @@ public class SeleniumLoginIT {
   }
 
   @Test
-  public void testLogin() throws Exception {
-    driver.get(baseUrl + "/ofk-core/");
-    for (int second = 0;; second++) {
-    	if (second >= 60) fail("timeout");
-    	try { if (driver.findElement(By.xpath("//input[@type='text']")).isDisplayed()) break; } catch (Exception e) {}
-    	Thread.sleep(1000);
-    }
+  public void testSeleniumEinnahmenZeitBersicht() throws Exception {
+	    driver.get(baseUrl + "/ofk-core/");
+	    for (int second = 0;; second++) {
+	    	if (second >= 60) fail("timeout");
+	    	try { if (driver.findElement(By.xpath("//input[@type='text']")).isDisplayed()) break; } catch (Exception e) {}
+	    	Thread.sleep(1000);
+	    }
 
-    driver.findElement(By.xpath("//input[@type='text']")).clear();
-    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("test");
-    driver.findElement(By.xpath("//input[@type='password']")).clear();
-    driver.findElement(By.xpath("//input[@type='password']")).sendKeys("test");
-    driver.findElement(By.cssSelector("span.v-button-caption")).click();
+	    driver.findElement(By.xpath("//input[@type='text']")).clear();
+	    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("test");
+	    driver.findElement(By.xpath("//input[@type='password']")).clear();
+	    driver.findElement(By.xpath("//input[@type='password']")).sendKeys("test");
+	    driver.findElement(By.cssSelector("span.v-button-caption")).click();
+	    for (int second = 0;; second++) {
+	    	if (second >= 60) fail("timeout");
+	    	try { if (driver.findElement(By.cssSelector("span.v-button-wrap")).isDisplayed()) break; } catch (Exception e) {}
+	    	Thread.sleep(1000);
+	    }
     for (int second = 0;; second++) {
     	if (second >= 60) fail("timeout");
     	try { if (driver.findElement(By.cssSelector("span.v-button-wrap")).isDisplayed()) break; } catch (Exception e) {}
     	Thread.sleep(1000);
     }
 
+    driver.findElement(By.cssSelector("span.v-button-wrap")).click();
+    for (int second = 0;; second++) {
+    	if (second >= 60) fail("timeout");
+    	try { if (driver.findElement(By.cssSelector("div.v-filterselect-button")).isDisplayed()) break; } catch (Exception e) {}
+    	Thread.sleep(1000);
+    }
+
+    driver.findElement(By.cssSelector("span.v-button-caption")).click();
+    for (int second = 0;; second++) {
+    	if (second >= 60) fail("timeout");
+    	try { if (driver.findElement(By.cssSelector("g.highcharts-tracker > g > rect")).isDisplayed()) break; } catch (Exception e) {}
+    	Thread.sleep(1000);
+    }
+
+    assertTrue(isElementPresent(By.cssSelector("g.highcharts-tracker > g > rect")));
   }
 
   @After

@@ -12,6 +12,8 @@ import de.dhbw.tinf11b2.ofk.model.pojo.User;
 
 /**
  * @author felix
+ * Class which contains methods for adding
+ * new objects to the database
  *
  */
 public class CreateModel implements OFKModel {
@@ -24,7 +26,8 @@ public class CreateModel implements OFKModel {
 	 * @param category
 	 * @param value
 	 * @param description
-	 * @return
+	 * Method to add income objects to the database
+	 * @return false if the object could not stored into the database
 	 */
 	public boolean addIncome(Category category, double value, String description) {
 
@@ -46,6 +49,7 @@ public class CreateModel implements OFKModel {
 	 * @param category
 	 * @param value
 	 * @param description
+	 * Method to add Costs object into the database
 	 * @return
 	 */
 	public boolean addCosts(Category category, double value, String description) {
@@ -68,6 +72,7 @@ public class CreateModel implements OFKModel {
 	 * @param email
 	 * @param name
 	 * @param password
+	 * Method to add users into the database
 	 */
 	public void addUser(String email, String name, String password) {
 		User user = new User();
@@ -76,5 +81,31 @@ public class CreateModel implements OFKModel {
 		user.setPassword(password);
 		userDAO.create(user);
 	}
+
+	public IncomeDAO getIncomeDAO() {
+		return incomeDAO;
+	}
+
+	public void setIncomeDAO(IncomeDAO incomeDAO) {
+		this.incomeDAO = incomeDAO;
+	}
+
+	public CostsDAO getCostsDAO() {
+		return costsDAO;
+	}
+
+	public void setCostsDAO(CostsDAO costsDAO) {
+		this.costsDAO = costsDAO;
+	}
+
+	public UserDAO getUserDAO() {
+		return userDAO;
+	}
+
+	public void setUserDAO(UserDAO userDAO) {
+		this.userDAO = userDAO;
+	}
+	
+	
 
 }

@@ -379,4 +379,12 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 		this.ui = ui;
 	}
 
+	public ActiveUserModel getActiveUser() {
+		return activeUser;
+	}
+
+	public void setActiveUser(ActiveUserModel activeUser) {
+		this.activeUser = activeUser;
+	}
+
 }

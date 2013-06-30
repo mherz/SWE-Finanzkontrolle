@@ -14,30 +14,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 import de.dhbw.tinf11b2.ofk.presenter.OFKUI;
+import de.dhbw.tinf11b2.ofk.view.LoginSeite;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations = { "classpath:/testApplicationContext.xml" })
-public class SeleniumUserDontExistIT {
+public class SeleniumLoginIntegrationTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
-  @Autowired
-  private OFKUI OFKUI;
 
   @Before
   public void setUp() throws Exception {
-
     driver = new FirefoxDriver();
     baseUrl = "http://localhost:8080/ofk-core";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testSeleniumUserDontExist() throws Exception {
-    driver.get(baseUrl + "/ofk-core");
+  public void testLogin() throws Exception {
+    driver.get(baseUrl + "/ofk-core/");
     for (int second = 0;; second++) {
     	if (second >= 60) fail("timeout");
     	try { if (driver.findElement(By.xpath("//input[@type='text']")).isDisplayed()) break; } catch (Exception e) {}
@@ -45,10 +40,16 @@ public class SeleniumUserDontExistIT {
     }
 
     driver.findElement(By.xpath("//input[@type='text']")).clear();
-    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("blubb");
+    driver.findElement(By.xpath("//input[@type='text']")).sendKeys("test");
+    driver.findElement(By.xpath("//input[@type='password']")).clear();
+    driver.findElement(By.xpath("//input[@type='password']")).sendKeys("test");
     driver.findElement(By.cssSelector("span.v-button-caption")).click();
-    // Warning: assertTextPresent may require manual changes
-    assertTrue(driver.findElement(By.cssSelector("BODY")).getText().matches("^[\\s\\S]*Der Benutzer blubb existiert leider nicht[\\s\\S]*$"));
+    for (int second = 0;; second++) {
+    	if (second >= 60) fail("timeout");
+    	try { if (driver.findElement(By.cssSelector("span.v-button-wrap")).isDisplayed()) break; } catch (Exception e) {}
+    	Thread.sleep(1000);
+    }
+
   }
 
   @After
