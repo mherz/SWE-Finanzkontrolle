@@ -14,23 +14,26 @@ import com.vaadin.addon.charts.model.YAxis;
 import com.vaadin.addon.charts.model.style.SolidColor;
 
 /**
+ * Klasse die die Chartelemente in die Daten eingefügt werden müssen bereitstellt.
  * @author felix
- *
+ 
  */
 public class ChartElemente {
 	
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public ChartElemente(){
 		
 	}
 	
 	/**
-	 * @param kategorien
-	 * @param werte
-	 * @param name
-	 * @return
+	 * Generiert ein einzelnes BarChart für die Zeitraumbetrachtung
+	 * @param kategorien String Array mit den darzustellenden Kategorien
+	 * @param werte Double Array mit den zusammengerechneten Werten 
+	 * @param name String mit dem Namen der Ansicht
+	 * @return Erstelltes Chart
+	 * 
 	 */
 	public Chart barChartGen(String[] kategorien, Double[] werte, String name) {
 		Chart chart = chartHeadBar();
@@ -64,11 +67,12 @@ public class ChartElemente {
 	}
 
 	/**
-	 * @param datum
-	 * @param werte
-	 * @param kategorienName
-	 * @param werte2
-	 * @param kategorienName2
+	 * Generiert ein BarChart für die Gegenüberstellung von Einnahmen und Ausgaben nach Datum
+	 * @param datum Zu den Werten gehörender Monat
+	 * @param werte Double werte des eingetragenen ersten Namens
+	 * @param kategorienName Art der Eintragung ( Einnahme oder Ausgabe)
+	 * @param werte2 Double werte des eingetragenen zweiten Namens
+	 * @param kategorienName2 ( Einnahme oder Ausgabe)
 	 * @return
 	 */
 	public Chart setChartBarMulti(String[] datum, Double[] werte,
@@ -105,10 +109,11 @@ public class ChartElemente {
 	}
 
 	/**
-	 * @param kategorien
-	 * @param werte
-	 * @param name
-	 * @return
+	 * Generiert ein PieChart für die Darstellung von Einnahmen oder Ausgaben nach Kategorien
+	 * @param kategorien String Array mit den darzustellenden Kategorien
+	 * @param werte Double Array mit den zusammengerechneten Werten 
+	 * @param name String mit dem Namen der Ansicht
+	 * @return Erstelltes Chart
 	 */
 	public Chart setChartPie(String[] kategorien, Double[] werte, String name) {
 		Chart chart = new Chart(ChartType.PIE);
@@ -148,7 +153,9 @@ public class ChartElemente {
 	}
 
 	/**
+	 * Einfache generierung der Grundelemente für ein BarChart
 	 * @return
+	 * Grundeigenschaften eines Bar Charts
 	 */
 	private Chart chartHeadBar() {
 		Chart chart = new Chart(ChartType.BAR);

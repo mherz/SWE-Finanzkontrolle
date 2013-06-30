@@ -1,35 +1,43 @@
 package de.dhbw.tinf11b2.ofk.view;
 
 /**
+ * Klasse zum Festlegen von Standard variablen wie die Position der
+ * Beschreibungslabels
+ * 
  * @author felix
- *
  */
 public class Koordinaten {
 
 	/**
-	 * 
+	 * Konstruktor
 	 */
 	public Koordinaten() {
 	}
 
 	/**
-	 * @return
+	 * Koordinaten für den ZurückButton
+	 * 
+	 * @return String mit Koordinaten
 	 */
 	public String getZurueck() {
 		String zurueckX = "top:92.0%;left:90.0%;";
 		test(zurueckX);
 		return zurueckX;
 	}
-	
+
 	/**
-	 * @return
+	 * Wert für die Standartbelegungsvariable für die Eingabeseite
+	 * 
+	 * @return String mit Leerwert
 	 */
-	public String empty(){
+	public String empty() {
 		return "blank";
 	}
 
 	/**
-	 * @return
+	 * Wert für die Koordinaten von Labels
+	 * 
+	 * @return Label koordinaten
 	 */
 	public String getLabel() {
 		String labelX = "top:3.0%;left:45.0%;";
@@ -38,7 +46,8 @@ public class Koordinaten {
 	}
 
 	/**
-	 * @return
+	 * Festlegen der Hauptfenster Koordinaten
+	 * @return Standardkoordinaten für das Mainfenster
 	 */
 	public String getMain() {
 		String mainX = "top:10.0%;left:0.0px;";
@@ -46,21 +55,22 @@ public class Koordinaten {
 		return mainX;
 	}
 
-
 	/**
-	 * @return
+	 * Festlegung der Chart Position
+	 * @return Position für die Charts
 	 */
 	public String getChart() {
 		String chartX = "top:12.0%;left:0.0%;";
 		test(chartX);
 		return chartX;
 	}
-	
+
 	/**
-	 * @param test
+	 * Testfunktion für Aufruf
+	 * @param test  Testwert 
 	 */
-	private void test(String test){
-//		System.out.println(test);
+	private void test(String test) {
+		// System.out.println(test);
 	}
 
 }

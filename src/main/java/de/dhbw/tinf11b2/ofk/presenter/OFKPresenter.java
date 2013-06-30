@@ -19,8 +19,8 @@ import de.dhbw.tinf11b2.ofk.view.Startseite;
 import de.dhbw.tinf11b2.ofk.view.UeberblickSeite;
 
 /**
+ * Klasse für das Handeln von Ereignissen und die Übergabe von Daten des Models an die View
  * @author felix
- *
  */
 public class OFKPresenter implements OFKViewListener, Serializable {
 	private static final long serialVersionUID = 1L;
@@ -41,7 +41,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
-	 * 
+	 * Funktion zum Seitenwechsel zur Startseite
 	 */
 	public void pageChangeback() {
 		view = new Startseite();
@@ -50,7 +50,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
-	 * 
+	 * Funktion zum Auslesen der Einnahmen
 	 */
 	private void generateEinnahmen() {
 		view = new EingabeSeite("Einnahmen", true);
@@ -69,7 +69,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
-	 * 
+	 * Funktion zum Einlesen der Ausgaben
 	 */
 	private void generateAusgaben() {
 
@@ -91,6 +91,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 
 	/* (non-Javadoc)
 	 * @see de.dhbw.tinf11b2.ofk.presenter.OFKViewListener#buttonClick(java.lang.String)
+	 * Funktion zum Belegen der Buttons mit Aktionen
 	 */
 	@Override
 	public void buttonClick(String operation) {
@@ -220,6 +221,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
+	 * Funktion zum aufrufen des zu verwendenden Models
 	 * @return
 	 */
 	public OFKModel getModel() {
@@ -227,6 +229,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
+	 * Funktion zum festlegen des zu verwendenden Models
 	 * @param model
 	 */
 	public void setModel(OFKModel model) {
@@ -234,7 +237,10 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
+	 * Funktion zum Überprüfen der Eingaben in die Eingabenseite unabhängig von 
+	 * Art
 	 * @return
+	 * Int Array zum festlegen der darzustellenden Meldung
 	 */
 	private int[] datenCodes() {
 
@@ -308,8 +314,10 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
-	 * @param valuesDate
-	 * @return
+	 *  Funktion zum errechnen der Ausgaben pro Monat über mehrere Jahre Hinweg
+	 * @param valuesDate Die Hashmap mit dein eingetragenen Werten
+	 * @return Ein Array mit den Einträgen verteilt auf 12 Monate
+	 * 
 	 */
 	private Double[] monatsWerte(HashMap<Integer, Double> valuesDate) {
 
@@ -326,8 +334,10 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
-	 * @param namesDate
-	 * @return
+	 * Funktion zum Auslesen der zu verwendenden Monatsnamen
+	 * @param namesDate Die Hashmap mit den eingetragenen Werten
+	 * @return Die Namen der verwendeten Monate
+	 * 
 	 */
 	private String[] monatsNamen(HashMap<Integer, Double> namesDate) {
 
@@ -346,6 +356,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
+	 *  Funktion zum Festlegen der View
 	 * @param view
 	 */
 	public void setView(OFKView view) {
@@ -353,6 +364,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
+	 * Funktion zum erhalten des UI Elementes
 	 * @return
 	 */
 	public OFKUI getUi() {
@@ -360,6 +372,7 @@ public class OFKPresenter implements OFKViewListener, Serializable {
 	}
 
 	/**
+	 * Funktion zum setzen des UI Elementes
 	 * @param ui
 	 */
 	public void setUi(OFKUI ui) {
